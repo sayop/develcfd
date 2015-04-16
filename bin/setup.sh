@@ -1,6 +1,6 @@
 mkdir build
 cd ./build
-cmake ../../src
+ccmake ../../src
 make
 cp cfd.x ../
 cd ../

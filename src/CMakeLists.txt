@@ -4,6 +4,10 @@ project(CFD)
 
 enable_language(Fortran)
 
+find_package(xml-fortran)
+include_directories(${XML-FORTRAN_INCLUDE_DIRS})
+link_directories(${XML-FORTRAN_LIBRARY_DIRS})
+
 #
 # add sub-directories defined for each certain purpose
 #
@@ -25,3 +29,4 @@ set(CFD_SRC_FILES ${MAIN_SRC_FILES}
 # define executable
 #
 add_executable(${CFD_EXE_NAME} ${CFD_SRC_FILES})
+target_link_libraries(${CFD_EXE_NAME} xmlparse)
