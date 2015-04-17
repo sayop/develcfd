@@ -7,6 +7,10 @@
       the ../lib/xml-fortran/xmlreader script. This is done in
       the makefile.
    </comment>
+   <typedef name="equations_t">
+      <component name="Formulation" type="word" length="17" default="'FINITE_VOLUME'"/>
+      <component name="iVisc"     type="integer" default="1"/>
+   </typedef>
    <typedef name="geometry_t">
       <component name="xlen" type="double"    default="1"/>
       <component name="ylen" type="double"    default="1"/>
@@ -22,6 +26,7 @@
       <component name="restart"  type="integer" default="0"/>
    </typedef>
    <typedef name="input_type">
+      <component name="Equations"              type="equations_t"/>
       <component name="RunTimeParameters"      type="runtime_t"/>
       <component name="Geometry"               type="geometry_t"/>
    </typedef>

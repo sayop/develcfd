@@ -1,1 +1,1 @@
-/data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir
+/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir

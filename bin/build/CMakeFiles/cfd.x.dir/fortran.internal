@@ -2,3 +2,4 @@
 provides
  io_m
  parameters_m
+ xml_data_input

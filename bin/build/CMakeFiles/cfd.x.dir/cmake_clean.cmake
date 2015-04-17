@@ -1,6 +1,7 @@
 FILE(REMOVE_RECURSE
   "CMakeFiles/cfd.x.dir/main/main.F90.o"
   "CMakeFiles/cfd.x.dir/main/Parameters.F90.o"
+  "CMakeFiles/cfd.x.dir/io/input.f90.o"
   "CMakeFiles/cfd.x.dir/io/io.F90.o"
   "cfd.x.pdb"
   "cfd.x"

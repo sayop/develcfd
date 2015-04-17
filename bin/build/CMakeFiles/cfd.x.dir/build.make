@@ -26,22 +26,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/bin/cmake
+CMAKE_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/bin/cmake -E remove -f
+RM = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/local/bin/ccmake
+CMAKE_EDIT_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /data1/ksayop/MyCFD/develcfd/src
+CMAKE_SOURCE_DIR = /home/sayop/MyCFD/develcfd/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /data1/ksayop/MyCFD/develcfd/bin/build
+CMAKE_BINARY_DIR = /home/sayop/MyCFD/develcfd/bin/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/cfd.x.dir/depend.make
@@ -53,10 +53,10 @@ include CMakeFiles/cfd.x.dir/progress.make
 include CMakeFiles/cfd.x.dir/flags.make
 
 CMakeFiles/cfd.x.dir/main/main.F90.o: CMakeFiles/cfd.x.dir/flags.make
-CMakeFiles/cfd.x.dir/main/main.F90.o: /data1/ksayop/MyCFD/develcfd/src/main/main.F90
-	$(CMAKE_COMMAND) -E cmake_progress_report /data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_1)
+CMakeFiles/cfd.x.dir/main/main.F90.o: /home/sayop/MyCFD/develcfd/src/main/main.F90
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/main/main.F90.o"
-	/opt/intel/composer_xe_2011_sp1.11.339/bin/intel64/ifort  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /data1/ksayop/MyCFD/develcfd/src/main/main.F90 -o CMakeFiles/cfd.x.dir/main/main.F90.o
+	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/src/main/main.F90 -o CMakeFiles/cfd.x.dir/main/main.F90.o
 
 CMakeFiles/cfd.x.dir/main/main.F90.o.requires:
 .PHONY : CMakeFiles/cfd.x.dir/main/main.F90.o.requires
@@ -68,10 +68,10 @@ CMakeFiles/cfd.x.dir/main/main.F90.o.provides: CMakeFiles/cfd.x.dir/main/main.F9
 CMakeFiles/cfd.x.dir/main/main.F90.o.provides.build: CMakeFiles/cfd.x.dir/main/main.F90.o
 
 CMakeFiles/cfd.x.dir/main/Parameters.F90.o: CMakeFiles/cfd.x.dir/flags.make
-CMakeFiles/cfd.x.dir/main/Parameters.F90.o: /data1/ksayop/MyCFD/develcfd/src/main/Parameters.F90
-	$(CMAKE_COMMAND) -E cmake_progress_report /data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_2)
+CMakeFiles/cfd.x.dir/main/Parameters.F90.o: /home/sayop/MyCFD/develcfd/src/main/Parameters.F90
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_2)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/main/Parameters.F90.o"
-	/opt/intel/composer_xe_2011_sp1.11.339/bin/intel64/ifort  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /data1/ksayop/MyCFD/develcfd/src/main/Parameters.F90 -o CMakeFiles/cfd.x.dir/main/Parameters.F90.o
+	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/src/main/Parameters.F90 -o CMakeFiles/cfd.x.dir/main/Parameters.F90.o
 
 CMakeFiles/cfd.x.dir/main/Parameters.F90.o.requires:
 .PHONY : CMakeFiles/cfd.x.dir/main/Parameters.F90.o.requires
@@ -82,11 +82,26 @@ CMakeFiles/cfd.x.dir/main/Parameters.F90.o.provides: CMakeFiles/cfd.x.dir/main/P
 
 CMakeFiles/cfd.x.dir/main/Parameters.F90.o.provides.build: CMakeFiles/cfd.x.dir/main/Parameters.F90.o
 
+CMakeFiles/cfd.x.dir/io/input.f90.o: CMakeFiles/cfd.x.dir/flags.make
+CMakeFiles/cfd.x.dir/io/input.f90.o: io/input.f90
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/io/input.f90.o"
+	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/bin/build/io/input.f90 -o CMakeFiles/cfd.x.dir/io/input.f90.o
+
+CMakeFiles/cfd.x.dir/io/input.f90.o.requires:
+.PHONY : CMakeFiles/cfd.x.dir/io/input.f90.o.requires
+
+CMakeFiles/cfd.x.dir/io/input.f90.o.provides: CMakeFiles/cfd.x.dir/io/input.f90.o.requires
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/io/input.f90.o.provides.build
+.PHONY : CMakeFiles/cfd.x.dir/io/input.f90.o.provides
+
+CMakeFiles/cfd.x.dir/io/input.f90.o.provides.build: CMakeFiles/cfd.x.dir/io/input.f90.o
+
 CMakeFiles/cfd.x.dir/io/io.F90.o: CMakeFiles/cfd.x.dir/flags.make
-CMakeFiles/cfd.x.dir/io/io.F90.o: /data1/ksayop/MyCFD/develcfd/src/io/io.F90
-	$(CMAKE_COMMAND) -E cmake_progress_report /data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_3)
+CMakeFiles/cfd.x.dir/io/io.F90.o: /home/sayop/MyCFD/develcfd/src/io/io.F90
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_4)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/io/io.F90.o"
-	/opt/intel/composer_xe_2011_sp1.11.339/bin/intel64/ifort  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /data1/ksayop/MyCFD/develcfd/src/io/io.F90 -o CMakeFiles/cfd.x.dir/io/io.F90.o
+	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/src/io/io.F90 -o CMakeFiles/cfd.x.dir/io/io.F90.o
 
 CMakeFiles/cfd.x.dir/io/io.F90.o.requires:
 .PHONY : CMakeFiles/cfd.x.dir/io/io.F90.o.requires
@@ -101,6 +116,7 @@ CMakeFiles/cfd.x.dir/io/io.F90.o.provides.build: CMakeFiles/cfd.x.dir/io/io.F90.
 cfd_x_OBJECTS = \
 "CMakeFiles/cfd.x.dir/main/main.F90.o" \
 "CMakeFiles/cfd.x.dir/main/Parameters.F90.o" \
+"CMakeFiles/cfd.x.dir/io/input.f90.o" \
 "CMakeFiles/cfd.x.dir/io/io.F90.o"
 
 # External object files for target cfd.x
@@ -108,6 +124,7 @@ cfd_x_EXTERNAL_OBJECTS =
 
 cfd.x: CMakeFiles/cfd.x.dir/main/main.F90.o
 cfd.x: CMakeFiles/cfd.x.dir/main/Parameters.F90.o
+cfd.x: CMakeFiles/cfd.x.dir/io/input.f90.o
 cfd.x: CMakeFiles/cfd.x.dir/io/io.F90.o
 cfd.x: CMakeFiles/cfd.x.dir/build.make
 cfd.x: CMakeFiles/cfd.x.dir/link.txt
@@ -120,6 +137,7 @@ CMakeFiles/cfd.x.dir/build: cfd.x
 
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/main/main.F90.o.requires
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/main/Parameters.F90.o.requires
+CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/io/input.f90.o.requires
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/io/io.F90.o.requires
 .PHONY : CMakeFiles/cfd.x.dir/requires
 
@@ -128,6 +146,6 @@ CMakeFiles/cfd.x.dir/clean:
 .PHONY : CMakeFiles/cfd.x.dir/clean
 
 CMakeFiles/cfd.x.dir/depend:
-	cd /data1/ksayop/MyCFD/develcfd/bin/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /data1/ksayop/MyCFD/develcfd/src /data1/ksayop/MyCFD/develcfd/src /data1/ksayop/MyCFD/develcfd/bin/build /data1/ksayop/MyCFD/develcfd/bin/build /data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/sayop/MyCFD/develcfd/bin/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/sayop/MyCFD/develcfd/src /home/sayop/MyCFD/develcfd/src /home/sayop/MyCFD/develcfd/bin/build /home/sayop/MyCFD/develcfd/bin/build /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/cfd.x.dir/depend
 

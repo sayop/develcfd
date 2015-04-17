@@ -1,4 +1,4 @@
-# Install script for directory: /data1/ksayop/MyCFD/develcfd/src/main
+# Install script for directory: /home/sayop/MyCFD/develcfd/src/main
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)

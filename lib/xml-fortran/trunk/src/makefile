@@ -17,16 +17,12 @@ FOPT	=	-c
 
 all		:	xmlparse.a tstparse xmlreader
 
-install		:
-	mkdir ../../lib
-	mkdir ../../include
-	mkdir ../../bin
-	cp *.a ../../lib
-	cp *.mod ../../include
-	cp xmlreader ../../bin
+install		:	
+	cp xmlparse.a ../lib
+	cp xmlparse.mod ../lib
 
-xmlparse.a	:	xmlparse.o read_xml_prims.o write_xml_prims.o
-	ar r xmlparse.a xmlparse.o read_xml_prims.o write_xml_prims.o
+xmlparse.a	:	xmlparse.o read_xml_prims.o
+	ar r xmlparse.a xmlparse.o read_xml_prims.o
 
 xmlparse.o	:	xmlparse.f90
 	$(FC) $(FOPT) xmlparse.f90
@@ -41,9 +37,6 @@ xmlreader	:	xmlreader.f90 xmlparse.a
 
 read_xml_prims.o	:	read_xml_prims.f90 xmlparse.f90
 	$(FC) $(FOPT) read_xml_prims.f90
-
-write_xml_prims.o       :       write_xml_prims.f90 xmlparse.f90
-	$(FC) $(FOPT) write_xml_prims.f90
 
 clean:	
 	rm -f *.o

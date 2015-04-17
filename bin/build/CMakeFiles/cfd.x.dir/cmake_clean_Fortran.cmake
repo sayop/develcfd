@@ -7,4 +7,8 @@ FILE(REMOVE
   "parameters_m.mod"
   "PARAMETERS_M.mod"
   "CMakeFiles/cfd.x.dir/parameters_m.mod.stamp"
+
+  "xml_data_input.mod"
+  "XML_DATA_INPUT.mod"
+  "CMakeFiles/cfd.x.dir/xml_data_input.mod.stamp"
   )

@@ -30,22 +30,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/bin/cmake
+CMAKE_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/bin/cmake -E remove -f
+RM = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /usr/local/bin/ccmake
+CMAKE_EDIT_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /data1/ksayop/MyCFD/develcfd/src
+CMAKE_SOURCE_DIR = /home/sayop/MyCFD/develcfd/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /data1/ksayop/MyCFD/develcfd/bin/build
+CMAKE_BINARY_DIR = /home/sayop/MyCFD/develcfd/bin/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /data1/ksayop/MyCFD/develcfd/bin/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -63,7 +63,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles /data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /data1/ksayop/MyCFD/develcfd/bin/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -114,6 +114,14 @@ cfd.x/fast:
 	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/build
 .PHONY : cfd.x/fast
 
+io/input.o: io/input.f90.o
+.PHONY : io/input.o
+
+# target to build an object file
+io/input.f90.o:
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/io/input.f90.o
+.PHONY : io/input.f90.o
+
 io/io.o: io/io.F90.o
 .PHONY : io/io.o
 
@@ -147,6 +155,7 @@ help:
 	@echo "... cfd.x"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... io/input.o"
 	@echo "... io/io.o"
 	@echo "... main/Parameters.o"
 	@echo "... main/main.o"

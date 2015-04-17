@@ -1,0 +1,18 @@
+# - Config file for the xml-fortran package
+# It defines the following variables
+#  XML-FORTRAN_INCLUDE_DIRS - include directories for xml-fortran
+#  XML-FORTRAN_LIBRARY_DIRS - library directories for xml-fortran)
+#  XML-FORTRAN_LIBRARIES    - libraries to link against
+#  XML-FORTRAN_EXECUTABLE   - the executable
+
+# Tell the user project where to find our headers and libraries
+set(XML-FORTRAN_INCLUDE_DIRS "@INSTALL_INCLUDE_DIR@")
+set(XML-FORTRAN_LIBRARY_DIRS "@INSTALL_LIB_DIR@")
+set(XML-FORTRAN_BIN_DIR "@INSTALL_BIN_DIR@")
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+#include("@XML-FORTRAN_CMAKE_DIR@/xml-fortranLibraryDepends.cmake")
+
+# These are IMPORTED targets created by FooBarLibraryDepends.cmake
+set(XML-FORTRAN_LIBRARIES xmlparse)
+set(XML-FORTRAN_EXECUTABLE xmlreader)

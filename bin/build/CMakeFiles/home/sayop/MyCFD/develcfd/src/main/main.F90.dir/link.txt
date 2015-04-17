@@ -1,0 +1,1 @@
+/usr/bin/gfortran      CMakeFiles//home/sayop/MyCFD/develcfd/src/main/main.F90.dir/main/Parameters.F90.o CMakeFiles//home/sayop/MyCFD/develcfd/src/main/main.F90.dir/io/input.f90.o CMakeFiles//home/sayop/MyCFD/develcfd/src/main/main.F90.dir/io/io.F90.o  -o home/sayop/MyCFD/develcfd/src/main/main.F90  -L/home/sayop/LocalLibs/xml-fortran/install/lib -rdynamic 

@@ -19,9 +19,11 @@ CONTAINS
      IMPLICIT NONE
      INTEGER :: ios
      CHARACTER(LEN=filenameLength) :: filename
+     TYPE(input_type) :: xmlinput
 
      filename = 'cfd_input.xml'
      CALL read_xml_file_input(filename)
+     write(*,*) xmlinput%Equations
 
 
    END SUBROUTINE ReadInputFiles
@@ -34,7 +36,7 @@ CONTAINS
      INTEGER :: ios
      CHARACTER(LEN=filenameLength) :: filename
 
-     filename = 'cfd_input.xml'
+     filename = 'cfd_input_02.xml'
      CALL write_xml_file_input(filename)
 
 
