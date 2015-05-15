@@ -7,8 +7,8 @@ PROGRAM main
 
    IMPLICIT NONE
 
-   WRITE(*,*) 'SAYOP'
-   CALL ReadInputFiles()
+   !WRITE(*,*) 'SAYOP'
+   !CALL ReadInputFiles()
    CALL WriteInputFiles()
 
 END PROGRAM main

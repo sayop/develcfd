@@ -1,0 +1,4 @@
+set(GRID_SRC_FILES
+   ${CMAKE_CURRENT_SOURCE_DIR}/ReadStructuredGrid.F90
+   CACHE INTERNAL "" FORCE)
+

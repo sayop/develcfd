@@ -8,8 +8,13 @@
       the makefile.
    </comment>
    <typedef name="equations_t">
-      <component name="Formulation" type="word" length="17" default="'FINITE_VOLUME'"/>
-      <component name="iVisc"     type="integer" default="1"/>
+      <component name="Formulation" type="word" length="17"/>
+      <component name="iVisc"     type="integer"/>
+   </typedef>
+   <typedef name="multidomain_t">
+      <component name="ndomain" type="integer"    default="1"/>
+      <component name="ngc" type="integer"    default="1"/>
+      <component name="ngls" type="integer"    default="1"/>
    </typedef>
    <typedef name="geometry_t">
       <component name="xlen" type="double"    default="1"/>
@@ -28,6 +33,7 @@
    <typedef name="input_type">
       <component name="Equations"              type="equations_t"/>
       <component name="RunTimeParameters"      type="runtime_t"/>
+      <component name="MultiDomain"            type="multidomain_t"/>
       <component name="Geometry"               type="geometry_t"/>
    </typedef>
    <variable name="input_data" type="input_type"/>
