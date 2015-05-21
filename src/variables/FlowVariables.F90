@@ -7,4 +7,4 @@ MODULE FlowVariables_m
 
    IMPLICIT NONE
 
-END MODULE
+END MODULE FlowVariables_m

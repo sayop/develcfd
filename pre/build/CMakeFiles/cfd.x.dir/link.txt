@@ -1,0 +1,1 @@
+/usr/bin/gfortran      CMakeFiles/cfd.x.dir/pre.F90.o  -o cfd.x  -L/home/sayop/LocalLibs/xml-fortran/install/lib -rdynamic -lxmlparse -Wl,-rpath,/home/sayop/LocalLibs/xml-fortran/install/lib 

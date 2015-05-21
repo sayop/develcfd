@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<template>
+   <options strict="yes" dynamicstrings="no" rootname="cfd_input"/>
+   <comment>
+      This is a template for the CFD code inputs. Use this 
+      template to generate a fortran program for reading using 
+      the ../lib/xml-fortran/xmlreader script. This is done in
+      the makefile.
+   </comment>
+   <typedef name="equations_t">
+      <component name="Formulation" type="word" length="17"/>
+      <component name="iVisc"     type="integer"/>
+   </typedef>
+   <typedef name="multidomain_t">
+      <component name="ndomain" type="integer"    default="1"/>
+      <component name="ngc" type="integer"    default="1"/>
+      <component name="ngls" type="integer"    default="1"/>
+   </typedef>
+   <typedef name="geometry_t">
+      <component name="xlen" type="double"    default="1"/>
+      <component name="ylen" type="double"    default="1"/>
+      <component name="zlen" type="double"    default="1"/>
+      <component name="xstart" type="double"    default="0"/>
+      <component name="ystart" type="double"    default="0"/>
+      <component name="zstart" type="double"    default="0"/>
+      <component name="imax" type="integer" default="33"/>
+      <component name="jmax" type="integer" default="33"/>
+      <component name="kmax" type="integer" default="2"/>      
+   </typedef>
+   <typedef name="runtime_t">
+      <component name="restart"  type="integer" default="0"/>
+   </typedef>
+   <typedef name="input_type">
+      <component name="Equations"              type="equations_t"/>
+      <component name="RunTimeParameters"      type="runtime_t"/>
+      <component name="MultiDomain"            type="multidomain_t"/>
+      <component name="Geometry"               type="geometry_t"/>
+   </typedef>
+   <variable name="input_data" type="input_type"/>
+</template>

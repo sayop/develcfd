@@ -22,7 +22,6 @@ CONTAINS
      filename = 'cfd_input.xml'
 
      CALL read_xml_file_input(filename)
-     write(*,*) 'iVisc:', input_data%Equations%iVisc
 
 
    END SUBROUTINE ReadInputFiles

@@ -13,7 +13,7 @@ link_directories(${XML-FORTRAN_LIBRARY_DIRS})
 #
 add_subdirectory(main)
 add_subdirectory(io)
-add_subdirectory(grid)
+add_subdirectory(multidomain)
 add_subdirectory(variables)
 
 #
@@ -26,7 +26,8 @@ set(CFD_EXE_NAME cfd.x CACHE STRING "CFD executable name")
 #
 set(CFD_SRC_FILES ${MAIN_SRC_FILES}
                   ${IO_SRC_FILES}
-                  ${GRID_SRC_FILES})
+                  ${VARS_SRC_FILES}
+                  ${MULTIDOMAIN_SRC_FILES})
                   
 #
 # define executable

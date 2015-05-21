@@ -3,15 +3,15 @@
    <input_data>
       <Equations>
          <Formulation>FINITE_DIFFERENCE</Formulation>
-         <iVisc>0</iVisc>
+         <iVisc>1</iVisc>
       </Equations>
       <RunTimeParameters>
          <restart>0</restart>
       </RunTimeParameters>
       <MultiDomain>
-         <ndomain>1</ndomain>
-         <ngc>1</ngc>
-         <ngls>1</ngls>
+         <ndomain>8</ndomain>
+         <ngc>2</ngc>
+         <ngls>2</ngls>
       </MultiDomain>
       <Geometry>
          <xlen>0.000000</xlen>
