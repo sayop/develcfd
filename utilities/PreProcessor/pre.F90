@@ -34,7 +34,7 @@ PROGRAM pre
    CALL FindNeighbors(ndomains, dom)
 
    !> Write NODE files
-   !CALL WriteNODEfiles(ndomains, dom)
+   CALL WriteNODEfiles(ndomains, dom)
 
    !> Write a grid file for simulation
    !CALL WriteGRID(ndomains, dom)

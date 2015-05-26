@@ -178,21 +178,39 @@ CONTAINS
       !    /  |         /  |
       ! 2 +------------+ 6 |
       !   |   |        |   |
-      !   | 3 +--------|---+ 7
-      !   |  /         |  /
-      !   | /          | /
-      !   |/           |/
-      ! 1 +------------+ 5
+      !   | 3 +--------|---+ 7        z
+      !   |  /         |  /           ^  y
+      !   | /          | /            | /
+      !   |/           |/             |/
+      ! 1 +------------+ 5            +--> x
+      !
+      ! vertex index, n, is a second element of vertex(:,:,:) array
+      ! first element: x, y, z indicator
+      ! third element: host, neighbors indicator 
 
       !> Find neighbors sharing 1st corner vertex
       DO m = 1, ndom
+         ! initialize neighbor matrix defined in 3x3 size
+         ! designed for storing neighboring domain index for the host domain.
          dom(m)%neighbor = 0
+         ! v_neighbor: two elements
+         ! first element for 7 neighboring domain indices based in 1st vertex point
+         ! second element for domain index
+         ! nv = 1: the host itself. IGNORE!
+         ! nv = 2: bottom
+         ! nv = 3: forehead
+         ! nv = 4: bottom-ahead
+         ! nv = 5: left
+         ! nv = 6: bottom-left
+         ! nv = 7: in left-diagonal
+         ! nv = 8: bottom-left-diagonal
          v_neighbor = 0
          DO n = 1, ndom
             IF (m .EQ. n) CYCLE
             DO nv = 1, 8
                distance = 0_wp
                DO nd = 1, 3
+                  ! if distance = 0, found the identical node point in the neighbors.
                   distance = distance + vertex(nd,1,m) - vertex(nd,nv,n)
                END DO
                IF (distance .EQ. 0_wp) THEN
@@ -206,7 +224,7 @@ CONTAINS
             DO j = -1, 0
                DO k = -1, 0
                   nv = nv - 1
-                  !> Skip the current domain
+                  !> Skip the current domain: i = j = k = 0
                   IF ((i**2 + j**2 + k**2) .EQ. 0) CYCLE
                   dom(m)%neighbor(i,j,k) = v_neighbor(nv,m)
                END DO
