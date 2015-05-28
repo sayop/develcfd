@@ -39,7 +39,7 @@ type input_type
    type(multidomain_t)                             :: MultiDomain
    type(geometry_t)                                :: Geometry
 end type input_type
-   type(input_type)                                :: input_data
+   type(input_type)                               ,save :: input_data
 contains
 subroutine read_xml_type_equations_t_array( &
       info, tag, endtag, attribs, noattribs, data, nodata, &
@@ -83,7 +83,7 @@ subroutine read_xml_type_equations_t( info, starttag, endtag, attribs, noattribs
    integer                                      :: noatt_
    logical                                      :: error
    logical                                      :: endtag_org
-   character(len=80)                            :: tag
+   character(len=80)                            :: tag, last_tag
    logical                                         :: has_Formulation
    logical                                         :: has_iVisc
    has_Formulation                      = .false.
@@ -94,6 +94,7 @@ subroutine read_xml_type_equations_t( info, starttag, endtag, attribs, noattribs
    att_   = 0
    noatt_ = noattribs+1
    endtag_org = endtag
+   last_tag = ""
    do
       if ( nodata .ne. 0 ) then
          noattribs = 0
@@ -128,13 +129,14 @@ subroutine read_xml_type_equations_t( info, starttag, endtag, attribs, noattribs
       if ( endtag .and. tag .eq. starttag ) then
          exit
       endif
-      if ( endtag .and. noattribs .eq. 0 ) then
+      if ( endtag .and. noattribs .eq. 0 .and. TRIM(tag) == TRIM(last_tag)) then
          if ( xml_ok(info) ) then
             cycle
          else
             exit
          endif
       endif
+      last_tag = tag
       select case( tag )
       case('Formulation')
          call read_xml_word( &
@@ -145,6 +147,8 @@ subroutine read_xml_type_equations_t( info, starttag, endtag, attribs, noattribs
             info, tag, endtag, attribs, noattribs, data, nodata, &
             dvar%iVisc, has_iVisc )
       case ('comment', '!--')
+         ! Simply ignore
+      case ('xblk_setup')
          ! Simply ignore
       case default
          if ( strict_ ) then
@@ -158,11 +162,9 @@ subroutine read_xml_type_equations_t( info, starttag, endtag, attribs, noattribs
    end do
    if ( .not. has_Formulation ) then
       has_dvar = .false.
-      call xml_report_errors(info, 'Missing data on Formulation')
    endif
    if ( .not. has_iVisc ) then
       has_dvar = .false.
-      call xml_report_errors(info, 'Missing data on iVisc')
    endif
 end subroutine read_xml_type_equations_t
 subroutine init_xml_type_equations_t_array( dvar )
@@ -245,7 +247,7 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
    integer                                      :: noatt_
    logical                                      :: error
    logical                                      :: endtag_org
-   character(len=80)                            :: tag
+   character(len=80)                            :: tag, last_tag
    logical                                         :: has_ndomain
    logical                                         :: has_ngc
    logical                                         :: has_ngls
@@ -258,6 +260,7 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
    att_   = 0
    noatt_ = noattribs+1
    endtag_org = endtag
+   last_tag = ""
    do
       if ( nodata .ne. 0 ) then
          noattribs = 0
@@ -292,13 +295,14 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
       if ( endtag .and. tag .eq. starttag ) then
          exit
       endif
-      if ( endtag .and. noattribs .eq. 0 ) then
+      if ( endtag .and. noattribs .eq. 0 .and. TRIM(tag) == TRIM(last_tag)) then
          if ( xml_ok(info) ) then
             cycle
          else
             exit
          endif
       endif
+      last_tag = tag
       select case( tag )
       case('ndomain')
          call read_xml_integer( &
@@ -313,6 +317,8 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
             info, tag, endtag, attribs, noattribs, data, nodata, &
             dvar%ngls, has_ngls )
       case ('comment', '!--')
+         ! Simply ignore
+      case ('xblk_setup')
          ! Simply ignore
       case default
          if ( strict_ ) then
@@ -409,7 +415,7 @@ subroutine read_xml_type_geometry_t( info, starttag, endtag, attribs, noattribs,
    integer                                      :: noatt_
    logical                                      :: error
    logical                                      :: endtag_org
-   character(len=80)                            :: tag
+   character(len=80)                            :: tag, last_tag
    logical                                         :: has_xlen
    logical                                         :: has_ylen
    logical                                         :: has_zlen
@@ -434,6 +440,7 @@ subroutine read_xml_type_geometry_t( info, starttag, endtag, attribs, noattribs,
    att_   = 0
    noatt_ = noattribs+1
    endtag_org = endtag
+   last_tag = ""
    do
       if ( nodata .ne. 0 ) then
          noattribs = 0
@@ -468,13 +475,14 @@ subroutine read_xml_type_geometry_t( info, starttag, endtag, attribs, noattribs,
       if ( endtag .and. tag .eq. starttag ) then
          exit
       endif
-      if ( endtag .and. noattribs .eq. 0 ) then
+      if ( endtag .and. noattribs .eq. 0 .and. TRIM(tag) == TRIM(last_tag)) then
          if ( xml_ok(info) ) then
             cycle
          else
             exit
          endif
       endif
+      last_tag = tag
       select case( tag )
       case('xlen')
          call read_xml_double( &
@@ -514,6 +522,8 @@ subroutine read_xml_type_geometry_t( info, starttag, endtag, attribs, noattribs,
             dvar%kmax, has_kmax )
       case ('comment', '!--')
          ! Simply ignore
+      case ('xblk_setup')
+         ! Simply ignore
       case default
          if ( strict_ ) then
             error = .true.
@@ -534,12 +544,12 @@ subroutine init_xml_type_geometry_t_array( dvar )
 end subroutine init_xml_type_geometry_t_array
 subroutine init_xml_type_geometry_t(dvar)
    type(geometry_t) :: dvar
-   dvar%xlen = 1
-   dvar%ylen = 1
-   dvar%zlen = 1
-   dvar%xstart = 0
-   dvar%ystart = 0
-   dvar%zstart = 0
+   dvar%xlen = 1_8
+   dvar%ylen = 1_8
+   dvar%zlen = 1_8
+   dvar%xstart = 0_8
+   dvar%ystart = 0_8
+   dvar%zstart = 0_8
    dvar%imax = 33
    dvar%jmax = 33
    dvar%kmax = 2
@@ -621,7 +631,7 @@ subroutine read_xml_type_runtime_t( info, starttag, endtag, attribs, noattribs, 
    integer                                      :: noatt_
    logical                                      :: error
    logical                                      :: endtag_org
-   character(len=80)                            :: tag
+   character(len=80)                            :: tag, last_tag
    logical                                         :: has_restart
    has_restart                          = .false.
    call init_xml_type_runtime_t(dvar)
@@ -630,6 +640,7 @@ subroutine read_xml_type_runtime_t( info, starttag, endtag, attribs, noattribs, 
    att_   = 0
    noatt_ = noattribs+1
    endtag_org = endtag
+   last_tag = ""
    do
       if ( nodata .ne. 0 ) then
          noattribs = 0
@@ -664,19 +675,22 @@ subroutine read_xml_type_runtime_t( info, starttag, endtag, attribs, noattribs, 
       if ( endtag .and. tag .eq. starttag ) then
          exit
       endif
-      if ( endtag .and. noattribs .eq. 0 ) then
+      if ( endtag .and. noattribs .eq. 0 .and. TRIM(tag) == TRIM(last_tag)) then
          if ( xml_ok(info) ) then
             cycle
          else
             exit
          endif
       endif
+      last_tag = tag
       select case( tag )
       case('restart')
          call read_xml_integer( &
             info, tag, endtag, attribs, noattribs, data, nodata, &
             dvar%restart, has_restart )
       case ('comment', '!--')
+         ! Simply ignore
+      case ('xblk_setup')
          ! Simply ignore
       case default
          if ( strict_ ) then
@@ -769,7 +783,7 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
    integer                                      :: noatt_
    logical                                      :: error
    logical                                      :: endtag_org
-   character(len=80)                            :: tag
+   character(len=80)                            :: tag, last_tag
    logical                                         :: has_Equations
    logical                                         :: has_RunTimeParameters
    logical                                         :: has_MultiDomain
@@ -784,6 +798,7 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
    att_   = 0
    noatt_ = noattribs+1
    endtag_org = endtag
+   last_tag = ""
    do
       if ( nodata .ne. 0 ) then
          noattribs = 0
@@ -818,13 +833,14 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
       if ( endtag .and. tag .eq. starttag ) then
          exit
       endif
-      if ( endtag .and. noattribs .eq. 0 ) then
+      if ( endtag .and. noattribs .eq. 0 .and. TRIM(tag) == TRIM(last_tag)) then
          if ( xml_ok(info) ) then
             cycle
          else
             exit
          endif
       endif
+      last_tag = tag
       select case( tag )
       case('Equations')
          call read_xml_type_equations_t( &
@@ -844,6 +860,8 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
             dvar%Geometry, has_Geometry )
       case ('comment', '!--')
          ! Simply ignore
+      case ('xblk_setup')
+         ! Simply ignore
       case default
          if ( strict_ ) then
             error = .true.
@@ -856,19 +874,15 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
    end do
    if ( .not. has_Equations ) then
       has_dvar = .false.
-      call xml_report_errors(info, 'Missing data on Equations')
    endif
    if ( .not. has_RunTimeParameters ) then
       has_dvar = .false.
-      call xml_report_errors(info, 'Missing data on RunTimeParameters')
    endif
    if ( .not. has_MultiDomain ) then
       has_dvar = .false.
-      call xml_report_errors(info, 'Missing data on MultiDomain')
    endif
    if ( .not. has_Geometry ) then
       has_dvar = .false.
-      call xml_report_errors(info, 'Missing data on Geometry')
    endif
 end subroutine read_xml_type_input_type
 subroutine init_xml_type_input_type_array( dvar )
@@ -918,12 +932,12 @@ subroutine read_xml_file_input(fname, lurep, errout)
 
    type(XML_PARSE)                        :: info
    logical                                :: error
-   character(len=80)                      :: tag
+   character(len=80)                      :: tag, last_tag
    character(len=80)                      :: starttag
    logical                                :: endtag
    character(len=80), dimension(1:2,1:20) :: attribs
    integer                                :: noattribs
-   character(len=200), dimension(1:100)   :: data
+   character(len=200), dimension(1:1000)  :: data
    integer                                :: nodata
    logical                                         :: has_input_data
    has_input_data                       = .false.
@@ -960,19 +974,22 @@ subroutine read_xml_file_input(fname, lurep, errout)
       if ( endtag .and. tag .eq. starttag ) then
          exit
       endif
-      if ( endtag .and. noattribs .eq. 0 ) then
+      if ( endtag .and. noattribs .eq. 0 .and. TRIM(tag) == TRIM(last_tag)) then
          if ( xml_ok(info) ) then
             cycle
          else
             exit
          endif
       endif
+      last_tag = tag
       select case( tag )
       case('input_data')
          call read_xml_type_input_type( &
             info, tag, endtag, attribs, noattribs, data, nodata, &
             input_data, has_input_data )
       case ('comment', '!--')
+         ! Simply ignore
+      case ('xblk_setup')
          ! Simply ignore
       case default
          if ( strict_ ) then
@@ -986,9 +1003,9 @@ subroutine read_xml_file_input(fname, lurep, errout)
    end do
    if ( .not. has_input_data ) then
       error = .true.
-      call xml_report_errors(info, 'Missing data on input_data')
    endif
    if ( present(errout) ) errout = error
+   call xml_close(info)
 end subroutine
 
 subroutine write_xml_file_input(fname, lurep)

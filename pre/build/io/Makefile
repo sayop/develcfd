@@ -30,22 +30,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake
+CMAKE_COMMAND = /usr/local/bin/cmake
 
 # The command to remove a file.
-RM = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E remove -f
+RM = /usr/local/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/local/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sayop/MyCFD/develcfd/utilities/PreProcessor
+CMAKE_SOURCE_DIR = /home_net/ksayop/CFDcourse/develcfd/utilities/PreProcessor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sayop/MyCFD/develcfd/pre/build
+CMAKE_BINARY_DIR = /home_net/ksayop/CFDcourse/develcfd/pre/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/sayop/MyCFD/develcfd/pre/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -63,7 +63,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -72,14 +72,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/sayop/MyCFD/develcfd/pre/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/sayop/MyCFD/develcfd/pre/build/CMakeFiles /home/sayop/MyCFD/develcfd/pre/build/io/CMakeFiles/progress.marks
-	cd /home/sayop/MyCFD/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sayop/MyCFD/develcfd/pre/build/CMakeFiles 0
+	cd /home_net/ksayop/CFDcourse/develcfd/pre/build && $(CMAKE_COMMAND) -E cmake_progress_start /home_net/ksayop/CFDcourse/develcfd/pre/build/CMakeFiles /home_net/ksayop/CFDcourse/develcfd/pre/build/io/CMakeFiles/progress.marks
+	cd /home_net/ksayop/CFDcourse/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home_net/ksayop/CFDcourse/develcfd/pre/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/sayop/MyCFD/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/clean
+	cd /home_net/ksayop/CFDcourse/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/clean
 .PHONY : clean
 
 # The main clean target
@@ -88,17 +88,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/sayop/MyCFD/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/preinstall
+	cd /home_net/ksayop/CFDcourse/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/sayop/MyCFD/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/preinstall
+	cd /home_net/ksayop/CFDcourse/develcfd/pre/build && $(MAKE) -f CMakeFiles/Makefile2 io/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/sayop/MyCFD/develcfd/pre/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home_net/ksayop/CFDcourse/develcfd/pre/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -120,6 +120,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/sayop/MyCFD/develcfd/pre/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home_net/ksayop/CFDcourse/develcfd/pre/build && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

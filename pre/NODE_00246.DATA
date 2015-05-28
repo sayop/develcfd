@@ -1,82 +1,160 @@
           DOMAIN ID:   246
 NUMBER OF NEIGHBORS:    26
       ISTART        IEND      JSTART        JEND      KSTART        KEND
-           1           4           1          20           1           4
+           1           3           1          20           1           4
 NEIGHBOR ID:    73
    LOCATION:   -1   -1   -1
+           4
+          20
+           4
  
 NEIGHBOR ID:   249
    LOCATION:   -1   -1    0
+           4
+          20
+           4
  
 NEIGHBOR ID:   137
    LOCATION:   -1   -1    1
+           4
+          20
+           5
  
 NEIGHBOR ID:    74
    LOCATION:   -1    0   -1
+           4
+          20
+           4
  
 NEIGHBOR ID:   250
    LOCATION:   -1    0    0
+           4
+          20
+           4
  
 NEIGHBOR ID:   138
    LOCATION:   -1    0    1
+           4
+          20
+           5
  
 NEIGHBOR ID:    75
    LOCATION:   -1    1   -1
+           4
+          20
+           4
  
 NEIGHBOR ID:   251
    LOCATION:   -1    1    0
+           4
+          20
+           4
  
 NEIGHBOR ID:   139
    LOCATION:   -1    1    1
+           4
+          20
+           5
  
 NEIGHBOR ID:   157
    LOCATION:    0   -1   -1
+           3
+          20
+           4
  
 NEIGHBOR ID:   245
    LOCATION:    0   -1    0
+           3
+          20
+           4
  
 NEIGHBOR ID:   161
    LOCATION:    0   -1    1
+           3
+          20
+           5
  
 NEIGHBOR ID:   158
    LOCATION:    0    0   -1
+           3
+          20
+           4
  
 NEIGHBOR ID:   162
    LOCATION:    0    0    1
+           3
+          20
+           5
  
 NEIGHBOR ID:   159
    LOCATION:    0    1   -1
+           3
+          20
+           4
  
 NEIGHBOR ID:   247
    LOCATION:    0    1    0
+           3
+          20
+           4
  
 NEIGHBOR ID:   163
    LOCATION:    0    1    1
+           3
+          20
+           5
  
 NEIGHBOR ID:     7
    LOCATION:    1   -1   -1
+           3
+          20
+           4
  
 NEIGHBOR ID:   241
    LOCATION:    1   -1    0
+           3
+          20
+           4
  
 NEIGHBOR ID:   133
    LOCATION:    1   -1    1
+           3
+          20
+           5
  
 NEIGHBOR ID:    12
    LOCATION:    1    0   -1
+           3
+          20
+           4
  
 NEIGHBOR ID:   242
    LOCATION:    1    0    0
+           3
+          20
+           4
  
 NEIGHBOR ID:   134
    LOCATION:    1    0    1
+           3
+          20
+           5
  
 NEIGHBOR ID:     8
    LOCATION:    1    1   -1
+           3
+          20
+           4
  
 NEIGHBOR ID:   243
    LOCATION:    1    1    0
+           3
+          20
+           4
  
 NEIGHBOR ID:   135
    LOCATION:    1    1    1
+           3
+          20
+           5
  

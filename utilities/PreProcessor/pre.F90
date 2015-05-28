@@ -33,6 +33,14 @@ PROGRAM pre
    !> Find neighbors to each domain
    CALL FindNeighbors(ndomains, dom)
 
+   !> Arrange node points:
+   !>> The node point data read from the plot3d file format
+   !>> contains repeated node point at the boundary surface
+   !>> in between two domains. Thus, here the repeated node
+   !>> points are removed to avoid redundant memory use.
+   !>> -end values will be corrected.
+   CALL ArrangeNODEpoints(ndomains, dom)
+
    !> Create ghost-layers with ngc
    CALL CreateGhostLayers(ndomains, dom)
 
@@ -40,5 +48,5 @@ PROGRAM pre
    CALL WriteNODEfiles(ndomains, dom)
 
    !> Write a grid file for simulation
-   !CALL WriteGRID(ndomains, dom)
+   CALL WriteGRID(ndomains, dom)
 END PROGRAM pre

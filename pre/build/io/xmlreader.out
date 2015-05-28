@@ -6,7 +6,9 @@
  XML_GET - tag found: options
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: options                                                                         
+ tag: 
+ options                                                                        
+  
  attribs:            3
    strict = yes
    dynamicstrings = no
@@ -17,7 +19,9 @@
  XML_GET - tag found: comment
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           6
- tag: comment                                                                         
+ tag: 
+ comment                                                                        
+  
  attribs:            0
  data:            6
    ><
@@ -28,7 +32,9 @@
    ><
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           2
- tag: comment                                                                         
+ tag: 
+ comment                                                                        
+  
  attribs:            0
  data:            2
    ><
@@ -36,7 +42,9 @@
  XML_GET - tag found: typedef
  XML_GET - number of attributes:           1
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            1
    name = equations_t
  data:            2
@@ -45,7 +53,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = Formulation
    type = word
@@ -56,7 +66,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           2
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            2
    name = iVisc
    type = integer
@@ -65,7 +77,9 @@
    ><
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            0
  data:            2
    ><
@@ -73,7 +87,9 @@
  XML_GET - tag found: typedef
  XML_GET - number of attributes:           1
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            1
    name = multidomain_t
  data:            2
@@ -82,7 +98,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = ndomain
    type = integer
@@ -93,7 +111,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = ngc
    type = integer
@@ -104,7 +124,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = ngls
    type = integer
@@ -114,7 +136,9 @@
    ><
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            0
  data:            2
    ><
@@ -122,7 +146,9 @@
  XML_GET - tag found: typedef
  XML_GET - number of attributes:           1
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            1
    name = geometry_t
  data:            2
@@ -131,7 +157,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = xlen
    type = double
@@ -142,7 +170,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = ylen
    type = double
@@ -153,7 +183,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = zlen
    type = double
@@ -164,7 +196,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = xstart
    type = double
@@ -175,7 +209,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = ystart
    type = double
@@ -186,7 +222,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = zstart
    type = double
@@ -197,7 +235,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = imax
    type = integer
@@ -208,7 +248,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = jmax
    type = integer
@@ -219,7 +261,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = kmax
    type = integer
@@ -229,7 +273,9 @@
    ><
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            0
  data:            2
    ><
@@ -237,7 +283,9 @@
  XML_GET - tag found: typedef
  XML_GET - number of attributes:           1
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            1
    name = runtime_t
  data:            2
@@ -246,7 +294,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           3
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            3
    name = restart
    type = integer
@@ -256,7 +306,9 @@
    ><
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            0
  data:            2
    ><
@@ -264,7 +316,9 @@
  XML_GET - tag found: typedef
  XML_GET - number of attributes:           1
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            1
    name = input_type
  data:            2
@@ -273,7 +327,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           2
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            2
    name = Equations
    type = equations_t
@@ -283,7 +339,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           2
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            2
    name = RunTimeParameters
    type = runtime_t
@@ -293,7 +351,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           2
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            2
    name = MultiDomain
    type = multidomain_t
@@ -303,7 +363,9 @@
  XML_GET - tag found: component
  XML_GET - number of attributes:           2
  XML_GET - number of data lines:           2
- tag: component                                                                       
+ tag: 
+ component                                                                      
+  
  attribs:            2
    name = Geometry
    type = geometry_t
@@ -312,7 +374,9 @@
    ><
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           2
- tag: typedef                                                                         
+ tag: 
+ typedef                                                                        
+  
  attribs:            0
  data:            2
    ><
@@ -320,7 +384,9 @@
  XML_GET - tag found: variable
  XML_GET - number of attributes:           2
  XML_GET - number of data lines:           2
- tag: variable                                                                        
+ tag: 
+ variable                                                                       
+  
  attribs:            2
    name = input_data
    type = input_type
@@ -330,7 +396,9 @@
  XML_GET - end of file found - LU-number:          10
  XML_GET - number of attributes:           0
  XML_GET - number of data lines:           1
- tag: template                                                                        
+ tag: 
+ template                                                                       
+  
  attribs:            0
  data:            1
    ><

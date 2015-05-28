@@ -37,6 +37,11 @@ CONTAINS
       !> Read domain size
       DO m = 1, ndom
          READ(10,*) dom(m)%isize, dom(m)%jsize, dom(m)%ksize
+         !> -start, -end indicate the start and end node point 
+         !> within a inner domain, excluding ghost layers.
+         !> here, -start and -end variables are assigned 1 and -size, respectivcely.
+         !> Later, -end values will be corrected depending on the neighbor presence.
+         !> But, -start values will always hold 1.
          dom(m)%istart = 1
          dom(m)%jstart = 1
          dom(m)%kstart = 1
@@ -320,6 +325,34 @@ CONTAINS
 !      end do
    END SUBROUTINE
 
+
+!-----------------------------------------------------------------------------!
+   SUBROUTINE ArrangeNODEpoints(ndom, dom)
+!-----------------------------------------------------------------------------!
+      USE MultiDomainVars_m, ONLY: MultiDomain
+
+      IMPLICIT NONE
+      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      INTEGER, INTENT(IN) :: ndom
+      INTEGER :: m, i, j, k
+
+      DO m = 1, ndom
+         !> If there is a fluid neighbor, reduce -end by one level.
+         !> If in the case, correct the domain size too.
+         IF (dom(m)%neighbor(1,0,0) .NE. 0) THEN
+            dom(m)%iend = dom(m)%iend - 1
+            dom(m)%isize = dom(m)%iend - dom(m)%istart + 1
+         ELSE IF (dom(m)%neighbor(0,1,0) .NE. 0) THEN
+            dom(m)%jend = dom(m)%jend - 1
+            dom(m)%jsize = dom(m)%jend - dom(m)%jstart + 1
+         ELSE IF (dom(m)%neighbor(0,0,1) .NE. 0) THEN
+            dom(m)%kend = dom(m)%kend - 1
+            dom(m)%ksize = dom(m)%kend - dom(m)%kstart + 1
+         END IF
+      END DO
+
+   END SUBROUTINE
+
 !-----------------------------------------------------------------------------!
    SUBROUTINE WriteNODEfiles(ndom, dom)
 !-----------------------------------------------------------------------------!
@@ -364,6 +397,9 @@ CONTAINS
                   IF (dom(m)%neighbor(i,j,k) .NE. 0) THEN
                      WRITE(30,'(A12,I6)') 'NEIGHBOR ID:', dom(m)%neighbor(i,j,k)
                      WRITE(30,'(A12,3I5)') 'LOCATION:', i, j, k
+                     WRITE(30,*) dom(dom(m)%neighbor(i,j,k))%iend
+                     WRITE(30,*) dom(dom(m)%neighbor(i,j,k))%jend
+                     WRITE(30,*) dom(dom(m)%neighbor(i,j,k))%kend
                      WRITE(30,*) ''
                   END IF
                END DO

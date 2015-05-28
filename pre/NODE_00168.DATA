@@ -1,37 +1,70 @@
           DOMAIN ID:   168
 NUMBER OF NEIGHBORS:    11
       ISTART        IEND      JSTART        JEND      KSTART        KEND
-           1           4           1          20           1          10
+           1           3           1          20           1          10
 NEIGHBOR ID:   139
    LOCATION:   -1   -1   -1
+           4
+          20
+           5
  
 NEIGHBOR ID:    79
    LOCATION:   -1   -1    0
+           4
+          20
+          10
  
 NEIGHBOR ID:   140
    LOCATION:   -1    0   -1
+           4
+          20
+           5
  
 NEIGHBOR ID:    80
    LOCATION:   -1    0    0
+           4
+          20
+          10
  
 NEIGHBOR ID:   163
    LOCATION:    0   -1   -1
+           3
+          20
+           5
  
 NEIGHBOR ID:   167
    LOCATION:    0   -1    0
+           3
+          20
+          10
  
 NEIGHBOR ID:   164
    LOCATION:    0    0   -1
+           3
+          20
+           5
  
 NEIGHBOR ID:   135
    LOCATION:    1   -1   -1
+           3
+          20
+           5
  
 NEIGHBOR ID:    59
    LOCATION:    1   -1    0
+           3
+          20
+          10
  
 NEIGHBOR ID:   136
    LOCATION:    1    0   -1
+           3
+          20
+           5
  
 NEIGHBOR ID:    60
    LOCATION:    1    0    0
+           3
+          20
+          10
  

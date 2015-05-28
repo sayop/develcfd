@@ -30,22 +30,22 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake
+CMAKE_COMMAND = /usr/local/bin/cmake
 
 # The command to remove a file.
-RM = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E remove -f
+RM = /usr/local/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/ccmake
+CMAKE_EDIT_COMMAND = /usr/local/bin/ccmake
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/sayop/MyCFD/develcfd/utilities/PreProcessor
+CMAKE_SOURCE_DIR = /home_net/ksayop/CFDcourse/develcfd/utilities/PreProcessor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/sayop/MyCFD/develcfd/pre/build
+CMAKE_BINARY_DIR = /home_net/ksayop/CFDcourse/develcfd/pre/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /home/sayop/MyCFD/develcfd/pre/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -63,7 +63,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/local/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -72,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sayop/MyCFD/develcfd/pre/build/CMakeFiles /home/sayop/MyCFD/develcfd/pre/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home_net/ksayop/CFDcourse/develcfd/pre/build/CMakeFiles /home_net/ksayop/CFDcourse/develcfd/pre/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/sayop/MyCFD/develcfd/pre/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home_net/ksayop/CFDcourse/develcfd/pre/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,29 +122,29 @@ PreSetup.F90.o:
 	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/PreSetup.F90.o
 .PHONY : PreSetup.F90.o
 
-home/sayop/MyCFD/develcfd/src/io/io.o: home/sayop/MyCFD/develcfd/src/io/io.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/io/io.o
+home_net/ksayop/CFDcourse/develcfd/src/io/io.o: home_net/ksayop/CFDcourse/develcfd/src/io/io.F90.o
+.PHONY : home_net/ksayop/CFDcourse/develcfd/src/io/io.o
 
 # target to build an object file
-home/sayop/MyCFD/develcfd/src/io/io.F90.o:
-	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/io/io.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/io/io.F90.o
+home_net/ksayop/CFDcourse/develcfd/src/io/io.F90.o:
+	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home_net/ksayop/CFDcourse/develcfd/src/io/io.F90.o
+.PHONY : home_net/ksayop/CFDcourse/develcfd/src/io/io.F90.o
 
-home/sayop/MyCFD/develcfd/src/main/Parameters.o: home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/main/Parameters.o
-
-# target to build an object file
-home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o:
-	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o
-
-home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o: home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o
+home_net/ksayop/CFDcourse/develcfd/src/main/Parameters.o: home_net/ksayop/CFDcourse/develcfd/src/main/Parameters.F90.o
+.PHONY : home_net/ksayop/CFDcourse/develcfd/src/main/Parameters.o
 
 # target to build an object file
-home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o:
-	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
+home_net/ksayop/CFDcourse/develcfd/src/main/Parameters.F90.o:
+	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home_net/ksayop/CFDcourse/develcfd/src/main/Parameters.F90.o
+.PHONY : home_net/ksayop/CFDcourse/develcfd/src/main/Parameters.F90.o
+
+home_net/ksayop/CFDcourse/develcfd/src/variables/MultiDomainVars.o: home_net/ksayop/CFDcourse/develcfd/src/variables/MultiDomainVars.F90.o
+.PHONY : home_net/ksayop/CFDcourse/develcfd/src/variables/MultiDomainVars.o
+
+# target to build an object file
+home_net/ksayop/CFDcourse/develcfd/src/variables/MultiDomainVars.F90.o:
+	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home_net/ksayop/CFDcourse/develcfd/src/variables/MultiDomainVars.F90.o
+.PHONY : home_net/ksayop/CFDcourse/develcfd/src/variables/MultiDomainVars.F90.o
 
 io/input.o: io/input.f90.o
 .PHONY : io/input.o
@@ -172,9 +172,9 @@ help:
 	@echo "... pre.x"
 	@echo "... rebuild_cache"
 	@echo "... PreSetup.o"
-	@echo "... home/sayop/MyCFD/develcfd/src/io/io.o"
-	@echo "... home/sayop/MyCFD/develcfd/src/main/Parameters.o"
-	@echo "... home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o"
+	@echo "... home_net/ksayop/CFDcourse/develcfd/src/io/io.o"
+	@echo "... home_net/ksayop/CFDcourse/develcfd/src/main/Parameters.o"
+	@echo "... home_net/ksayop/CFDcourse/develcfd/src/variables/MultiDomainVars.o"
 	@echo "... io/input.o"
 	@echo "... pre.o"
 .PHONY : help
