@@ -342,10 +342,12 @@ CONTAINS
          IF (dom(m)%neighbor(1,0,0) .NE. 0) THEN
             dom(m)%iend = dom(m)%iend - 1
             dom(m)%isize = dom(m)%iend - dom(m)%istart + 1
-         ELSE IF (dom(m)%neighbor(0,1,0) .NE. 0) THEN
+         END IF
+         IF (dom(m)%neighbor(0,1,0) .NE. 0) THEN
             dom(m)%jend = dom(m)%jend - 1
             dom(m)%jsize = dom(m)%jend - dom(m)%jstart + 1
-         ELSE IF (dom(m)%neighbor(0,0,1) .NE. 0) THEN
+         END IF
+         IF (dom(m)%neighbor(0,0,1) .NE. 0) THEN
             dom(m)%kend = dom(m)%kend - 1
             dom(m)%ksize = dom(m)%kend - dom(m)%kstart + 1
          END IF

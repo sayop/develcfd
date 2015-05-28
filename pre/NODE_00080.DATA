@@ -5,20 +5,20 @@ NUMBER OF NEIGHBORS:    11
 NEIGHBOR ID:   143
    LOCATION:   -1   -1   -1
            9
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    63
    LOCATION:   -1   -1    0
            9
-          20
+          19
           10
  
 NEIGHBOR ID:   144
    LOCATION:   -1    0   -1
            9
           20
-           5
+           4
  
 NEIGHBOR ID:    64
    LOCATION:   -1    0    0
@@ -29,38 +29,38 @@ NEIGHBOR ID:    64
 NEIGHBOR ID:   139
    LOCATION:    0   -1   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    79
    LOCATION:    0   -1    0
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   140
    LOCATION:    0    0   -1
            4
           20
-           5
+           4
  
 NEIGHBOR ID:   163
    LOCATION:    1   -1   -1
            3
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:   167
    LOCATION:    1   -1    0
            3
-          20
+          19
           10
  
 NEIGHBOR ID:   164
    LOCATION:    1    0   -1
            3
           20
-           5
+           4
  
 NEIGHBOR ID:   168
    LOCATION:    1    0    0

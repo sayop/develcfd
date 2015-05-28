@@ -5,38 +5,38 @@ NUMBER OF NEIGHBORS:     7
 NEIGHBOR ID:   125
    LOCATION:   -1    0   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    53
    LOCATION:   -1    0    0
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   126
    LOCATION:   -1    1   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    54
    LOCATION:   -1    1    0
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   121
    LOCATION:    0    0   -1
           10
           19
-           5
+           4
  
 NEIGHBOR ID:   122
    LOCATION:    0    1   -1
           10
           19
-           5
+           4
  
 NEIGHBOR ID:    50
    LOCATION:    0    1    0

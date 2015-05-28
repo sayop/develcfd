@@ -1,70 +1,70 @@
           DOMAIN ID:    77
 NUMBER OF NEIGHBORS:    11
       ISTART        IEND      JSTART        JEND      KSTART        KEND
-           1           4           1          20           1          10
+           1           4           1          19           1          10
 NEIGHBOR ID:   141
    LOCATION:   -1    0   -1
            9
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    61
    LOCATION:   -1    0    0
            9
-          20
+          19
           10
  
 NEIGHBOR ID:   142
    LOCATION:   -1    1   -1
            9
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    62
    LOCATION:   -1    1    0
            9
-          20
+          19
           10
  
 NEIGHBOR ID:   137
    LOCATION:    0    0   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:   138
    LOCATION:    0    1   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    78
    LOCATION:    0    1    0
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   161
    LOCATION:    1    0   -1
            3
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:   165
    LOCATION:    1    0    0
            3
-          20
+          19
           10
  
 NEIGHBOR ID:   162
    LOCATION:    1    1   -1
            3
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:   166
    LOCATION:    1    1    0
            3
-          20
+          19
           10
  

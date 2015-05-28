@@ -1,78 +1,78 @@
           DOMAIN ID:    54
 NUMBER OF NEIGHBORS:    17
       ISTART        IEND      JSTART        JEND      KSTART        KEND
-           1           4           1          20           1          10
+           1           4           1          19           1          10
 NEIGHBOR ID:   129
    LOCATION:   -1   -1   -1
            3
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    93
    LOCATION:   -1   -1    0
            3
-          20
+          19
           10
  
 NEIGHBOR ID:   130
    LOCATION:   -1    0   -1
            3
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    94
    LOCATION:   -1    0    0
            3
-          20
+          19
           10
  
 NEIGHBOR ID:   131
    LOCATION:   -1    1   -1
            3
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    95
    LOCATION:   -1    1    0
            3
-          20
+          19
           10
  
 NEIGHBOR ID:   125
    LOCATION:    0   -1   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    53
    LOCATION:    0   -1    0
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   126
    LOCATION:    0    0   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:   127
    LOCATION:    0    1   -1
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    55
    LOCATION:    0    1    0
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   121
    LOCATION:    1   -1   -1
           10
           19
-           5
+           4
  
 NEIGHBOR ID:    49
    LOCATION:    1   -1    0
@@ -84,7 +84,7 @@ NEIGHBOR ID:   122
    LOCATION:    1    0   -1
           10
           19
-           5
+           4
  
 NEIGHBOR ID:    50
    LOCATION:    1    0    0
@@ -96,7 +96,7 @@ NEIGHBOR ID:   123
    LOCATION:    1    1   -1
           10
           19
-           5
+           4
  
 NEIGHBOR ID:    51
    LOCATION:    1    1    0

@@ -1,54 +1,54 @@
           DOMAIN ID:   123
 NUMBER OF NEIGHBORS:    17
       ISTART        IEND      JSTART        JEND      KSTART        KEND
-           1          10           1          19           1           5
+           1          10           1          19           1           4
 NEIGHBOR ID:   230
    LOCATION:   -1   -1   -1
            4
-          20
-           4
+          19
+           3
  
 NEIGHBOR ID:   126
    LOCATION:   -1   -1    0
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    54
    LOCATION:   -1   -1    1
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   231
    LOCATION:   -1    0   -1
            4
-          20
-           4
+          19
+           3
  
 NEIGHBOR ID:   127
    LOCATION:   -1    0    0
            4
-          20
-           5
+          19
+           4
  
 NEIGHBOR ID:    55
    LOCATION:   -1    0    1
            4
-          20
+          19
           10
  
 NEIGHBOR ID:   232
    LOCATION:   -1    1   -1
            4
           20
-           4
+           3
  
 NEIGHBOR ID:   128
    LOCATION:   -1    1    0
            4
           20
-           5
+           4
  
 NEIGHBOR ID:    56
    LOCATION:   -1    1    1
@@ -60,13 +60,13 @@ NEIGHBOR ID:   226
    LOCATION:    0   -1   -1
           10
           19
-           4
+           3
  
 NEIGHBOR ID:   122
    LOCATION:    0   -1    0
           10
           19
-           5
+           4
  
 NEIGHBOR ID:    50
    LOCATION:    0   -1    1
@@ -78,7 +78,7 @@ NEIGHBOR ID:   227
    LOCATION:    0    0   -1
           10
           19
-           4
+           3
  
 NEIGHBOR ID:    51
    LOCATION:    0    0    1

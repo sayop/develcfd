@@ -5,56 +5,56 @@ NUMBER OF NEIGHBORS:    11
 NEIGHBOR ID:   103
    LOCATION:   -1   -1   -1
            4
-          20
-           4
+          19
+           3
  
 NEIGHBOR ID:   199
    LOCATION:   -1   -1    0
            4
-          20
-           4
+          19
+           3
  
 NEIGHBOR ID:    31
    LOCATION:   -1   -1    1
            4
-          20
-           4
+          19
+           3
  
 NEIGHBOR ID:   104
    LOCATION:   -1    0   -1
            4
           20
-           4
+           3
  
 NEIGHBOR ID:   200
    LOCATION:   -1    0    0
            4
           20
-           4
+           3
  
 NEIGHBOR ID:    32
    LOCATION:   -1    0    1
            4
           20
-           4
+           3
  
 NEIGHBOR ID:    99
    LOCATION:    0   -1   -1
           10
           19
-           4
+           3
  
 NEIGHBOR ID:   195
    LOCATION:    0   -1    0
           10
           19
-           4
+           3
  
 NEIGHBOR ID:     6
    LOCATION:    0   -1    1
           10
           19
-           4
+           3
  
 NEIGHBOR ID:   100
    LOCATION:    0    0   -1
