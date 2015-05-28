@@ -1,0 +1,82 @@
+          DOMAIN ID:   238
+NUMBER OF NEIGHBORS:    26
+      ISTART        IEND      JSTART        JEND      KSTART        KEND
+           1           4           1          20           1           4
+NEIGHBOR ID:     7
+   LOCATION:   -1   -1   -1
+ 
+NEIGHBOR ID:   241
+   LOCATION:   -1   -1    0
+ 
+NEIGHBOR ID:   133
+   LOCATION:   -1   -1    1
+ 
+NEIGHBOR ID:    12
+   LOCATION:   -1    0   -1
+ 
+NEIGHBOR ID:   242
+   LOCATION:   -1    0    0
+ 
+NEIGHBOR ID:   134
+   LOCATION:   -1    0    1
+ 
+NEIGHBOR ID:     8
+   LOCATION:   -1    1   -1
+ 
+NEIGHBOR ID:   243
+   LOCATION:   -1    1    0
+ 
+NEIGHBOR ID:   135
+   LOCATION:   -1    1    1
+ 
+NEIGHBOR ID:   181
+   LOCATION:    0   -1   -1
+ 
+NEIGHBOR ID:   237
+   LOCATION:    0   -1    0
+ 
+NEIGHBOR ID:   185
+   LOCATION:    0   -1    1
+ 
+NEIGHBOR ID:   182
+   LOCATION:    0    0   -1
+ 
+NEIGHBOR ID:   186
+   LOCATION:    0    0    1
+ 
+NEIGHBOR ID:   183
+   LOCATION:    0    1   -1
+ 
+NEIGHBOR ID:   239
+   LOCATION:    0    1    0
+ 
+NEIGHBOR ID:   187
+   LOCATION:    0    1    1
+ 
+NEIGHBOR ID:    89
+   LOCATION:    1   -1   -1
+ 
+NEIGHBOR ID:   233
+   LOCATION:    1   -1    0
+ 
+NEIGHBOR ID:   129
+   LOCATION:    1   -1    1
+ 
+NEIGHBOR ID:    90
+   LOCATION:    1    0   -1
+ 
+NEIGHBOR ID:   234
+   LOCATION:    1    0    0
+ 
+NEIGHBOR ID:   130
+   LOCATION:    1    0    1
+ 
+NEIGHBOR ID:    91
+   LOCATION:    1    1   -1
+ 
+NEIGHBOR ID:   235
+   LOCATION:    1    1    0
+ 
+NEIGHBOR ID:   131
+   LOCATION:    1    1    1
+ 

@@ -37,6 +37,12 @@ CONTAINS
       !> Read domain size
       DO m = 1, ndom
          READ(10,*) dom(m)%isize, dom(m)%jsize, dom(m)%ksize
+         dom(m)%istart = 1
+         dom(m)%jstart = 1
+         dom(m)%kstart = 1
+         dom(m)%iend = dom(m)%isize
+         dom(m)%jend = dom(m)%jsize
+         dom(m)%kend = dom(m)%ksize
          ALLOCATE(dom(m)%x(1:dom(m)%isize, &
                            1:dom(m)%jsize, &
                            1:dom(m)%ksize))
@@ -115,16 +121,6 @@ CONTAINS
       !> Write node point coordinates for every domains
       DO m = 1, ndom
          WRITE(20,*) &
-!         (((dom(m)%x(i,j,k), i=1, dom(m)%isize), &
-!                             j=1, dom(m)%jsize), &
-!                             k=1, dom(m)%ksize), &
-!         (((dom(m)%y(i,j,k), i=1, dom(m)%isize), &
-!                             j=1, dom(m)%jsize), &
-!                             k=1, dom(m)%ksize), &
-!         (((dom(m)%z(i,j,k), i=1, dom(m)%isize), &
-!                             j=1, dom(m)%jsize), &
-!                             k=1, dom(m)%ksize)
-         
          (((dom(m)%x(i,j,k), i=1, dom(m)%isize), &
                              j=1, dom(m)%jsize), &
                              k=1, dom(m)%ksize), &
@@ -147,13 +143,15 @@ CONTAINS
       IMPLICIT NONE
       TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
       INTEGER, INTENT(IN) :: ndom
-      INTEGER :: m, n, nv, nd
+      INTEGER :: m, n, nv, nvv
       INTEGER :: i, j, k
       !> Vertices' coordinates array
       REAL(KIND=wp), DIMENSION(3,8,ndom) :: vertex
-      INTEGER, DIMENSION(7,ndom) :: v_neighbor
-      REAL(KIND=wp) :: distance
+      !> Stores neighbor domain index based on vertex point: 1 ~ 4.
+      !> Each vertex point has 8 neighbors.
+      INTEGER, DIMENSION(4,8,ndom) :: v_neighbor
 
+      WRITE(*,*) '# Finding neighbor domain info...'
       !> Collect vertices' (x,y,z) coordinates for every domains 
       DO m = 1, ndom
          !> First, loop over 8 vertices of the current domain
@@ -188,65 +186,191 @@ CONTAINS
       ! first element: x, y, z indicator
       ! third element: host, neighbors indicator 
 
-      !> Find neighbors sharing 1st corner vertex
+     
+      !> The way of finding neighbors of the host domain:
+      !>> Find neighbor domains for each vertex: 1~4 only. 
+
+      !> Initialize neighbor array
       DO m = 1, ndom
-         ! initialize neighbor matrix defined in 3x3 size
+         ! initialize neighbor matrix defined in 3x3 size: This should be done here!
          ! designed for storing neighboring domain index for the host domain.
          dom(m)%neighbor = 0
-         ! v_neighbor: two elements
-         ! first element for 7 neighboring domain indices based in 1st vertex point
-         ! second element for domain index
-         ! nv = 1: the host itself. IGNORE!
-         ! nv = 2: bottom
-         ! nv = 3: forehead
-         ! nv = 4: bottom-ahead
-         ! nv = 5: left
-         ! nv = 6: bottom-left
-         ! nv = 7: in left-diagonal
-         ! nv = 8: bottom-left-diagonal
-         v_neighbor = 0
-         DO n = 1, ndom
-            IF (m .EQ. n) CYCLE
-            DO nv = 1, 8
-               distance = 0_wp
-               DO nd = 1, 3
-                  ! if distance = 0, found the identical node point in the neighbors.
-                  distance = distance + vertex(nd,1,m) - vertex(nd,nv,n)
-               END DO
-               IF (distance .EQ. 0_wp) THEN
-                  v_neighbor(nv-1,m) = n
-               END IF
-            END DO
-         END DO
-         !> Assign domain index in neighbor arrays
-         nv = 8
-         DO i = -1, 0
-            DO j = -1, 0
-               DO k = -1, 0
-                  nv = nv - 1
-                  !> Skip the current domain: i = j = k = 0
-                  IF ((i**2 + j**2 + k**2) .EQ. 0) CYCLE
-                  dom(m)%neighbor(i,j,k) = v_neighbor(nv,m)
-               END DO
-            END DO
-         END DO 
       END DO
 
-      !> Assign domain index for the rest of neighbors.
+      !> Initialize v_neighbor array
+      v_neighbor = 0
+      !>> Loop over 1~4 vertices
+      VertexLoop1: DO nv = 1, 4 
+
+         !> Find the current vertex's neighbor domain indices
+         DO m = 1, ndom
+            DO n = 1, ndom
+               DO nvv = 1, 8
+                  IF ((vertex(1,nv,m) .EQ. vertex(1,nvv,n)) .AND. &
+                      (vertex(2,nv,m) .EQ. vertex(2,nvv,n)) .AND. &
+                      (vertex(3,nv,m) .EQ. vertex(3,nvv,n))) THEN
+                     v_neighbor(nv,nvv,m) = n
+                     CYCLE
+                  END IF
+               END DO
+            END DO
+         END DO
+
+         !> Populate domain index in neighbor arrays
+         SELECT CASE (nv)
+         CASE (1)
+            !> Based on vertex 1:
+            DO m = 1, ndom
+               nvv = 8
+               DO i = -1, 0
+                  DO j = -1, 0
+                     DO k = -1, 0
+                        !> Skip 0 index which indicate no neighbor domain existence
+                        IF (v_neighbor(nv,nvv,m) .NE. 0) THEN
+                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                        END IF
+                        nvv = nvv - 1
+                     END DO
+                  END DO
+               END DO
+            END DO
+         CASE (2)
+            !> Based on vertex 2
+            DO m = 1, ndom
+               nvv = 8
+               DO i = -1, 0
+                  DO j = -1, 0
+                     DO k = 0, 1
+                        !> Skip 0 index which indicate no neighbor domain existence
+                        !> Skip k = 0 layer because this was already updated.
+                        IF (v_neighbor(nv,nvv,m) .NE. 0 .AND. k .NE. 0) THEN
+                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                        END IF
+                        nvv = nvv - 1
+                     END DO
+                  END DO
+               END DO
+            END DO
+         CASE (3)
+            !> Based on vertex 3
+            DO m = 1, ndom
+               nvv = 8
+               DO i = -1, 0
+                  DO j = 0, 1
+                     DO k = -1, 0
+                        !> Skip 0 index which indicate no neighbor domain existence
+                        !> Skip j = 0 layer because this was already updated.
+                        IF (v_neighbor(nv,nvv,m) .NE. 0 .AND. j .NE. 0) THEN
+                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                        END IF
+                        nvv = nvv - 1
+                     END DO
+                  END DO
+               END DO
+            END DO
+         CASE (4)
+            !> Based on vertex 4
+            DO m = 1, ndom
+               nvv = 8
+               DO i = -1, 0
+                  DO j = 0, 1
+                     DO k = 0, 1
+                        !> Skip 0 index which indicate no neighbor domain existence
+                        !> Skip j = 0 layer because this was already updated.
+                        IF (v_neighbor(nv,nvv,m) .NE. 0 .AND. j .NE. 0 &
+                            .AND. k .NE. 0) THEN
+                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                        END IF
+                        nvv = nvv - 1
+                     END DO
+                  END DO
+               END DO
+            END DO
+         END SELECT
+         
+      END DO VertexLoop1
+
+   END SUBROUTINE
+
+
+!-----------------------------------------------------------------------------!
+   SUBROUTINE CreateGhostLayers(ndom, dom)
+!-----------------------------------------------------------------------------!
+      USE MultiDomainVars_m, ONLY: MultiDomain
+
+      IMPLICIT NONE
+      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      INTEGER, INTENT(IN) :: ndom
+      INTEGER :: m, nv, i, j, k
+
+!      do m = 1, ndom
+!         nv = 0
+!         do i = -1, 1
+!            do j = -1, 1
+!               do k = -1, 1
+!                  if (dom(m)%neighbor(i,j,k) .ne. 0) nv = nv + 1
+!               end do
+!            end do
+!         end do
+!         write(*,*) m, nv, dom(m)%neighbor(0,0,0)
+!      end do
+   END SUBROUTINE
+
+!-----------------------------------------------------------------------------!
+   SUBROUTINE WriteNODEfiles(ndom, dom)
+!-----------------------------------------------------------------------------!
+      USE MultiDomainVars_m, ONLY: MultiDomain
+
+      IMPLICIT NONE
+      TYPE(MultiDomain), DIMENSION(:), INTENT(IN) :: dom
+      INTEGER, INTENT(IN) :: ndom
+      INTEGER :: m, i, j, k, neighbors
+      CHARACTER(LEN=128) :: NODEFILE
+
       DO m = 1, ndom
-         DO i = -1, 0
-            DO j = -1, 0
-               DO k = -1, 0
+         !> Find number of neighbors
+         neighbors = 0
+         DO i = -1, 1
+            DO j = -1, 1
+               DO k = -1, 1
                   !> Skip the current domain
-                  IF ((i**2 + j**2 + k**2) .EQ. 0) CYCLE
-                  !> n: neighbor domain index that will receive  
-                  !>    the current domain index
-                  dom(n)%neighbor(-i,-j,-k) = dom(m)%neighbor(i,j,k)
+                  IF ((i .EQ. 0) .AND. &
+                      (j .EQ. 0) .AND. &
+                      (k .EQ. 0)) CYCLE
+                  IF (dom(m)%neighbor(i,j,k) .NE. 0) neighbors = neighbors + 1
                END DO
             END DO
          END DO
+         !> Write NODE_ files
+         WRITE(NODEFILE,'("NODE_",I5.5,".DATA")') m
+         OPEN(30, FILE = NODEFILE, FORM = "FORMATTED")
+         WRITE(30,'(A20,I6)') 'DOMAIN ID:', m
+         WRITE(30,'(A20,I6)') 'NUMBER OF NEIGHBORS:', neighbors
+         WRITE(30,'(6A12)') 'ISTART','IEND','JSTART','JEND','KSTART','KEND'
+         WRITE(30,*) dom(m)%istart, dom(m)%iend, &
+                     dom(m)%jstart, dom(m)%jend, &
+                     dom(m)%kstart, dom(m)%kend
+         DO i = -1, 1
+            DO j = -1, 1
+               DO k = -1, 1
+                  !> Skip the current domain
+                  IF ((i .EQ. 0) .AND. &
+                      (j .EQ. 0) .AND. &
+                      (k .EQ. 0)) CYCLE
+                  IF (dom(m)%neighbor(i,j,k) .NE. 0) THEN
+                     WRITE(30,'(A12,I6)') 'NEIGHBOR ID:', dom(m)%neighbor(i,j,k)
+                     WRITE(30,'(A12,3I5)') 'LOCATION:', i, j, k
+                     WRITE(30,*) ''
+                  END IF
+               END DO
+            END DO
+         END DO
+         CLOSE(30)
       END DO
-
    END SUBROUTINE
 
 END MODULE

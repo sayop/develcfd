@@ -1,0 +1,82 @@
+          DOMAIN ID:   107
+NUMBER OF NEIGHBORS:    26
+      ISTART        IEND      JSTART        JEND      KSTART        KEND
+           1           4           1          20           1           4
+NEIGHBOR ID:   174
+   LOCATION:   -1   -1   -1
+ 
+NEIGHBOR ID:   178
+   LOCATION:   -1   -1    0
+ 
+NEIGHBOR ID:   206
+   LOCATION:   -1   -1    1
+ 
+NEIGHBOR ID:   175
+   LOCATION:   -1    0   -1
+ 
+NEIGHBOR ID:   179
+   LOCATION:   -1    0    0
+ 
+NEIGHBOR ID:   207
+   LOCATION:   -1    0    1
+ 
+NEIGHBOR ID:   176
+   LOCATION:   -1    1   -1
+ 
+NEIGHBOR ID:   180
+   LOCATION:   -1    1    0
+ 
+NEIGHBOR ID:   208
+   LOCATION:   -1    1    1
+ 
+NEIGHBOR ID:    86
+   LOCATION:    0   -1   -1
+ 
+NEIGHBOR ID:   106
+   LOCATION:    0   -1    0
+ 
+NEIGHBOR ID:   202
+   LOCATION:    0   -1    1
+ 
+NEIGHBOR ID:    87
+   LOCATION:    0    0   -1
+ 
+NEIGHBOR ID:   203
+   LOCATION:    0    0    1
+ 
+NEIGHBOR ID:    88
+   LOCATION:    0    1   -1
+ 
+NEIGHBOR ID:   108
+   LOCATION:    0    1    0
+ 
+NEIGHBOR ID:   204
+   LOCATION:    0    1    1
+ 
+NEIGHBOR ID:    38
+   LOCATION:    1   -1   -1
+ 
+NEIGHBOR ID:   102
+   LOCATION:    1   -1    0
+ 
+NEIGHBOR ID:   198
+   LOCATION:    1   -1    1
+ 
+NEIGHBOR ID:    39
+   LOCATION:    1    0   -1
+ 
+NEIGHBOR ID:   103
+   LOCATION:    1    0    0
+ 
+NEIGHBOR ID:   199
+   LOCATION:    1    0    1
+ 
+NEIGHBOR ID:    40
+   LOCATION:    1    1   -1
+ 
+NEIGHBOR ID:   104
+   LOCATION:    1    1    0
+ 
+NEIGHBOR ID:   200
+   LOCATION:    1    1    1
+ 

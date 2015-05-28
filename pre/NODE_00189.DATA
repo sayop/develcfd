@@ -1,0 +1,37 @@
+          DOMAIN ID:   189
+NUMBER OF NEIGHBORS:    11
+      ISTART        IEND      JSTART        JEND      KSTART        KEND
+           1           4           1          20           1          10
+NEIGHBOR ID:   133
+   LOCATION:   -1    0   -1
+ 
+NEIGHBOR ID:    57
+   LOCATION:   -1    0    0
+ 
+NEIGHBOR ID:   134
+   LOCATION:   -1    1   -1
+ 
+NEIGHBOR ID:    58
+   LOCATION:   -1    1    0
+ 
+NEIGHBOR ID:   185
+   LOCATION:    0    0   -1
+ 
+NEIGHBOR ID:   186
+   LOCATION:    0    1   -1
+ 
+NEIGHBOR ID:   190
+   LOCATION:    0    1    0
+ 
+NEIGHBOR ID:   129
+   LOCATION:    1    0   -1
+ 
+NEIGHBOR ID:    93
+   LOCATION:    1    0    0
+ 
+NEIGHBOR ID:   130
+   LOCATION:    1    1   -1
+ 
+NEIGHBOR ID:    94
+   LOCATION:    1    1    0
+ 

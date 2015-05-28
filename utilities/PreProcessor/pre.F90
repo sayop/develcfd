@@ -33,6 +33,9 @@ PROGRAM pre
    !> Find neighbors to each domain
    CALL FindNeighbors(ndomains, dom)
 
+   !> Create ghost-layers with ngc
+   CALL CreateGhostLayers(ndomains, dom)
+
    !> Write NODE files
    CALL WriteNODEfiles(ndomains, dom)
 
