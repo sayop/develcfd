@@ -4,67 +4,23 @@ NUMBER OF NEIGHBORS:    11
            1           3           1          20           1          10
 NEIGHBOR ID:   187
    LOCATION:   -1   -1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   191
    LOCATION:   -1   -1    0
-           3
-          19
-          10
- 
 NEIGHBOR ID:   188
    LOCATION:   -1    0   -1
-           3
-          20
-           4
- 
 NEIGHBOR ID:   192
    LOCATION:   -1    0    0
-           3
-          20
-          10
- 
 NEIGHBOR ID:   131
    LOCATION:    0   -1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:    95
    LOCATION:    0   -1    0
-           3
-          19
-          10
- 
 NEIGHBOR ID:   132
    LOCATION:    0    0   -1
-           3
-          20
-           4
- 
 NEIGHBOR ID:   127
    LOCATION:    1   -1   -1
-           4
-          19
-           4
- 
 NEIGHBOR ID:    55
    LOCATION:    1   -1    0
-           4
-          19
-          10
- 
 NEIGHBOR ID:   128
    LOCATION:    1    0   -1
-           4
-          20
-           4
- 
 NEIGHBOR ID:    56
    LOCATION:    1    0    0
-           4
-          20
-          10
- 

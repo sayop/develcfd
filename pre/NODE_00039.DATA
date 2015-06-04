@@ -4,157 +4,53 @@ NUMBER OF NEIGHBORS:    26
            1           4           1          19           1           4
 NEIGHBOR ID:    82
    LOCATION:   -1   -1   -1
-           3
-          19
-           9
- 
 NEIGHBOR ID:    86
    LOCATION:   -1   -1    0
-           3
-          19
-           4
- 
 NEIGHBOR ID:   106
    LOCATION:   -1   -1    1
-           3
-          19
-           3
- 
 NEIGHBOR ID:    83
    LOCATION:   -1    0   -1
-           3
-          19
-           9
- 
 NEIGHBOR ID:    87
    LOCATION:   -1    0    0
-           3
-          19
-           4
- 
 NEIGHBOR ID:   107
    LOCATION:   -1    0    1
-           3
-          19
-           3
- 
 NEIGHBOR ID:    84
    LOCATION:   -1    1   -1
-           3
-          20
-           9
- 
 NEIGHBOR ID:    88
    LOCATION:   -1    1    0
-           3
-          20
-           4
- 
 NEIGHBOR ID:   108
    LOCATION:   -1    1    1
-           3
-          20
-           3
- 
 NEIGHBOR ID:    26
    LOCATION:    0   -1   -1
-           4
-          19
-           9
- 
 NEIGHBOR ID:    38
    LOCATION:    0   -1    0
-           4
-          19
-           4
- 
 NEIGHBOR ID:   102
    LOCATION:    0   -1    1
-           4
-          19
-           3
- 
 NEIGHBOR ID:    27
    LOCATION:    0    0   -1
-           4
-          19
-           9
- 
 NEIGHBOR ID:   103
    LOCATION:    0    0    1
-           4
-          19
-           3
- 
 NEIGHBOR ID:    28
    LOCATION:    0    1   -1
-           4
-          20
-           9
- 
 NEIGHBOR ID:    40
    LOCATION:    0    1    0
-           4
-          20
-           4
- 
 NEIGHBOR ID:   104
    LOCATION:    0    1    1
-           4
-          20
-           3
- 
 NEIGHBOR ID:     9
    LOCATION:    1   -1   -1
-          10
-          19
-           9
- 
 NEIGHBOR ID:    34
    LOCATION:    1   -1    0
-          10
-          19
-           4
- 
 NEIGHBOR ID:    98
    LOCATION:    1   -1    1
-          10
-          19
-           3
- 
 NEIGHBOR ID:     2
    LOCATION:    1    0   -1
-          10
-          19
-           9
- 
 NEIGHBOR ID:    35
    LOCATION:    1    0    0
-          10
-          19
-           4
- 
 NEIGHBOR ID:    99
    LOCATION:    1    0    1
-          10
-          19
-           3
- 
 NEIGHBOR ID:    13
    LOCATION:    1    1   -1
-          10
-          20
-           9
- 
 NEIGHBOR ID:    36
    LOCATION:    1    1    0
-          10
-          20
-           4
- 
 NEIGHBOR ID:   100
    LOCATION:    1    1    1
-          10
-          20
-           3
- 

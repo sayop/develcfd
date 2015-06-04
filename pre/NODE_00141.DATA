@@ -4,67 +4,23 @@ NUMBER OF NEIGHBORS:    11
            1           9           1          19           1           4
 NEIGHBOR ID:   253
    LOCATION:    0    0   -1
-           9
-          19
-           3
- 
 NEIGHBOR ID:    61
    LOCATION:    0    0    1
-           9
-          19
-          10
- 
 NEIGHBOR ID:   254
    LOCATION:    0    1   -1
-           9
-          19
-           3
- 
 NEIGHBOR ID:   142
    LOCATION:    0    1    0
-           9
-          19
-           4
- 
 NEIGHBOR ID:    62
    LOCATION:    0    1    1
-           9
-          19
-          10
- 
 NEIGHBOR ID:   249
    LOCATION:    1    0   -1
-           4
-          19
-           3
- 
 NEIGHBOR ID:   137
    LOCATION:    1    0    0
-           4
-          19
-           4
- 
 NEIGHBOR ID:    77
    LOCATION:    1    0    1
-           4
-          19
-          10
- 
 NEIGHBOR ID:   250
    LOCATION:    1    1   -1
-           4
-          19
-           3
- 
 NEIGHBOR ID:   138
    LOCATION:    1    1    0
-           4
-          19
-           4
- 
 NEIGHBOR ID:    78
    LOCATION:    1    1    1
-           4
-          19
-          10
- 

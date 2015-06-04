@@ -4,103 +4,35 @@ NUMBER OF NEIGHBORS:    17
            1           3           1          19           1          10
 NEIGHBOR ID:   137
    LOCATION:   -1   -1   -1
-           4
-          19
-           4
- 
 NEIGHBOR ID:    77
    LOCATION:   -1   -1    0
-           4
-          19
-          10
- 
 NEIGHBOR ID:   138
    LOCATION:   -1    0   -1
-           4
-          19
-           4
- 
 NEIGHBOR ID:    78
    LOCATION:   -1    0    0
-           4
-          19
-          10
- 
 NEIGHBOR ID:   139
    LOCATION:   -1    1   -1
-           4
-          19
-           4
- 
 NEIGHBOR ID:    79
    LOCATION:   -1    1    0
-           4
-          19
-          10
- 
 NEIGHBOR ID:   161
    LOCATION:    0   -1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   165
    LOCATION:    0   -1    0
-           3
-          19
-          10
- 
 NEIGHBOR ID:   162
    LOCATION:    0    0   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   163
    LOCATION:    0    1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   167
    LOCATION:    0    1    0
-           3
-          19
-          10
- 
 NEIGHBOR ID:   133
    LOCATION:    1   -1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:    57
    LOCATION:    1   -1    0
-           3
-          19
-          10
- 
 NEIGHBOR ID:   134
    LOCATION:    1    0   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:    58
    LOCATION:    1    0    0
-           3
-          19
-          10
- 
 NEIGHBOR ID:   135
    LOCATION:    1    1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:    59
    LOCATION:    1    1    0
-           3
-          19
-          10
- 

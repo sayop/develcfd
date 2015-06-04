@@ -4,157 +4,53 @@ NUMBER OF NEIGHBORS:    26
            1           3           1          19           1           3
 NEIGHBOR ID:    69
    LOCATION:   -1   -1   -1
-           4
-          19
-           4
- 
 NEIGHBOR ID:   113
    LOCATION:   -1   -1    0
-           4
-          19
-           3
- 
 NEIGHBOR ID:   217
    LOCATION:   -1   -1    1
-           4
-          19
-           3
- 
 NEIGHBOR ID:    70
    LOCATION:   -1    0   -1
-           4
-          19
-           4
- 
 NEIGHBOR ID:   114
    LOCATION:   -1    0    0
-           4
-          19
-           3
- 
 NEIGHBOR ID:   218
    LOCATION:   -1    0    1
-           4
-          19
-           3
- 
 NEIGHBOR ID:    71
    LOCATION:   -1    1   -1
-           4
-          19
-           4
- 
 NEIGHBOR ID:   115
    LOCATION:   -1    1    0
-           4
-          19
-           3
- 
 NEIGHBOR ID:   219
    LOCATION:   -1    1    1
-           4
-          19
-           3
- 
 NEIGHBOR ID:   149
    LOCATION:    0   -1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   153
    LOCATION:    0   -1    0
-           3
-          19
-           3
- 
 NEIGHBOR ID:   213
    LOCATION:    0   -1    1
-           3
-          19
-           3
- 
 NEIGHBOR ID:   150
    LOCATION:    0    0   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   214
    LOCATION:    0    0    1
-           3
-          19
-           3
- 
 NEIGHBOR ID:   151
    LOCATION:    0    1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   155
    LOCATION:    0    1    0
-           3
-          19
-           3
- 
 NEIGHBOR ID:   215
    LOCATION:    0    1    1
-           3
-          19
-           3
- 
 NEIGHBOR ID:    41
    LOCATION:    1   -1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   109
    LOCATION:    1   -1    0
-           3
-          19
-           3
- 
 NEIGHBOR ID:   209
    LOCATION:    1   -1    1
-           3
-          19
-           3
- 
 NEIGHBOR ID:    42
    LOCATION:    1    0   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   110
    LOCATION:    1    0    0
-           3
-          19
-           3
- 
 NEIGHBOR ID:   210
    LOCATION:    1    0    1
-           3
-          19
-           3
- 
 NEIGHBOR ID:    43
    LOCATION:    1    1   -1
-           3
-          19
-           4
- 
 NEIGHBOR ID:   111
    LOCATION:    1    1    0
-           3
-          19
-           3
- 
 NEIGHBOR ID:   211
    LOCATION:    1    1    1
-           3
-          19
-           3
- 

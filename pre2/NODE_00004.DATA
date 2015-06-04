@@ -1,0 +1,8 @@
+          DOMAIN ID:     4
+NUMBER OF NEIGHBORS:     2
+      ISTART        IEND      JSTART        JEND      KSTART        KEND
+           1          20           1          17           1          17
+NEIGHBOR ID:     1
+   LOCATION:   -1    0    0
+NEIGHBOR ID:     3
+   LOCATION:    1    0    0

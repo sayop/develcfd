@@ -1,1 +1,1 @@
-/home_net/ksayop/CFDcourse/develcfd/pre/build/CMakeFiles/pre.x.dir
+/home/sayop/MyCFD/develcfd/pre/build/CMakeFiles/pre.x.dir

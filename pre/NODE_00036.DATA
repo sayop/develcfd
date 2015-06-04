@@ -4,67 +4,23 @@ NUMBER OF NEIGHBORS:    11
            1          10           1          20           1           4
 NEIGHBOR ID:    27
    LOCATION:   -1   -1   -1
-           4
-          19
-           9
- 
 NEIGHBOR ID:    39
    LOCATION:   -1   -1    0
-           4
-          19
-           4
- 
 NEIGHBOR ID:   103
    LOCATION:   -1   -1    1
-           4
-          19
-           3
- 
 NEIGHBOR ID:    28
    LOCATION:   -1    0   -1
-           4
-          20
-           9
- 
 NEIGHBOR ID:    40
    LOCATION:   -1    0    0
-           4
-          20
-           4
- 
 NEIGHBOR ID:   104
    LOCATION:   -1    0    1
-           4
-          20
-           3
- 
 NEIGHBOR ID:     2
    LOCATION:    0   -1   -1
-          10
-          19
-           9
- 
 NEIGHBOR ID:    35
    LOCATION:    0   -1    0
-          10
-          19
-           4
- 
 NEIGHBOR ID:    99
    LOCATION:    0   -1    1
-          10
-          19
-           3
- 
 NEIGHBOR ID:    13
    LOCATION:    0    0   -1
-          10
-          20
-           9
- 
 NEIGHBOR ID:   100
    LOCATION:    0    0    1
-          10
-          20
-           3
- 
