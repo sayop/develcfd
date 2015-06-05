@@ -355,7 +355,7 @@ CONTAINS
       IMPLICIT NONE
       TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
       INTEGER, INTENT(IN) :: ndom, ngc, nstep
-      INTEGER :: m, n, ii, jj, kk, i, j, k, l, ll
+      INTEGER :: m, n, ii, jj, kk, i, j, k, l, ll, iFound
       INTEGER, DIMENSION(3) :: nn
       INTEGER :: iLoopStart, iLoopEnd, &
                  jLoopStart, jLoopEnd, &
@@ -383,147 +383,62 @@ CONTAINS
                   !> n: neighbor domain index
                   n = dom(m)%neighbor(ii,jj,kk)
                   !> Define ghost layer domain looping range
-                  SELECT CASE(ii)
-                  CASE(-1)
-                     iLoopStart = dom(m)%imin
-                     iLoopEnd = dom(m)%istart - 1
-                     IF (n .EQ. 0) THEN
-                        ibase = dom(m)%istart
-                     ELSE
-                        ibase = dom(n)%iend - ngc + 1
-                     END IF
-                  CASE(0)
-                     iLoopStart = dom(m)%istart
-                     iLoopEnd = dom(m)%iend
+                  CALL FindGhostLayerIndices(dom, m, n, ngc, ii, jj, kk, &
+                                             iLoopStart, iLoopEnd, &
+                                             jLoopStart, jLoopEnd, &
+                                             kLoopStart, kLoopEnd, &
+                                             ibase, jbase, kbase)
+
+
+                  SELECT CASE(nstep)
+                  !> STEP 1: Loop for creating ghost layers that can be generated
+                  !>         by extension from innter points and neighbor domains
                   CASE(1)
-                     iLoopStart = dom(m)%iend + 1
-                     iLoopEnd = dom(m)%imax
                      IF (n .EQ. 0) THEN
-                        ibase = dom(m)%iend
-                     ELSE
-                        ibase = dom(n)%istart
-                     END IF
-                  END SELECT
-
-                  SELECT CASE(jj)
-                  CASE(-1)
-                     jLoopStart = dom(m)%jmin
-                     jLoopEnd = dom(m)%jstart - 1
-                     IF (n .EQ. 0) THEN
-                        jbase = dom(m)%jstart
-                     ELSE
-                        jbase = dom(n)%jend - ngc + 1
-                     END IF
-                  CASE(0)
-                     jLoopStart = dom(m)%jstart
-                     jLoopEnd = dom(m)%jend
-                  CASE(1)
-                     jLoopStart = dom(m)%jend + 1
-                     jLoopEnd = dom(m)%jmax
-                     IF (n .EQ. 0) THEN
-                        jbase = dom(m)%jend
-                     ELSE
-                        jbase = dom(n)%jstart
-                     END IF
-                  END SELECT
-
-                  SELECT CASE(kk)
-                  CASE(-1)
-                     kLoopStart = dom(m)%kmin
-                     kLoopEnd = dom(m)%kstart - 1
-                     IF (n .EQ. 0) THEN
-                        kbase = dom(m)%kstart
-                     ELSE
-                        kbase = dom(n)%kend - ngc + 1
-                     END IF
-                  CASE(0)
-                     kLoopStart = dom(m)%kstart
-                     kLoopEnd = dom(m)%kend
-                  CASE(1)
-                     kLoopStart = dom(m)%kend + 1
-                     kLoopEnd = dom(m)%kmax
-                     IF (n .EQ. 0) THEN
-                        kbase = dom(m)%kend
-                     ELSE
-                        kbase = dom(n)%kstart
-                     END IF
-                  END SELECT
-
-
-                  IF (n .EQ. 0) THEN
-                     !> The case that neighbor doesn't exist in the pointing direction
-                     SELECT CASE(nstep)
-                     CASE(1)
                         !> The case with no neighbor domain. It means the domain 
                         !> boundary may be a inflow or outflow, or wall BC.
                         !> Need to extend layers based on inner points
-                        DO i = iLoopStart, iLoopEnd
-                           IF (ii .EQ. 0) ibase = i
-                           DO j = jLoopStart, jLoopEnd
-                              IF (jj .EQ. 0) jbase = j
-                              DO k = kLoopStart, kLoopEnd
-                                 IF (kk .EQ. 0) kbase = k
-                                 dom(m)%x(i,j,k) = 2.0_wp*dom(m)%x(ibase,jbase,kbase) - &
-                                   dom(m)%x(2*ibase - i, 2*jbase - j, 2*kbase - k)
-                                 dom(m)%y(i,j,k) = 2.0_wp*dom(m)%y(ibase,jbase,kbase) - &
-                                   dom(m)%y(2*ibase - i, 2*jbase - j, 2*kbase - k)
-                                 dom(m)%z(i,j,k) = 2.0_wp*dom(m)%z(ibase,jbase,kbase) - &
-                                   dom(m)%z(2*ibase - i, 2*jbase - j, 2*kbase - k)
-                              END DO
-                           END DO
-                        END DO
-                     CASE(2)
-                        !> This step is to create ghost layers that are in
-                        !> the vertices or edges.
-                        nn = 0
-                        SELECT CASE(abs(ii)+abs(jj)+abs(kk))
-                        CASE(2)
-                           DO l = 1, 3
-                              nn(l) = 1
-                              IF ((ii*nn(1) + jj*nn(2) + kk*nn(3)) .EQ. 0) THEN
-                                 nn(l) = 0
-                                 CYCLE
-                              END IF
-                              IF (dom(m)%neighbor(ii*nn(1),jj*nn(2),kk*nn(3)) .NE. 0) THEN
-                                 n = dom(m)%neighbor(ii*nn(1),jj*nn(2),kk*nn(3))
-                              ELSE
-                                 ll = l ! Indicate the direction from the neighbor to point
-                              END IF
-                              nn(l) = 0
-                           END DO
-                           nn(ll) = 1
-                           CALL CreateCornerGhostLayers(dom, m, iLoopStart, iLoopEnd, &
-                                                                jLoopStart, jLoopEnd, &
-                                                                kLoopStart, kLoopEnd, &
-                                                                ii, jj, kk, nn, n, ngc)
-                        CASE(3)
-                        END SELECT
-                     END SELECT
-                  ELSE
-                     !> The case that the domain faces with the neighbor domain.
-                     !> Need to communicate with the node points in the neighbor
-                     !> domain.
-                     !> Extract the node point data from neighbors
-                     iRecv = ibase
-                     DO i = iLoopStart, iLoopEnd
-                        IF (ii .EQ. 0) iRecv = i
-                        jRecv = jbase
-                        DO j = jLoopStart, jLoopEnd
-                           IF (jj .EQ. 0) jRecv = j
-                           kRecv = kbase
-                           DO k = kLoopStart, kLoopEnd
-                              IF (kk .EQ. 0) kRecv = k
-                              dom(m)%x(i,j,k) = dom(n)%x(iRecv,jRecv,kRecv)
-                              dom(m)%y(i,j,k) = dom(n)%y(iRecv,jRecv,kRecv)
-                              dom(m)%z(i,j,k) = dom(n)%z(iRecv,jRecv,kRecv)
-                              kRecv = kRecv + 1
-                           END DO
-                           jRecv = jRecv + 1
-                        END DO
-                        iRecv = iRecv + 1
-                     END DO
-
-                  END IF
+                        CALL CreateGhostLayerFromInnerPoints(dom, m, ii, jj, kk, &
+                                                             iLoopStart, iLoopEnd, &
+                                                             jLoopStart, jLoopEnd, &
+                                                             kLoopStart, kLoopEnd, &
+                                                             ibase, jbase, kbase)
+                     ELSE
+                        !> The case that the domain faces with the neighbor domain.
+                        !> Need to communicate with the node points in the neighbor
+                        !> domain.
+                        !> Extract the node point data from neighbors
+                        CALL CreateGhostLayerFromNeighbor(dom, m, n, ii, jj, kk, &
+                                                          iLoopStart, iLoopEnd, &
+                                                          jLoopStart, jLoopEnd, &
+                                                          kLoopStart, kLoopEnd, &
+                                                          ibase, jbase, kbase)
+                     END IF
+                  !> STEP 2: Loop for creating ghost layers located in the corner 
+                  !>         of vertices or edges. 
+                  !>         There are two cases: 
+                  !>         (1) From the neighbors 
+                  !>         (2) From the corresponding domain's ghost layers 
+                  !>             that has been generated in STEP1
+                  CASE(2)
+                     IF (n .NE. 0) THEN
+                        !> STEP2-(1)
+                        !> This is the case that ghost layer overlaps with a neighbor
+                        !> Create the layers from the neighbor domain node points
+                        CALL CreateGhostLayerFromNeighbor(dom, m, n, ii, jj, kk, &
+                                                          iLoopStart, iLoopEnd, &
+                                                          jLoopStart, jLoopEnd, &
+                                                          kLoopStart, kLoopEnd, &
+                                                          ibase, jbase, kbase)
+                     ELSE
+                        !> STEP2-(2)
+                        CALL CreateCornerGhostLayers(dom, m, ngc, ii, jj, kk, &
+                                                     iLoopstart, iLoopEnd, &
+                                                     jLoopstart, jLoopEnd, &
+                                                     kLoopstart, kLoopEnd, &
+                                                     ibase, jbase, kbase)
+                     END IF
+                  END SELECT
 
                END DO kkLoop
             END DO jjLoop
@@ -533,59 +448,109 @@ CONTAINS
 
    END SUBROUTINE
 
-
 !-----------------------------------------------------------------------------!
-   SUBROUTINE CreateCornerGhostLayers(dom, m, iLoopStart, iLoopEnd, &
+   SUBROUTINE CreateCornerGhostLayers(dom, m, ngc, ii, jj, kk, &
+                                              iLoopStart, iLoopEnd, &
                                               jLoopStart, jLoopEnd, &
                                               kLoopStart, kLoopEnd, &
-                                              ii, jj, kk, nn, n, ngc)
+                                              ibase, jbase, kbase)
 !-----------------------------------------------------------------------------!
       USE MultiDomainVars_m, ONLY: MultiDomain
 
       IMPLICIT NONE
       TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      INTEGER, DIMENSION(3), INTENT(IN) :: nn
-      INTEGER, INTENT(IN) :: ngc, m, n
+      INTEGER, INTENT(IN) :: ngc, m
       INTEGER, INTENT(IN) :: iLoopStart, iLoopEnd, &
                              jLoopStart, jLoopEnd, &
                              kLoopStart, kLoopEnd
       INTEGER, INTENT(IN) :: ii, jj, kk
-      INTEGER :: iRecv, jRecv, kRecv, ibase, jbase, kbase
-      INTEGER :: i, j, k
-!      INTEGER, DIMENSION(3), INTENT(IN) :: nn
+      INTEGER :: i, j, k, ibase, jbase, kbase
 
-      write(*,*) 'm=', m, nn
-      IF (n .EQ. 0) RETURN
-      SELECT CASE(ii)
-      CASE(-1)
-         ibase = dom(n)%iend - ngc + 1
-      CASE(1)
-         ibase = dom(n)%istart
-      END SELECT
+      DO i = iLoopStart, iLoopEnd
+         IF (ii .EQ. 0) ibase = i
+         DO j = jLoopStart, jLoopEnd
+            IF (jj .EQ. 0) jbase = j
+            DO k = kLoopStart, kLoopEnd
+               IF (kk .EQ. 0) kbase = k
+               dom(m)%x(i,j,k) = -2*dom(m)%x(ibase,jbase,kbase) + &
+                                 dom(m)%x(i,jbase,kbase) + &
+                                 dom(m)%x(ibase,j,kbase) + &
+                                 dom(m)%x(ibase,jbase,k)
+               dom(m)%y(i,j,k) = -2*dom(m)%y(ibase,jbase,kbase) + &
+                                 dom(m)%y(i,jbase,kbase) + &
+                                 dom(m)%y(ibase,j,kbase) + &
+                                 dom(m)%y(ibase,jbase,k)
+               dom(m)%z(i,j,k) = -2*dom(m)%z(ibase,jbase,kbase) + &
+                                 dom(m)%z(i,jbase,kbase) + &
+                                 dom(m)%z(ibase,j,kbase) + &
+                                 dom(m)%z(ibase,jbase,k)
+            END DO
+         END DO
+      END DO
+   END SUBROUTINE
 
-      SELECT CASE(jj)
-      CASE(-1)
-         jbase = dom(n)%jend - ngc + 1
-      CASE(1)
-         jbase = dom(n)%jstart
-      END SELECT
+   
+!-----------------------------------------------------------------------------!
+   SUBROUTINE CreateGhostLayerFromInnerPoints(dom, m, ii, jj, kk, &
+                                              iLoopStart, iLoopEnd, &
+                                              jLoopStart, jLoopEnd, &
+                                              kLoopStart, kLoopEnd, &
+                                              ibase, jbase, kbase)
+!-----------------------------------------------------------------------------!
+      USE MultiDomainVars_m, ONLY: MultiDomain
 
-      SELECT CASE(kk)
-      CASE(-1)
-         kbase = dom(n)%kend - ngc + 1
-      CASE(1)
-         kbase = dom(n)%kstart
-      END SELECT
+      IMPLICIT NONE
+      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      INTEGER, INTENT(IN) :: m, ii, jj, kk, iLoopStart, iLoopEnd, &
+                                            jLoopStart, jLoopEnd, &
+                                            kLoopStart, kLoopEnd
+      INTEGER :: i, j, k, ibase, jbase, kbase
+
+      DO i = iLoopStart, iLoopEnd
+         IF (ii .EQ. 0) ibase = i
+         DO j = jLoopStart, jLoopEnd
+            IF (jj .EQ. 0) jbase = j
+            DO k = kLoopStart, kLoopEnd
+               IF (kk .EQ. 0) kbase = k
+               dom(m)%x(i,j,k) = 2.0_wp*dom(m)%x(ibase,jbase,kbase) - &
+                        dom(m)%x(2*ibase - i, 2*jbase - j, 2*kbase - k)
+               dom(m)%y(i,j,k) = 2.0_wp*dom(m)%y(ibase,jbase,kbase) - &
+                        dom(m)%y(2*ibase - i, 2*jbase - j, 2*kbase - k)
+               dom(m)%z(i,j,k) = 2.0_wp*dom(m)%z(ibase,jbase,kbase) - &
+                        dom(m)%z(2*ibase - i, 2*jbase - j, 2*kbase - k)
+            END DO
+         END DO
+      END DO
+
+   END SUBROUTINE
+
+
+!-----------------------------------------------------------------------------!
+   SUBROUTINE CreateGhostLayerFromNeighbor(dom, m, n, ii, jj, kk, &
+                                           iLoopStart, iLoopEnd, &
+                                           jLoopStart, jLoopEnd, &
+                                           kLoopStart, kLoopEnd, &
+                                           ibase, jbase, kbase)
+!-----------------------------------------------------------------------------!
+      USE MultiDomainVars_m, ONLY: MultiDomain
+
+      IMPLICIT NONE
+      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      INTEGER, INTENT(IN) :: m, n, ii, jj, kk, iLoopStart, iLoopEnd, &
+                                               jLoopStart, jLoopEnd, &
+                                               kLoopStart, kLoopEnd
+      INTEGER :: i, j, k, ibase, jbase, kbase, &
+                 iRecv, jRecv, kRecv
 
       iRecv = ibase
       DO i = iLoopStart, iLoopEnd
-         IF ((ii .EQ. 0) .OR. (nn(1) .EQ. 1)) iRecv = i
+         IF (ii .EQ. 0) iRecv = i
          jRecv = jbase
          DO j = jLoopStart, jLoopEnd
-            IF ((jj .EQ. 0) .OR. (nn(2) .EQ. 1)) jRecv = j
+            IF (jj .EQ. 0) jRecv = j
             kRecv = kbase
             DO k = kLoopStart, kLoopEnd
-               IF ((kk .EQ. 0) .OR. (nn(3) .EQ. 1)) kRecv = k
+               IF (kk .EQ. 0) kRecv = k
                dom(m)%x(i,j,k) = dom(n)%x(iRecv,jRecv,kRecv)
                dom(m)%y(i,j,k) = dom(n)%y(iRecv,jRecv,kRecv)
                dom(m)%z(i,j,k) = dom(n)%z(iRecv,jRecv,kRecv)
@@ -597,6 +562,92 @@ CONTAINS
       END DO
 
    END SUBROUTINE
+
+!-----------------------------------------------------------------------------!
+   SUBROUTINE FindGhostLayerIndices(dom, m, n, ngc, ii, jj, kk, &
+                                    iLoopStart, iLoopEnd, &
+                                    jLoopStart, jLoopEnd, &
+                                    kLoopStart, kLoopEnd, &
+                                    ibase, jbase, kbase)
+!-----------------------------------------------------------------------------!
+      USE MultiDomainVars_m, ONLY: MultiDomain
+
+      IMPLICIT NONE
+      TYPE(MultiDomain), DIMENSION(:), INTENT(IN) :: dom
+      INTEGER, INTENT(OUT) :: iLoopStart, iLoopEnd, &
+                              jLoopStart, jLoopEnd, &
+                              kLoopStart, kLoopEnd, &
+                              ibase, jbase, kbase
+      INTEGER, INTENT(IN) :: m, n, ngc, ii, jj, kk
+
+      SELECT CASE(ii)
+      CASE(-1)
+         iLoopStart = dom(m)%imin
+         iLoopEnd = dom(m)%istart - 1
+         IF (n .EQ. 0) THEN
+            ibase = dom(m)%istart
+         ELSE
+            ibase = dom(n)%iend - ngc + 1
+         END IF
+      CASE(0)
+         iLoopStart = dom(m)%istart
+         iLoopEnd = dom(m)%iend
+      CASE(1)
+         iLoopStart = dom(m)%iend + 1
+         iLoopEnd = dom(m)%imax
+         IF (n .EQ. 0) THEN
+            ibase = dom(m)%iend
+         ELSE
+            ibase = dom(n)%istart
+         END IF
+      END SELECT
+
+      SELECT CASE(jj)
+      CASE(-1)
+         jLoopStart = dom(m)%jmin
+         jLoopEnd = dom(m)%jstart - 1
+         IF (n .EQ. 0) THEN
+            jbase = dom(m)%jstart
+         ELSE
+            jbase = dom(n)%jend - ngc + 1
+         END IF
+      CASE(0)
+         jLoopStart = dom(m)%jstart
+         jLoopEnd = dom(m)%jend
+      CASE(1)
+         jLoopStart = dom(m)%jend + 1
+         jLoopEnd = dom(m)%jmax
+         IF (n .EQ. 0) THEN
+            jbase = dom(m)%jend
+         ELSE
+            jbase = dom(n)%jstart
+         END IF
+      END SELECT
+
+      SELECT CASE(kk)
+      CASE(-1)
+         kLoopStart = dom(m)%kmin
+         kLoopEnd = dom(m)%kstart - 1
+         IF (n .EQ. 0) THEN
+            kbase = dom(m)%kstart
+         ELSE
+            kbase = dom(n)%kend - ngc + 1
+         END IF
+      CASE(0)
+         kLoopStart = dom(m)%kstart
+         kLoopEnd = dom(m)%kend
+      CASE(1)
+         kLoopStart = dom(m)%kend + 1
+         kLoopEnd = dom(m)%kmax
+         IF (n .EQ. 0) THEN
+            kbase = dom(m)%kend
+         ELSE
+            kbase = dom(n)%kstart
+         END IF
+      END SELECT
+
+   END SUBROUTINE
+
 
 !-----------------------------------------------------------------------------!
    SUBROUTINE ArrangeNODEpoints(ndom, dom)
