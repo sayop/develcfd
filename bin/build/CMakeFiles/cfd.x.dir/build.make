@@ -112,20 +112,20 @@ CMakeFiles/cfd.x.dir/io/io.F90.o.provides: CMakeFiles/cfd.x.dir/io/io.F90.o.requ
 
 CMakeFiles/cfd.x.dir/io/io.F90.o.provides.build: CMakeFiles/cfd.x.dir/io/io.F90.o
 
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o: CMakeFiles/cfd.x.dir/flags.make
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o: /home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o: CMakeFiles/cfd.x.dir/flags.make
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o: /home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_5)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o"
-	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90 -o CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o"
+	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90 -o CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o
 
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.requires:
-.PHONY : CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.requires
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.requires:
+.PHONY : CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.requires
 
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides: CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.requires
-	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides.build
-.PHONY : CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides: CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.requires
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides.build
+.PHONY : CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides
 
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides.build: CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides.build: CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o
 
 CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o: CMakeFiles/cfd.x.dir/flags.make
 CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o: /home/sayop/MyCFD/develcfd/src/variables/FlowVariables.F90
@@ -157,20 +157,20 @@ CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o.provides: CMakeFiles/c
 
 CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o.provides.build: CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o
 
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o: CMakeFiles/cfd.x.dir/flags.make
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o: /home/sayop/MyCFD/develcfd/src/multidomain/InitMultiDomain.F90
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o: CMakeFiles/cfd.x.dir/flags.make
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o: /home/sayop/MyCFD/develcfd/src/multidomain/InitMultiBlock.F90
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles $(CMAKE_PROGRESS_8)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o"
-	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/src/multidomain/InitMultiDomain.F90 -o CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building Fortran object CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o"
+	/usr/bin/gfortran  $(Fortran_DEFINES) $(Fortran_FLAGS) -c /home/sayop/MyCFD/develcfd/src/multidomain/InitMultiBlock.F90 -o CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o
 
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires:
-.PHONY : CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires:
+.PHONY : CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires
 
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides: CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires
-	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides.build
-.PHONY : CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides: CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides.build
+.PHONY : CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides
 
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides.build: CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides.build: CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o
 
 # Object files for target cfd.x
 cfd_x_OBJECTS = \
@@ -178,10 +178,10 @@ cfd_x_OBJECTS = \
 "CMakeFiles/cfd.x.dir/main/Parameters.F90.o" \
 "CMakeFiles/cfd.x.dir/io/input.f90.o" \
 "CMakeFiles/cfd.x.dir/io/io.F90.o" \
-"CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o" \
+"CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o" \
 "CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o" \
 "CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o" \
-"CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o"
+"CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o"
 
 # External object files for target cfd.x
 cfd_x_EXTERNAL_OBJECTS =
@@ -190,10 +190,10 @@ cfd.x: CMakeFiles/cfd.x.dir/main/main.F90.o
 cfd.x: CMakeFiles/cfd.x.dir/main/Parameters.F90.o
 cfd.x: CMakeFiles/cfd.x.dir/io/input.f90.o
 cfd.x: CMakeFiles/cfd.x.dir/io/io.F90.o
-cfd.x: CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o
+cfd.x: CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o
 cfd.x: CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o
 cfd.x: CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o
-cfd.x: CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o
+cfd.x: CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o
 cfd.x: CMakeFiles/cfd.x.dir/build.make
 cfd.x: CMakeFiles/cfd.x.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking Fortran executable cfd.x"
@@ -207,10 +207,10 @@ CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/main/main.F90.o.requires
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/main/Parameters.F90.o.requires
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/io/input.f90.o.requires
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/io/io.F90.o.requires
-CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.requires
+CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.requires
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o.requires
 CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o.requires
-CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires
+CMakeFiles/cfd.x.dir/requires: CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires
 .PHONY : CMakeFiles/cfd.x.dir/requires
 
 CMakeFiles/cfd.x.dir/clean:

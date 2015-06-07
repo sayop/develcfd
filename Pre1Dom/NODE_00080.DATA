@@ -1,0 +1,19 @@
+          DOMAIN ID:     1
+           BLOCK ID:    80
+NUMBER OF NEIGHBORS:     7
+      ISTART        IEND      JSTART        JEND      KSTART        KEND
+          17          21          16          21          16          21
+NEIGHBOR ID:    59
+   LOCATION:   -1   -1   -1
+NEIGHBOR ID:    60
+   LOCATION:   -1   -1    0
+NEIGHBOR ID:    63
+   LOCATION:   -1    0   -1
+NEIGHBOR ID:    64
+   LOCATION:   -1    0    0
+NEIGHBOR ID:    75
+   LOCATION:    0   -1   -1
+NEIGHBOR ID:    76
+   LOCATION:    0   -1    0
+NEIGHBOR ID:    79
+   LOCATION:    0    0   -1

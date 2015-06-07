@@ -138,13 +138,13 @@ home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o:
 	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o
 .PHONY : home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o
 
-home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o: home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o
+home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.o: home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o
+.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.o
 
 # target to build an object file
-home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o:
-	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
+home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o:
+	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o
+.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o
 
 io/input.o: io/input.f90.o
 .PHONY : io/input.o
@@ -174,7 +174,7 @@ help:
 	@echo "... PreSetup.o"
 	@echo "... home/sayop/MyCFD/develcfd/src/io/io.o"
 	@echo "... home/sayop/MyCFD/develcfd/src/main/Parameters.o"
-	@echo "... home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o"
+	@echo "... home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.o"
 	@echo "... io/input.o"
 	@echo "... pre.o"
 .PHONY : help

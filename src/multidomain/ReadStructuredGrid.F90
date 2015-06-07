@@ -8,90 +8,90 @@ MODULE ReadStructuredGrid_m
 CONTAINS
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE ReadStructuredGrid(ndomains, dom)
+   SUBROUTINE ReadStructuredGrid(nblk, blk)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain, ngc
+      USE MultiBlockVars_m, ONLY: MultiBlock, ngc
 
       IMPLICIT NONE
-      !> ndomains: number of domains read from input file
-      !> ndom: number of domains read from grid file
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      INTEGER, INTENT(IN) :: ndomains
-      INTEGER :: ndom
+      !> nblk: number of blocks read from input file
+      !> nblocks: number of blocks read from grid file
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk
+      INTEGER :: nblocks
       INTEGER :: i, j, k
       INTEGER :: n, m
       INTEGER, DIMENSION(:), ALLOCATABLE :: ni, nj, nk
       REAL, DIMENSION(:,:,:,:), ALLOCATABLE :: x, y, z
-      CHARACTER(LEN=128) GRIDFILE
+      CHARACTER(LEN=128) :: GRIDFILE
 
       WRITE(*,*) 'Read Structured grid in plot3d file format'
 
       GRIDFILE = 'grid.dat'
       OPEN(10, FILE = GRIDFILE, FORM = "FORMATTED")
-      READ(10,*) ndom
-      IF (ndom .NE. ndomains) THEN
-         WRITE(*,*) 'WARNING: Please check "ndomain" in input file.' 
-         WRITE(*,*) 'The number of domain read from grid is NOT equal to "ndomain".'
+      READ(10,*) nblocks
+      IF (nblocks .NE. nblk) THEN
+         WRITE(*,*) 'WARNING: Please check "nblk" in input file.' 
+         WRITE(*,*) 'The number of blocks read from grid is NOT equal to "nblk".'
          STOP
       END IF
 
-      ALLOCATE(ni(ndomains)) 
-      ALLOCATE(nj(ndomains)) 
-      ALLOCATE(nk(ndomains))
+      ALLOCATE(ni(nblk)) 
+      ALLOCATE(nj(nblk)) 
+      ALLOCATE(nk(nblk))
 
-      !> Read domain size
-      DO m = 1, ndom
-         READ(10,*) dom(m)%iend, dom(m)%jend, dom(m)%kend
-         !> Initialize domain start, and end points
-         dom(m)%isize = dom(m)%iend + 2*ngc
-         dom(m)%jsize = dom(m)%jend + 2*ngc
-         dom(m)%ksize = dom(m)%kend + 2*ngc
-         dom(m)%imin = 1 - ngc
-         dom(m)%jmin = 1 - ngc
-         dom(m)%kmin = 1 - ngc
-         dom(m)%imax = dom(m)%iend + ngc
-         dom(m)%jmax = dom(m)%jend + ngc
-         dom(m)%kmax = dom(m)%kend + ngc
-         dom(m)%istart = 1
-         dom(m)%jstart = 1
-         dom(m)%kstart = 1
-         ALLOCATE(dom(m)%x(dom(m)%imin:dom(m)%imax, &
-                           dom(m)%jmin:dom(m)%jmax, &
-                           dom(m)%kmin:dom(m)%kmax))
-         ALLOCATE(dom(m)%y(dom(m)%imin:dom(m)%imax, &
-                           dom(m)%jmin:dom(m)%jmax, &
-                           dom(m)%kmin:dom(m)%kmax))
-         ALLOCATE(dom(m)%z(dom(m)%imin:dom(m)%imax, &
-                           dom(m)%jmin:dom(m)%jmax, &
-                           dom(m)%kmin:dom(m)%kmax))
+      !> Read block size
+      DO m = 1, nblk
+         READ(10,*) blk(m)%iend, blk(m)%jend, blk(m)%kend
+         !> Initialize block start, and end points
+         blk(m)%isize = blk(m)%iend + 2*ngc
+         blk(m)%jsize = blk(m)%jend + 2*ngc
+         blk(m)%ksize = blk(m)%kend + 2*ngc
+         blk(m)%imin = 1 - ngc
+         blk(m)%jmin = 1 - ngc
+         blk(m)%kmin = 1 - ngc
+         blk(m)%imax = blk(m)%iend + ngc
+         blk(m)%jmax = blk(m)%jend + ngc
+         blk(m)%kmax = blk(m)%kend + ngc
+         blk(m)%istart = 1
+         blk(m)%jstart = 1
+         blk(m)%kstart = 1
+         ALLOCATE(blk(m)%x(blk(m)%imin:blk(m)%imax, &
+                           blk(m)%jmin:blk(m)%jmax, &
+                           blk(m)%kmin:blk(m)%kmax))
+         ALLOCATE(blk(m)%y(blk(m)%imin:blk(m)%imax, &
+                           blk(m)%jmin:blk(m)%jmax, &
+                           blk(m)%kmin:blk(m)%kmax))
+         ALLOCATE(blk(m)%z(blk(m)%imin:blk(m)%imax, &
+                           blk(m)%jmin:blk(m)%jmax, &
+                           blk(m)%kmin:blk(m)%kmax))
       END DO
 
       !> Read node point coordinates
-      DO m = 1, ndom
+      DO m = 1, nblk
          READ(10,*) &
-         (((dom(m)%x(i,j,k), i=dom(m)%istart, dom(m)%iend), &
-                             j=dom(m)%jstart, dom(m)%jend), &
-                             k=dom(m)%kstart, dom(m)%kend), &
-         (((dom(m)%y(i,j,k), i=dom(m)%istart, dom(m)%iend), &
-                             j=dom(m)%jstart, dom(m)%jend), &
-                             k=dom(m)%kstart, dom(m)%kend), &
-         (((dom(m)%z(i,j,k), i=dom(m)%istart, dom(m)%iend), &
-                             j=dom(m)%jstart, dom(m)%jend), &
-                             k=dom(m)%kstart, dom(m)%kend)
+         (((blk(m)%x(i,j,k), i=blk(m)%istart, blk(m)%iend), &
+                             j=blk(m)%jstart, blk(m)%jend), &
+                             k=blk(m)%kstart, blk(m)%kend), &
+         (((blk(m)%y(i,j,k), i=blk(m)%istart, blk(m)%iend), &
+                             j=blk(m)%jstart, blk(m)%jend), &
+                             k=blk(m)%kstart, blk(m)%kend), &
+         (((blk(m)%z(i,j,k), i=blk(m)%istart, blk(m)%iend), &
+                             j=blk(m)%jstart, blk(m)%jend), &
+                             k=blk(m)%kstart, blk(m)%kend)
       END DO
       CLOSE(10)
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE ReadBCinfo(ndom, dom)
+   SUBROUTINE ReadBCinfo(nblk, blk)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      INTEGER, INTENT(IN) :: ndom
-      INTEGER :: m, idom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk
+      INTEGER :: m, iblk
       CHARACTER(LEN=128) BCFILE
 
       WRITE(*,*) 'Read boundary condition info for structured grid'
@@ -99,10 +99,10 @@ CONTAINS
       BCFILE = 'bcinfo.dat'
       OPEN(10, FILE = BCFILE, FORM = "FORMATTED")
       READ(10,*) 
-      DO m = 1, ndom
-         !> Allocate bc_index arrays
-         READ(10,*) idom, dom(m)%bc_index(
-      END DO
+!      DO m = 1, nblk
+!         !> Allocate bc_index arrays
+!         READ(10,*) iblk, blk(m)%bc_index(iblk)
+!      END DO
       CLOSE(10)
 
    END SUBROUTINE

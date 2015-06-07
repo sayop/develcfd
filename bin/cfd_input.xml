@@ -8,11 +8,12 @@
       <RunTimeParameters>
          <restart>0</restart>
       </RunTimeParameters>
-      <MultiDomain>
-         <ndomain>8</ndomain>
+      <MultiBlock>
+         <ndomain>256</ndomain>
+         <nblk>256</nblk>
          <ngc>2</ngc>
          <ngls>2</ngls>
-      </MultiDomain>
+      </MultiBlock>
       <Geometry>
          <xlen>0.000000</xlen>
          <ylen>0.000000</ylen>

@@ -8,10 +8,10 @@ SET(CMAKE_DEPENDS_CHECK_Fortran
   "/home/sayop/MyCFD/develcfd/src/io/io.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/io/io.F90.o"
   "/home/sayop/MyCFD/develcfd/src/main/Parameters.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/main/Parameters.F90.o"
   "/home/sayop/MyCFD/develcfd/src/main/main.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/main/main.F90.o"
-  "/home/sayop/MyCFD/develcfd/src/multidomain/InitMultiDomain.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o"
+  "/home/sayop/MyCFD/develcfd/src/multidomain/InitMultiBlock.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o"
   "/home/sayop/MyCFD/develcfd/src/multidomain/ReadStructuredGrid.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o"
   "/home/sayop/MyCFD/develcfd/src/variables/FlowVariables.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o"
-  "/home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o"
+  "/home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90" "/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o"
   )
 SET(CMAKE_Fortran_COMPILER_ID "GNU")
 

@@ -4,12 +4,15 @@
 
 PROGRAM pre
    USE Parameters_m, ONLY: wp
-   USE MultiDomainVars_m
+   USE MultiBlockVars_m
    USE PreSetup_m
+   USE CreateGrid_m
    USE io_m
 
    IMPLICIT NONE
+   TYPE(MultiBlock), DIMENSION(:), ALLOCATABLE :: blk
    TYPE(MultiDomain), DIMENSION(:), ALLOCATABLE :: dom
+   CHARACTER(LEN=128) :: GRIDFILE
 
    WRITE(*,*) '#############################################'
    WRITE(*,*) '### PreProcessor: GRID generation program ###'
@@ -17,28 +20,37 @@ PROGRAM pre
    !CALL WriteInputFiles()
    CALL ReadInputFiles()
 
-   !> Initialize global variables for multidomain setup
-   ndomains = input_data%MultiDomain%ndomain
-   ngc      = input_data%MultiDomain%ngc
+   !> Initialize global variables for multiblock setup
+   ndomain = input_data%MultiBlock%ndomain
+   nblk    = input_data%MultiBlock%nblk
+   ngc     = input_data%MultiBlock%ngc
 
-   !> Allocate multidomain variable arrays
-   ALLOCATE(dom(ndomains))
+   !> Allocate multidomain/multiblock variable arrays
+   ALLOCATE(dom(ndomain))
+   ALLOCATE(blk(nblk))
 
+#ifdef CREATE_GRID
+   !> Create 1domain grid
+   CALL Create1DomainGrid(ndomain, nblk, dom, blk, ngc)
+
+#else
    !> Read grid data for multidomain configuration in plot3d format
-   CALL ReadPlot3DGrid(ndomains, dom, ngc)
+   CALL ReadPlot3DGrid(ndomain, nblk, dom, blk, ngc)
+#endif
 
    !> Read boundary condition info
-   CALL ReadBCinfo(ndomains, dom)
+   !CALL ReadBCinfo(nblk, blk)
 
-   !> Find neighbors to each domain
-   CALL FindNeighbors(ndomains, dom)
+   !> Find neighbors to each block
+   CALL FindNeighbors(nblk, blk)
 
    !> Create ghost-layers with ngc
-   CALL CreateGhostLayers(ndomains, dom, ngc)
+   CALL CreateGhostLayers(nblk, blk, ngc)
 
    !> Write NODE files
-   CALL WriteNODEfiles(ndomains, dom)
+   CALL WriteNODEfiles(nblk, blk)
 
    !> Write a grid file for simulation
-   CALL WriteGRID(ndomains, dom)
+   GRIDFILE = 'GRID.DATA'
+   CALL WriteGRID(nblk, blk, GRIDFILE)
 END PROGRAM pre

@@ -1,4 +1,4 @@
-!> \file: ReadStructuredGrid.F90
+!> \file: PreSetup.F90
 !> \author: Sayop Kim
 !> \brief: Provides routines to read structured grid in plot3d file format.
 
@@ -8,87 +8,108 @@ MODULE PreSetup_m
 CONTAINS
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE ReadPlot3DGrid(ndomains, dom, ngc)
+   SUBROUTINE ReadPlot3DGrid(ndomain, nblk, dom, blk, ngc)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain
 
       IMPLICIT NONE
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      !> ndomains: number of domains read from input file
-      !> ndom: number of domains read from grid file
-      INTEGER, INTENT(IN) :: ndomains, ngc
-      INTEGER :: ndom
+      !> nblk: number of blocks read from input file
+      !> nblock: number of blocks read from grid file
+      INTEGER, INTENT(IN) :: ndomain, nblk, ngc
+      INTEGER :: nblock
       INTEGER :: i, j, k
       INTEGER :: n, m
-      REAL, DIMENSION(:,:,:,:), ALLOCATABLE :: x, y, z
-      CHARACTER(LEN=128) GRIDFILE
-
-      WRITE(*,*) '# Reading Structured grid in plot3d.'
+      REAL(KIND=wp), DIMENSION(:,:,:,:), ALLOCATABLE :: x, y, z
+      CHARACTER(LEN=128) :: GRIDFILE
 
       GRIDFILE = 'grid.dat'
+      WRITE(*,*) '# Reading PLOT3D structured grid file: ', GRIDFILE
+
       OPEN(10, FILE = GRIDFILE, FORM = "FORMATTED")
-      READ(10,*) ndom
-      IF (ndom .NE. ndomains) THEN
-         WRITE(*,*) 'WARNING: Please check "ndomain" in input file.'
-         WRITE(*,*) 'The number of domain read from grid is NOT equal to "ndomain".'
+      READ(10,*) nblock
+      IF (nblock .NE. nblk) THEN
+         WRITE(*,*) 'WARNING: Please check "nblk" in input file.'
+         WRITE(*,*) 'The number of blocks read from grid is NOT equal to "nblk".'
          STOP
       END IF
 
-      !> Read domain size
-      DO m = 1, ndom
-         READ(10,*) dom(m)%isize, dom(m)%jsize, dom(m)%ksize
+      IF (ndomain .NE. nblk) THEN
+         WRITE(*,*) '--------------------------------------------------------------'
+         WRITE(*,*) 'WARNING: Please check "ndomain" and "nblk" in input file.'
+         WRITE(*,*) 'The number of domains should be same as the number of blocks.'
+         WRITE(*,*) '--------------------------------------------------------------'
+         STOP
+      END IF
+
+      !> Read block size
+      DO m = 1, nblock
+         READ(10,*) blk(m)%isize, blk(m)%jsize, blk(m)%ksize
          !> -start, -end indicate the start and end node point 
-         !> within a inner domain, excluding ghost layers.
+         !> within a inner block, excluding ghost layers.
          !> here, -start and -end variables are assigned 1 and -size, respectivcely.
+         blk(m)%istart = 1
+         blk(m)%jstart = 1
+         blk(m)%kstart = 1
+         blk(m)%iend = blk(m)%isize
+         blk(m)%jend = blk(m)%jsize
+         blk(m)%kend = blk(m)%ksize
+         blk(m)%imin = blk(m)%istart
+         blk(m)%jmin = blk(m)%jstart
+         blk(m)%kmin = blk(m)%kstart
+         blk(m)%imax = blk(m)%iend
+         blk(m)%jmax = blk(m)%jend
+         blk(m)%kmax = blk(m)%kend
+         ALLOCATE(blk(m)%x(1-ngc:blk(m)%isize+ngc, &
+                           1-ngc:blk(m)%jsize+ngc, &
+                           1-ngc:blk(m)%ksize+ngc))
+         ALLOCATE(blk(m)%y(1-ngc:blk(m)%isize+ngc, &
+                           1-ngc:blk(m)%jsize+ngc, &
+                           1-ngc:blk(m)%ksize+ngc))
+         ALLOCATE(blk(m)%z(1-ngc:blk(m)%isize+ngc, &
+                           1-ngc:blk(m)%jsize+ngc, &
+                           1-ngc:blk(m)%ksize+ngc))
+         blk(m)%domainID = m
+
+         !> Initialize domain info
          dom(m)%istart = 1
          dom(m)%jstart = 1
          dom(m)%kstart = 1
-         dom(m)%iend = dom(m)%isize
-         dom(m)%jend = dom(m)%jsize
-         dom(m)%kend = dom(m)%ksize
-         dom(m)%imin = dom(m)%istart
-         dom(m)%jmin = dom(m)%jstart
-         dom(m)%kmin = dom(m)%kstart
-         dom(m)%imax = dom(m)%iend
-         dom(m)%jmax = dom(m)%jend
-         dom(m)%kmax = dom(m)%kend
-         ALLOCATE(dom(m)%x(1-ngc:dom(m)%isize+ngc, &
-                           1-ngc:dom(m)%jsize+ngc, &
-                           1-ngc:dom(m)%ksize+ngc))
-         ALLOCATE(dom(m)%y(1-ngc:dom(m)%isize+ngc, &
-                           1-ngc:dom(m)%jsize+ngc, &
-                           1-ngc:dom(m)%ksize+ngc))
-         ALLOCATE(dom(m)%z(1-ngc:dom(m)%isize+ngc, &
-                           1-ngc:dom(m)%jsize+ngc, &
-                           1-ngc:dom(m)%ksize+ngc))
+         dom(m)%iend = blk(m)%iend
+         dom(m)%jend = blk(m)%jend
+         dom(m)%kend = blk(m)%kend
+         dom(m)%nblocks = 1
+         ALLOCATE(dom(m)%blockID(1))
+         dom(m)%blockID(1) = m
       END DO
 
       !> Read node point coordinates
-      DO m = 1, ndom
+      DO m = 1, nblk
          READ(10,*) &
-         (((dom(m)%x(i,j,k), i=1, dom(m)%isize), &
-                             j=1, dom(m)%jsize), &
-                             k=1, dom(m)%ksize), &
-         (((dom(m)%y(i,j,k), i=1, dom(m)%isize), &
-                             j=1, dom(m)%jsize), &
-                             k=1, dom(m)%ksize), &
-         (((dom(m)%z(i,j,k), i=1, dom(m)%isize), &
-                             j=1, dom(m)%jsize), &
-                             k=1, dom(m)%ksize)
+         (((blk(m)%x(i,j,k), i=blk(m)%istart, blk(m)%iend), &
+                             j=blk(m)%jstart, blk(m)%jend), &
+                             k=blk(m)%kstart, blk(m)%kend), &
+         (((blk(m)%y(i,j,k), i=blk(m)%istart, blk(m)%iend), &
+                             j=blk(m)%jstart, blk(m)%jend), &
+                             k=blk(m)%kstart, blk(m)%kend), &
+         (((blk(m)%z(i,j,k), i=blk(m)%istart, blk(m)%iend), &
+                             j=blk(m)%jstart, blk(m)%jend), &
+                             k=blk(m)%kstart, blk(m)%kend)
       END DO
       CLOSE(10)
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE ReadBCinfo(ndom, dom)
+   SUBROUTINE ReadBCinfo(nblk, blk)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      INTEGER, INTENT(IN) :: ndom
-      INTEGER :: m, idom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk
+      INTEGER :: m, iblk
 
       CHARACTER(LEN=128) BCFILE
 
@@ -97,81 +118,81 @@ CONTAINS
       BCFILE = 'bcinfo.dat'
       OPEN(10, FILE = BCFILE, FORM = "FORMATTED")
       READ(10,*) 
-      DO m = 1, ndom
-         READ(10,*) idom, dom(m)%bc_imin, dom(m)%bc_imax, &
-                          dom(m)%bc_jmin, dom(m)%bc_jmax, &
-                          dom(m)%bc_kmin, dom(m)%bc_kmax
+      DO m = 1, nblk
+         READ(10,*) iblk, blk(m)%bc_imin, blk(m)%bc_imax, &
+                          blk(m)%bc_jmin, blk(m)%bc_jmax, &
+                          blk(m)%bc_kmin, blk(m)%bc_kmax
       END DO
       CLOSE(10)
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE WriteGRID(ndom, dom)
+   SUBROUTINE WriteGRID(nblk, blk, GRIDFILE)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(IN) :: dom
-      INTEGER, INTENT(IN) :: ndom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(IN) :: blk
+      INTEGER, INTENT(IN) :: nblk
       INTEGER :: m, i, j, k
 
-      CHARACTER(LEN=128) GRIDFILE
+      CHARACTER(LEN=128), INTENT(IN) :: GRIDFILE
 
-      WRITE(*,*) '# Writing a grid file for simulation...'
-      GRIDFILE = 'GRID.DATA'
+      WRITE(*,*) '# Writing a grid file: ', GRIDFILE
+
       OPEN(20, FILE = GRIDFILE, FORM = "FORMATTED")
-      !> Write number of domains
-      WRITE(20,*) ndom
-      !> Write domain size for every domains
-      DO m = 1, ndom
-         WRITE(20,*) dom(m)%isize, dom(m)%jsize, dom(m)%ksize
+      !> Write number of blocks
+      WRITE(20,*) nblk
+      !> Write block size for every blocks
+      DO m = 1, nblk
+         WRITE(20,*) blk(m)%isize, blk(m)%jsize, blk(m)%ksize
       END DO
-      !> Write node point coordinates for every domains
-      DO m = 1, ndom
+      !> Write node point coordinates for every blocks
+      DO m = 1, nblk
          WRITE(20,*) &
-         (((dom(m)%x(i,j,k), i=dom(m)%imin, dom(m)%imax), &
-                             j=dom(m)%jmin, dom(m)%jmax), &
-                             k=dom(m)%kmin, dom(m)%kmax), &
-         (((dom(m)%y(i,j,k), i=dom(m)%imin, dom(m)%imax), &
-                             j=dom(m)%jmin, dom(m)%jmax), &
-                             k=dom(m)%kmin, dom(m)%kmax), &
-         (((dom(m)%z(i,j,k), i=dom(m)%imin, dom(m)%imax), &
-                             j=dom(m)%jmin, dom(m)%jmax), &
-                             k=dom(m)%kmin, dom(m)%kmax)
+         (((blk(m)%x(i,j,k), i=blk(m)%imin, blk(m)%imax), &
+                             j=blk(m)%jmin, blk(m)%jmax), &
+                             k=blk(m)%kmin, blk(m)%kmax), &
+         (((blk(m)%y(i,j,k), i=blk(m)%imin, blk(m)%imax), &
+                             j=blk(m)%jmin, blk(m)%jmax), &
+                             k=blk(m)%kmin, blk(m)%kmax), &
+         (((blk(m)%z(i,j,k), i=blk(m)%imin, blk(m)%imax), &
+                             j=blk(m)%jmin, blk(m)%jmax), &
+                             k=blk(m)%kmin, blk(m)%kmax)
       END DO
       CLOSE(20)
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE FindNeighbors(ndom, dom)
+   SUBROUTINE FindNeighbors(nblk, blk)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      INTEGER, INTENT(IN) :: ndom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk
       INTEGER :: m, n, nv, nvv
       INTEGER :: i, j, k
       !> Vertices' coordinates array
-      REAL(KIND=wp), DIMENSION(3,8,ndom) :: vertex
-      !> Stores neighbor domain index based on vertex point: 1 ~ 4.
+      REAL(KIND=wp), DIMENSION(3,8,nblk) :: vertex
+      !> Stores neighbor block index based on vertex point: 1 ~ 4.
       !> Each vertex point has 8 neighbors.
-      INTEGER, DIMENSION(4,8,ndom) :: v_neighbor
+      INTEGER, DIMENSION(4,8,nblk) :: v_neighbor
 
-      WRITE(*,*) '# Finding neighbor domain info...'
-      !> Collect vertices' (x,y,z) coordinates for every domains 
-      DO m = 1, ndom
-         !> First, loop over 8 vertices of the current domain
+      WRITE(*,*) '# Finding neighbor block info...'
+      !> Collect vertices' (x,y,z) coordinates for every blocks 
+      DO m = 1, nblk
+         !> First, loop over 8 vertices of the current block
          n = 0
-         DO i = 1, dom(m)%isize, dom(m)%isize-1
-            DO j = 1, dom(m)%jsize, dom(m)%jsize-1
-               DO k = 1, dom(m)%ksize, dom(m)%ksize-1
+         DO i = blk(m)%istart, blk(m)%iend, blk(m)%isize-1
+            DO j = blk(m)%jstart, blk(m)%jend, blk(m)%jsize-1
+               DO k = blk(m)%kstart, blk(m)%kend, blk(m)%ksize-1
                   n = n + 1
-                  vertex(1,n,m) = dom(m)%x(i,j,k)
-                  vertex(2,n,m) = dom(m)%y(i,j,k)
-                  vertex(3,n,m) = dom(m)%z(i,j,k)
+                  vertex(1,n,m) = blk(m)%x(i,j,k)
+                  vertex(2,n,m) = blk(m)%y(i,j,k)
+                  vertex(3,n,m) = blk(m)%z(i,j,k)
                END DO
             END DO
          END DO
@@ -196,14 +217,14 @@ CONTAINS
       ! third element: host, neighbors indicator 
 
      
-      !> The way of finding neighbors of the host domain:
-      !>> Find neighbor domains for each vertex: 1~4 only. 
+      !> The way of finding neighbors of the host block:
+      !>> Find neighbor blocks for each vertex: 1~4 only. 
 
       !> Initialize neighbor array
-      DO m = 1, ndom
+      DO m = 1, nblk
          ! initialize neighbor matrix defined in 3x3 size: This should be done here!
-         ! designed for storing neighboring domain index for the host domain.
-         dom(m)%neighbor = 0
+         ! designed for storing neighboring block index for the host block.
+         blk(m)%neighbor = 0
       END DO
 
       !> Initialize v_neighbor array
@@ -211,9 +232,9 @@ CONTAINS
       !>> Loop over 1~4 vertices
       VertexLoop1: DO nv = 1, 4 
 
-         !> Find the current vertex's neighbor domain indices
-         DO m = 1, ndom
-            DO n = 1, ndom
+         !> Find the current vertex's neighbor block indices
+         DO m = 1, nblk
+            DO n = 1, nblk
                DO nvv = 1, 8
                   IF ((vertex(1,nv,m) .EQ. vertex(1,nvv,n)) .AND. &
                       (vertex(2,nv,m) .EQ. vertex(2,nvv,n)) .AND. &
@@ -225,19 +246,19 @@ CONTAINS
             END DO
          END DO
 
-         !> Populate domain index in neighbor arrays
+         !> Populate block index in neighbor arrays
          SELECT CASE (nv)
          CASE (1)
             !> Based on vertex 1:
-            DO m = 1, ndom
+            DO m = 1, nblk
                nvv = 8
                DO i = -1, 0
                   DO j = -1, 0
                      DO k = -1, 0
-                        !> Skip 0 index which indicate no neighbor domain existence
+                        !> Skip 0 index which indicate no neighbor block existence
                         IF (v_neighbor(nv,nvv,m) .NE. 0) THEN
-                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
-                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                           blk(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           blk(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
                         END IF
                         nvv = nvv - 1
                      END DO
@@ -246,16 +267,16 @@ CONTAINS
             END DO
          CASE (2)
             !> Based on vertex 2
-            DO m = 1, ndom
+            DO m = 1, nblk
                nvv = 8
                DO i = -1, 0
                   DO j = -1, 0
                      DO k = 0, 1
-                        !> Skip 0 index which indicate no neighbor domain existence
+                        !> Skip 0 index which indicate no neighbor block existence
                         !> Skip k = 0 layer because this was already updated.
                         IF (v_neighbor(nv,nvv,m) .NE. 0 .AND. k .NE. 0) THEN
-                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
-                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                           blk(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           blk(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
                         END IF
                         nvv = nvv - 1
                      END DO
@@ -264,16 +285,16 @@ CONTAINS
             END DO
          CASE (3)
             !> Based on vertex 3
-            DO m = 1, ndom
+            DO m = 1, nblk
                nvv = 8
                DO i = -1, 0
                   DO j = 0, 1
                      DO k = -1, 0
-                        !> Skip 0 index which indicate no neighbor domain existence
+                        !> Skip 0 index which indicate no neighbor block existence
                         !> Skip j = 0 layer because this was already updated.
                         IF (v_neighbor(nv,nvv,m) .NE. 0 .AND. j .NE. 0) THEN
-                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
-                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                           blk(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           blk(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
                         END IF
                         nvv = nvv - 1
                      END DO
@@ -282,17 +303,17 @@ CONTAINS
             END DO
          CASE (4)
             !> Based on vertex 4
-            DO m = 1, ndom
+            DO m = 1, nblk
                nvv = 8
                DO i = -1, 0
                   DO j = 0, 1
                      DO k = 0, 1
-                        !> Skip 0 index which indicate no neighbor domain existence
+                        !> Skip 0 index which indicate no neighbor block existence
                         !> Skip j = 0 layer because this was already updated.
                         IF (v_neighbor(nv,nvv,m) .NE. 0 .AND. j .NE. 0 &
                             .AND. k .NE. 0) THEN
-                           dom(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
-                           dom(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
+                           blk(m)%neighbor(i,j,k) = v_neighbor(nv,nvv,m)
+                           blk(v_neighbor(nv,nvv,m))%neighbor(-i,-j,-k) = m
                         END IF
                         nvv = nvv - 1
                      END DO
@@ -307,54 +328,54 @@ CONTAINS
 
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE CreateGhostLayers(ndom, dom, ngc)
+   SUBROUTINE CreateGhostLayers(nblk, blk, ngc)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER :: nstep
-      INTEGER, INTENT(IN) :: ndom, ngc
+      INTEGER, INTENT(IN) :: nblk, ngc
       INTEGER :: m
 
       WRITE(*,*) '# Creating ghost layers...'
 
       !> Arrange node points to avoid repeated use of node points
-      !> in between two domains.
-      CALL ArrangeNODEpoints(ndom, dom)
+      !> in between two blocks.
+      CALL ArrangeNODEpoints(nblk, blk)
 
-      DO m = 1, ndom
+      DO m = 1, nblk
          !> Define -min, and -max values with number of ghost layers
-         dom(m)%imin = dom(m)%istart - ngc
-         dom(m)%jmin = dom(m)%jstart - ngc
-         dom(m)%kmin = dom(m)%kstart - ngc
-         dom(m)%imax = dom(m)%iend + ngc
-         dom(m)%jmax = dom(m)%jend + ngc
-         dom(m)%kmax = dom(m)%kend + ngc
-         dom(m)%isize = dom(m)%imax - dom(m)%imin + 1
-         dom(m)%jsize = dom(m)%jmax - dom(m)%jmin + 1
-         dom(m)%ksize = dom(m)%kmax - dom(m)%kmin + 1
+         blk(m)%imin = blk(m)%istart - ngc
+         blk(m)%jmin = blk(m)%jstart - ngc
+         blk(m)%kmin = blk(m)%kstart - ngc
+         blk(m)%imax = blk(m)%iend + ngc
+         blk(m)%jmax = blk(m)%jend + ngc
+         blk(m)%kmax = blk(m)%kend + ngc
+         blk(m)%isize = blk(m)%imax - blk(m)%imin + 1
+         blk(m)%jsize = blk(m)%jmax - blk(m)%jmin + 1
+         blk(m)%ksize = blk(m)%kmax - blk(m)%kmin + 1
       END DO
 
-      !> Create ghost layers for each domain.
-      !>> The way to create ghost layers around the domain consists
+      !> Create ghost layers for each block.
+      !>> The way to create ghost layers around the block consists
       !>> of two steps: 
-      !>> 1) First create ghost layers that share the surface of the domain
+      !>> 1) First create ghost layers that share the surface of the block
       !>> 2) Next create ghost layers that share the vertices and edges.
       DO nstep = 1, 2
-         CALL CreateGhostCells(ndom, dom, ngc, nstep)
+         CALL CreateGhostCells(nblk, blk, ngc, nstep)
       END DO
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE CreateGhostCells(ndom, dom, ngc, nstep)
+   SUBROUTINE CreateGhostCells(nblk, blk, ngc, nstep)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      INTEGER, INTENT(IN) :: ndom, ngc, nstep
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk, ngc, nstep
       INTEGER :: m, n, ii, jj, kk, i, j, k, l, ll, iFound
       INTEGER, DIMENSION(3) :: nn
       INTEGER :: iLoopStart, iLoopEnd, &
@@ -363,27 +384,27 @@ CONTAINS
       INTEGER :: ibase, jbase, kbase
       INTEGER :: iRecv, jRecv, kRecv
 
-      DomainLoop: DO m = 1, ndom
+      BlockLoop: DO m = 1, nblk
  
          iiLoop: DO ii = -1, 1
             jjLoop: DO jj = -1, 1
                kkLoop: DO kk = -1, 1
 
-                  !> Skip the host domain
+                  !> Skip the host block
                   IF ((abs(ii)+abs(jj)+abs(kk)) .EQ. 0) CYCLE
-                  !> Skip the domains that share the vertices or edges 
+                  !> Skip the blocks that share the vertices or edges 
                   !> for the first step 
                   IF ((nstep .EQ. 1) .AND. &
                       (abs(ii)+abs(jj)+abs(kk)) .GT. 1) CYCLE
-                  !> Skip the domains that share the surface
+                  !> Skip the blocks that share the surface
                   !> for the second step
                   IF ((nstep .EQ. 2) .AND. &
                       (abs(ii)+abs(jj)+abs(kk)) .EQ. 1) CYCLE
 
-                  !> n: neighbor domain index
-                  n = dom(m)%neighbor(ii,jj,kk)
-                  !> Define ghost layer domain looping range
-                  CALL FindGhostLayerIndices(dom, m, n, ngc, ii, jj, kk, &
+                  !> n: neighbor block index
+                  n = blk(m)%neighbor(ii,jj,kk)
+                  !> Define ghost layer block looping range
+                  CALL FindGhostLayerIndices(blk, m, n, ngc, ii, jj, kk, &
                                              iLoopStart, iLoopEnd, &
                                              jLoopStart, jLoopEnd, &
                                              kLoopStart, kLoopEnd, &
@@ -392,23 +413,23 @@ CONTAINS
 
                   SELECT CASE(nstep)
                   !> STEP 1: Loop for creating ghost layers that can be generated
-                  !>         by extension from innter points and neighbor domains
+                  !>         by extension from innter points and neighbor blocks
                   CASE(1)
                      IF (n .EQ. 0) THEN
-                        !> The case with no neighbor domain. It means the domain 
+                        !> The case with no neighbor block. It means the block 
                         !> boundary may be a inflow or outflow, or wall BC.
                         !> Need to extend layers based on inner points
-                        CALL CreateGhostLayerFromInnerPoints(dom, m, ii, jj, kk, &
+                        CALL CreateGhostLayerFromInnerPoints(blk, m, ii, jj, kk, &
                                                              iLoopStart, iLoopEnd, &
                                                              jLoopStart, jLoopEnd, &
                                                              kLoopStart, kLoopEnd, &
                                                              ibase, jbase, kbase)
                      ELSE
-                        !> The case that the domain faces with the neighbor domain.
+                        !> The case that the block faces with the neighbor block.
                         !> Need to communicate with the node points in the neighbor
-                        !> domain.
+                        !> block.
                         !> Extract the node point data from neighbors
-                        CALL CreateGhostLayerFromNeighbor(dom, m, n, ii, jj, kk, &
+                        CALL CreateGhostLayerFromNeighbor(blk, m, n, ii, jj, kk, &
                                                           iLoopStart, iLoopEnd, &
                                                           jLoopStart, jLoopEnd, &
                                                           kLoopStart, kLoopEnd, &
@@ -418,21 +439,21 @@ CONTAINS
                   !>         of vertices or edges. 
                   !>         There are two cases: 
                   !>         (1) From the neighbors 
-                  !>         (2) From the corresponding domain's ghost layers 
+                  !>         (2) From the corresponding block's ghost layers 
                   !>             that has been generated in STEP1
                   CASE(2)
                      IF (n .NE. 0) THEN
                         !> STEP2-(1)
                         !> This is the case that ghost layer overlaps with a neighbor
-                        !> Create the layers from the neighbor domain node points
-                        CALL CreateGhostLayerFromNeighbor(dom, m, n, ii, jj, kk, &
+                        !> Create the layers from the neighbor block node points
+                        CALL CreateGhostLayerFromNeighbor(blk, m, n, ii, jj, kk, &
                                                           iLoopStart, iLoopEnd, &
                                                           jLoopStart, jLoopEnd, &
                                                           kLoopStart, kLoopEnd, &
                                                           ibase, jbase, kbase)
                      ELSE
                         !> STEP2-(2)
-                        CALL CreateCornerGhostLayers(dom, m, ngc, ii, jj, kk, &
+                        CALL CreateCornerGhostLayers(blk, m, ngc, ii, jj, kk, &
                                                      iLoopstart, iLoopEnd, &
                                                      jLoopstart, jLoopEnd, &
                                                      kLoopstart, kLoopEnd, &
@@ -444,21 +465,21 @@ CONTAINS
             END DO jjLoop
          END DO iiLoop
 
-      END DO DomainLoop
+      END DO BlockLoop
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE CreateCornerGhostLayers(dom, m, ngc, ii, jj, kk, &
+   SUBROUTINE CreateCornerGhostLayers(blk, m, ngc, ii, jj, kk, &
                                               iLoopStart, iLoopEnd, &
                                               jLoopStart, jLoopEnd, &
                                               kLoopStart, kLoopEnd, &
                                               ibase, jbase, kbase)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: ngc, m
       INTEGER, INTENT(IN) :: iLoopStart, iLoopEnd, &
                              jLoopStart, jLoopEnd, &
@@ -472,18 +493,18 @@ CONTAINS
             IF (jj .EQ. 0) jbase = j
             DO k = kLoopStart, kLoopEnd
                IF (kk .EQ. 0) kbase = k
-               dom(m)%x(i,j,k) = -2*dom(m)%x(ibase,jbase,kbase) + &
-                                 dom(m)%x(i,jbase,kbase) + &
-                                 dom(m)%x(ibase,j,kbase) + &
-                                 dom(m)%x(ibase,jbase,k)
-               dom(m)%y(i,j,k) = -2*dom(m)%y(ibase,jbase,kbase) + &
-                                 dom(m)%y(i,jbase,kbase) + &
-                                 dom(m)%y(ibase,j,kbase) + &
-                                 dom(m)%y(ibase,jbase,k)
-               dom(m)%z(i,j,k) = -2*dom(m)%z(ibase,jbase,kbase) + &
-                                 dom(m)%z(i,jbase,kbase) + &
-                                 dom(m)%z(ibase,j,kbase) + &
-                                 dom(m)%z(ibase,jbase,k)
+               blk(m)%x(i,j,k) = -2*blk(m)%x(ibase,jbase,kbase) + &
+                                 blk(m)%x(i,jbase,kbase) + &
+                                 blk(m)%x(ibase,j,kbase) + &
+                                 blk(m)%x(ibase,jbase,k)
+               blk(m)%y(i,j,k) = -2*blk(m)%y(ibase,jbase,kbase) + &
+                                 blk(m)%y(i,jbase,kbase) + &
+                                 blk(m)%y(ibase,j,kbase) + &
+                                 blk(m)%y(ibase,jbase,k)
+               blk(m)%z(i,j,k) = -2*blk(m)%z(ibase,jbase,kbase) + &
+                                 blk(m)%z(i,jbase,kbase) + &
+                                 blk(m)%z(ibase,j,kbase) + &
+                                 blk(m)%z(ibase,jbase,k)
             END DO
          END DO
       END DO
@@ -491,16 +512,16 @@ CONTAINS
 
    
 !-----------------------------------------------------------------------------!
-   SUBROUTINE CreateGhostLayerFromInnerPoints(dom, m, ii, jj, kk, &
+   SUBROUTINE CreateGhostLayerFromInnerPoints(blk, m, ii, jj, kk, &
                                               iLoopStart, iLoopEnd, &
                                               jLoopStart, jLoopEnd, &
                                               kLoopStart, kLoopEnd, &
                                               ibase, jbase, kbase)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: m, ii, jj, kk, iLoopStart, iLoopEnd, &
                                             jLoopStart, jLoopEnd, &
                                             kLoopStart, kLoopEnd
@@ -512,12 +533,12 @@ CONTAINS
             IF (jj .EQ. 0) jbase = j
             DO k = kLoopStart, kLoopEnd
                IF (kk .EQ. 0) kbase = k
-               dom(m)%x(i,j,k) = 2.0_wp*dom(m)%x(ibase,jbase,kbase) - &
-                        dom(m)%x(2*ibase - i, 2*jbase - j, 2*kbase - k)
-               dom(m)%y(i,j,k) = 2.0_wp*dom(m)%y(ibase,jbase,kbase) - &
-                        dom(m)%y(2*ibase - i, 2*jbase - j, 2*kbase - k)
-               dom(m)%z(i,j,k) = 2.0_wp*dom(m)%z(ibase,jbase,kbase) - &
-                        dom(m)%z(2*ibase - i, 2*jbase - j, 2*kbase - k)
+               blk(m)%x(i,j,k) = 2.0_wp*blk(m)%x(ibase,jbase,kbase) - &
+                        blk(m)%x(2*ibase - i, 2*jbase - j, 2*kbase - k)
+               blk(m)%y(i,j,k) = 2.0_wp*blk(m)%y(ibase,jbase,kbase) - &
+                        blk(m)%y(2*ibase - i, 2*jbase - j, 2*kbase - k)
+               blk(m)%z(i,j,k) = 2.0_wp*blk(m)%z(ibase,jbase,kbase) - &
+                        blk(m)%z(2*ibase - i, 2*jbase - j, 2*kbase - k)
             END DO
          END DO
       END DO
@@ -526,16 +547,16 @@ CONTAINS
 
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE CreateGhostLayerFromNeighbor(dom, m, n, ii, jj, kk, &
+   SUBROUTINE CreateGhostLayerFromNeighbor(blk, m, n, ii, jj, kk, &
                                            iLoopStart, iLoopEnd, &
                                            jLoopStart, jLoopEnd, &
                                            kLoopStart, kLoopEnd, &
                                            ibase, jbase, kbase)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: m, n, ii, jj, kk, iLoopStart, iLoopEnd, &
                                                jLoopStart, jLoopEnd, &
                                                kLoopStart, kLoopEnd
@@ -551,9 +572,9 @@ CONTAINS
             kRecv = kbase
             DO k = kLoopStart, kLoopEnd
                IF (kk .EQ. 0) kRecv = k
-               dom(m)%x(i,j,k) = dom(n)%x(iRecv,jRecv,kRecv)
-               dom(m)%y(i,j,k) = dom(n)%y(iRecv,jRecv,kRecv)
-               dom(m)%z(i,j,k) = dom(n)%z(iRecv,jRecv,kRecv)
+               blk(m)%x(i,j,k) = blk(n)%x(iRecv,jRecv,kRecv)
+               blk(m)%y(i,j,k) = blk(n)%y(iRecv,jRecv,kRecv)
+               blk(m)%z(i,j,k) = blk(n)%z(iRecv,jRecv,kRecv)
                kRecv = kRecv + 1
             END DO
             jRecv = jRecv + 1
@@ -564,16 +585,16 @@ CONTAINS
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE FindGhostLayerIndices(dom, m, n, ngc, ii, jj, kk, &
+   SUBROUTINE FindGhostLayerIndices(blk, m, n, ngc, ii, jj, kk, &
                                     iLoopStart, iLoopEnd, &
                                     jLoopStart, jLoopEnd, &
                                     kLoopStart, kLoopEnd, &
                                     ibase, jbase, kbase)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(IN) :: dom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(IN) :: blk
       INTEGER, INTENT(OUT) :: iLoopStart, iLoopEnd, &
                               jLoopStart, jLoopEnd, &
                               kLoopStart, kLoopEnd, &
@@ -582,67 +603,67 @@ CONTAINS
 
       SELECT CASE(ii)
       CASE(-1)
-         iLoopStart = dom(m)%imin
-         iLoopEnd = dom(m)%istart - 1
+         iLoopStart = blk(m)%imin
+         iLoopEnd = blk(m)%istart - 1
          IF (n .EQ. 0) THEN
-            ibase = dom(m)%istart
+            ibase = blk(m)%istart
          ELSE
-            ibase = dom(n)%iend - ngc + 1
+            ibase = blk(n)%iend - ngc + 1
          END IF
       CASE(0)
-         iLoopStart = dom(m)%istart
-         iLoopEnd = dom(m)%iend
+         iLoopStart = blk(m)%istart
+         iLoopEnd = blk(m)%iend
       CASE(1)
-         iLoopStart = dom(m)%iend + 1
-         iLoopEnd = dom(m)%imax
+         iLoopStart = blk(m)%iend + 1
+         iLoopEnd = blk(m)%imax
          IF (n .EQ. 0) THEN
-            ibase = dom(m)%iend
+            ibase = blk(m)%iend
          ELSE
-            ibase = dom(n)%istart
+            ibase = blk(n)%istart
          END IF
       END SELECT
 
       SELECT CASE(jj)
       CASE(-1)
-         jLoopStart = dom(m)%jmin
-         jLoopEnd = dom(m)%jstart - 1
+         jLoopStart = blk(m)%jmin
+         jLoopEnd = blk(m)%jstart - 1
          IF (n .EQ. 0) THEN
-            jbase = dom(m)%jstart
+            jbase = blk(m)%jstart
          ELSE
-            jbase = dom(n)%jend - ngc + 1
+            jbase = blk(n)%jend - ngc + 1
          END IF
       CASE(0)
-         jLoopStart = dom(m)%jstart
-         jLoopEnd = dom(m)%jend
+         jLoopStart = blk(m)%jstart
+         jLoopEnd = blk(m)%jend
       CASE(1)
-         jLoopStart = dom(m)%jend + 1
-         jLoopEnd = dom(m)%jmax
+         jLoopStart = blk(m)%jend + 1
+         jLoopEnd = blk(m)%jmax
          IF (n .EQ. 0) THEN
-            jbase = dom(m)%jend
+            jbase = blk(m)%jend
          ELSE
-            jbase = dom(n)%jstart
+            jbase = blk(n)%jstart
          END IF
       END SELECT
 
       SELECT CASE(kk)
       CASE(-1)
-         kLoopStart = dom(m)%kmin
-         kLoopEnd = dom(m)%kstart - 1
+         kLoopStart = blk(m)%kmin
+         kLoopEnd = blk(m)%kstart - 1
          IF (n .EQ. 0) THEN
-            kbase = dom(m)%kstart
+            kbase = blk(m)%kstart
          ELSE
-            kbase = dom(n)%kend - ngc + 1
+            kbase = blk(n)%kend - ngc + 1
          END IF
       CASE(0)
-         kLoopStart = dom(m)%kstart
-         kLoopEnd = dom(m)%kend
+         kLoopStart = blk(m)%kstart
+         kLoopEnd = blk(m)%kend
       CASE(1)
-         kLoopStart = dom(m)%kend + 1
-         kLoopEnd = dom(m)%kmax
+         kLoopStart = blk(m)%kend + 1
+         kLoopEnd = blk(m)%kmax
          IF (n .EQ. 0) THEN
-            kbase = dom(m)%kend
+            kbase = blk(m)%kend
          ELSE
-            kbase = dom(n)%kstart
+            kbase = blk(n)%kstart
          END IF
       END SELECT
 
@@ -650,86 +671,89 @@ CONTAINS
 
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE ArrangeNODEpoints(ndom, dom)
+   SUBROUTINE ArrangeNODEpoints(nblk, blk)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       !>> The node point data read from the plot3d file format
       !>> contains repeated node point at the boundary surface
-      !>> in between two domains. Thus, here the repeated node
+      !>> in between two blocks. Thus, here the repeated node
       !>> points are removed to avoid redundant memory use.
       !>> -end values will be corrected.
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
-      INTEGER, INTENT(IN) :: ndom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk
       INTEGER :: m, i, j, k
 
-      DO m = 1, ndom
+      DO m = 1, nblk
          !> If there is a fluid neighbor, reduce -end by one level.
-         !> If in the case, correct the domain size too.
-         IF (dom(m)%neighbor(1,0,0) .NE. 0) THEN
-            dom(m)%iend = dom(m)%iend - 1
-            dom(m)%imax = dom(m)%imax - 1
-            dom(m)%isize = dom(m)%imax - dom(m)%imin + 1
+         !> If in the case, correct the block size too.
+         IF (blk(m)%neighbor(1,0,0) .NE. 0) THEN
+            blk(m)%iend = blk(m)%iend - 1
+            blk(m)%imax = blk(m)%imax - 1
+            blk(m)%isize = blk(m)%imax - blk(m)%imin + 1
          END IF
-         IF (dom(m)%neighbor(0,1,0) .NE. 0) THEN
-            dom(m)%jend = dom(m)%jend - 1
-            dom(m)%jmax = dom(m)%jmax - 1
-            dom(m)%jsize = dom(m)%jmax - dom(m)%jmin + 1
+         IF (blk(m)%neighbor(0,1,0) .NE. 0) THEN
+            blk(m)%jend = blk(m)%jend - 1
+            blk(m)%jmax = blk(m)%jmax - 1
+            blk(m)%jsize = blk(m)%jmax - blk(m)%jmin + 1
          END IF
-         IF (dom(m)%neighbor(0,0,1) .NE. 0) THEN
-            dom(m)%kend = dom(m)%kend - 1
-            dom(m)%kmax = dom(m)%kmax - 1
-            dom(m)%ksize = dom(m)%kmax - dom(m)%kmin + 1
+         IF (blk(m)%neighbor(0,0,1) .NE. 0) THEN
+            blk(m)%kend = blk(m)%kend - 1
+            blk(m)%kmax = blk(m)%kmax - 1
+            blk(m)%ksize = blk(m)%kmax - blk(m)%kmin + 1
          END IF
       END DO
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE WriteNODEfiles(ndom, dom)
+   SUBROUTINE WriteNODEfiles(nblk, blk)
 !-----------------------------------------------------------------------------!
-      USE MultiDomainVars_m, ONLY: MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
-      TYPE(MultiDomain), DIMENSION(:), INTENT(IN) :: dom
-      INTEGER, INTENT(IN) :: ndom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(IN) :: blk
+      INTEGER, INTENT(IN) :: nblk
       INTEGER :: m, i, j, k, neighbors
       CHARACTER(LEN=128) :: NODEFILE
 
-      DO m = 1, ndom
+      WRITE(*,*) '# Writing NODE Files...'
+
+      DO m = 1, nblk
          !> Find number of neighbors
          neighbors = 0
          DO i = -1, 1
             DO j = -1, 1
                DO k = -1, 1
-                  !> Skip the current domain
+                  !> Skip the current block
                   IF ((i .EQ. 0) .AND. &
                       (j .EQ. 0) .AND. &
                       (k .EQ. 0)) CYCLE
-                  IF (dom(m)%neighbor(i,j,k) .NE. 0) neighbors = neighbors + 1
+                  IF (blk(m)%neighbor(i,j,k) .NE. 0) neighbors = neighbors + 1
                END DO
             END DO
          END DO
          !> Write NODE_ files
          WRITE(NODEFILE,'("NODE_",I5.5,".DATA")') m
          OPEN(30, FILE = NODEFILE, FORM = "FORMATTED")
-         WRITE(30,'(A20,I6)') 'DOMAIN ID:', m
+         WRITE(30,'(A20,I6)') 'DOMAIN ID:', blk(m)%domainID
+         WRITE(30,'(A20,I6)') 'BLOCK ID:', m
          WRITE(30,'(A20,I6)') 'NUMBER OF NEIGHBORS:', neighbors
          WRITE(30,'(6A12)') 'ISTART','IEND','JSTART','JEND','KSTART','KEND'
-         WRITE(30,*) dom(m)%istart, dom(m)%iend, &
-                     dom(m)%jstart, dom(m)%jend, &
-                     dom(m)%kstart, dom(m)%kend
+         WRITE(30,*) blk(m)%istart, blk(m)%iend, &
+                     blk(m)%jstart, blk(m)%jend, &
+                     blk(m)%kstart, blk(m)%kend
          DO i = -1, 1
             DO j = -1, 1
                DO k = -1, 1
-                  !> Skip the current domain
+                  !> Skip the current block
                   IF ((i .EQ. 0) .AND. &
                       (j .EQ. 0) .AND. &
                       (k .EQ. 0)) CYCLE
-                  IF (dom(m)%neighbor(i,j,k) .NE. 0) THEN
-                     WRITE(30,'(A12,I6)') 'NEIGHBOR ID:', dom(m)%neighbor(i,j,k)
+                  IF (blk(m)%neighbor(i,j,k) .NE. 0) THEN
+                     WRITE(30,'(A12,I6)') 'NEIGHBOR ID:', blk(m)%neighbor(i,j,k)
                      WRITE(30,'(A12,3I5)') 'LOCATION:', i, j, k
                   END IF
                END DO

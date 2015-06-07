@@ -4,17 +4,17 @@ FILE(REMOVE
   "FLOWVARIABLES_M.mod"
   "CMakeFiles/cfd.x.dir/flowvariables_m.mod.stamp"
 
-  "initmultidomain_m.mod"
-  "INITMULTIDOMAIN_M.mod"
-  "CMakeFiles/cfd.x.dir/initmultidomain_m.mod.stamp"
+  "initmultiblock_m.mod"
+  "INITMULTIBLOCK_M.mod"
+  "CMakeFiles/cfd.x.dir/initmultiblock_m.mod.stamp"
 
   "io_m.mod"
   "IO_M.mod"
   "CMakeFiles/cfd.x.dir/io_m.mod.stamp"
 
-  "multidomainvars_m.mod"
-  "MULTIDOMAINVARS_M.mod"
-  "CMakeFiles/cfd.x.dir/multidomainvars_m.mod.stamp"
+  "multiblockvars_m.mod"
+  "MULTIBLOCKVARS_M.mod"
+  "CMakeFiles/cfd.x.dir/multiblockvars_m.mod.stamp"
 
   "parameters_m.mod"
   "PARAMETERS_M.mod"

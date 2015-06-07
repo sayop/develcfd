@@ -1,9 +1,9 @@
 # The fortran modules provided by this target.
 provides
  flowvariables_m
- initmultidomain_m
+ initmultiblock_m
  io_m
- multidomainvars_m
+ multiblockvars_m
  parameters_m
  readstructuredgrid_m
  xml_data_input

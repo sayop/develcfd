@@ -146,13 +146,13 @@ main/main.F90.o:
 	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/main/main.F90.o
 .PHONY : main/main.F90.o
 
-multidomain/InitMultiDomain.o: multidomain/InitMultiDomain.F90.o
-.PHONY : multidomain/InitMultiDomain.o
+multidomain/InitMultiBlock.o: multidomain/InitMultiBlock.F90.o
+.PHONY : multidomain/InitMultiBlock.o
 
 # target to build an object file
-multidomain/InitMultiDomain.F90.o:
-	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o
-.PHONY : multidomain/InitMultiDomain.F90.o
+multidomain/InitMultiBlock.F90.o:
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o
+.PHONY : multidomain/InitMultiBlock.F90.o
 
 multidomain/ReadStructuredGrid.o: multidomain/ReadStructuredGrid.F90.o
 .PHONY : multidomain/ReadStructuredGrid.o
@@ -170,13 +170,13 @@ variables/FlowVariables.F90.o:
 	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o
 .PHONY : variables/FlowVariables.F90.o
 
-variables/MultiDomainVars.o: variables/MultiDomainVars.F90.o
-.PHONY : variables/MultiDomainVars.o
+variables/MultiBlockVars.o: variables/MultiBlockVars.F90.o
+.PHONY : variables/MultiBlockVars.o
 
 # target to build an object file
-variables/MultiDomainVars.F90.o:
-	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o
-.PHONY : variables/MultiDomainVars.F90.o
+variables/MultiBlockVars.F90.o:
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o
+.PHONY : variables/MultiBlockVars.F90.o
 
 # Help Target
 help:
@@ -191,10 +191,10 @@ help:
 	@echo "... io/io.o"
 	@echo "... main/Parameters.o"
 	@echo "... main/main.o"
-	@echo "... multidomain/InitMultiDomain.o"
+	@echo "... multidomain/InitMultiBlock.o"
 	@echo "... multidomain/ReadStructuredGrid.o"
 	@echo "... variables/FlowVariables.o"
-	@echo "... variables/MultiDomainVars.o"
+	@echo "... variables/MultiBlockVars.o"
 .PHONY : help
 
 

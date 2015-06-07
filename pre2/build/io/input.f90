@@ -11,11 +11,12 @@ type equations_t
    integer                                         :: iVisc
 end type equations_t
 
-type multidomain_t
+type multiblock_t
    integer                                         :: ndomain
+   integer                                         :: nblk
    integer                                         :: ngc
    integer                                         :: ngls
-end type multidomain_t
+end type multiblock_t
 
 type geometry_t
    real(kind=kind(1.0d0))                          :: xlen
@@ -36,7 +37,7 @@ end type runtime_t
 type input_type
    type(equations_t)                               :: Equations
    type(runtime_t)                                 :: RunTimeParameters
-   type(multidomain_t)                             :: MultiDomain
+   type(multiblock_t)                              :: MultiBlock
    type(geometry_t)                                :: Geometry
 end type input_type
    type(input_type)                                :: input_data
@@ -203,7 +204,7 @@ subroutine write_xml_type_equations_t( &
        '</' //trim(tag) // '>'
 end subroutine write_xml_type_equations_t
 
-subroutine read_xml_type_multidomain_t_array( &
+subroutine read_xml_type_multiblock_t_array( &
       info, tag, endtag, attribs, noattribs, data, nodata, &
       dvar, has_dvar )
    type(XML_PARSE)                                 :: info
@@ -213,11 +214,11 @@ subroutine read_xml_type_multidomain_t_array( &
    integer, intent(inout)                          :: noattribs
    character(len=*), dimension(:), intent(inout)   :: data
    integer, intent(inout)                          :: nodata
-   type(multidomain_t), dimension(:), pointer :: dvar
+   type(multiblock_t), dimension(:), pointer :: dvar
    logical, intent(inout)                       :: has_dvar
 
    integer                                      :: newsize
-   type(multidomain_t), dimension(:), pointer :: newvar
+   type(multiblock_t), dimension(:), pointer :: newvar
 
    newsize = size(dvar) + 1
    allocate( newvar(1:newsize) )
@@ -225,11 +226,11 @@ subroutine read_xml_type_multidomain_t_array( &
    deallocate( dvar )
    dvar => newvar
 
-   call read_xml_type_multidomain_t( info, tag, endtag, attribs, noattribs, data, nodata, &
+   call read_xml_type_multiblock_t( info, tag, endtag, attribs, noattribs, data, nodata, &
               dvar(newsize), has_dvar )
-end subroutine read_xml_type_multidomain_t_array
+end subroutine read_xml_type_multiblock_t_array
 
-subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattribs, data, nodata, &
+subroutine read_xml_type_multiblock_t( info, starttag, endtag, attribs, noattribs, data, nodata, &
               dvar, has_dvar )
    type(XML_PARSE)                                 :: info
    character(len=*), intent(in)                    :: starttag
@@ -238,7 +239,7 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
    integer, intent(inout)                          :: noattribs
    character(len=*), dimension(:), intent(inout)   :: data
    integer, intent(inout)                          :: nodata
-   type(multidomain_t), intent(inout)  :: dvar
+   type(multiblock_t), intent(inout)  :: dvar
    logical, intent(inout)                       :: has_dvar
 
    integer                                      :: att_
@@ -247,12 +248,14 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
    logical                                      :: endtag_org
    character(len=80)                            :: tag
    logical                                         :: has_ndomain
+   logical                                         :: has_nblk
    logical                                         :: has_ngc
    logical                                         :: has_ngls
    has_ndomain                          = .false.
+   has_nblk                             = .false.
    has_ngc                              = .false.
    has_ngls                             = .false.
-   call init_xml_type_multidomain_t(dvar)
+   call init_xml_type_multiblock_t(dvar)
    has_dvar = .true.
    error  = .false.
    att_   = 0
@@ -304,6 +307,10 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
          call read_xml_integer( &
             info, tag, endtag, attribs, noattribs, data, nodata, &
             dvar%ndomain, has_ndomain )
+      case('nblk')
+         call read_xml_integer( &
+            info, tag, endtag, attribs, noattribs, data, nodata, &
+            dvar%nblk, has_nblk )
       case('ngc')
          call read_xml_integer( &
             info, tag, endtag, attribs, noattribs, data, nodata, &
@@ -324,48 +331,50 @@ subroutine read_xml_type_multidomain_t( info, starttag, endtag, attribs, noattri
       nodata = 0
       if ( .not. xml_ok(info) ) exit
    end do
-end subroutine read_xml_type_multidomain_t
-subroutine init_xml_type_multidomain_t_array( dvar )
-   type(multidomain_t), dimension(:), pointer :: dvar
+end subroutine read_xml_type_multiblock_t
+subroutine init_xml_type_multiblock_t_array( dvar )
+   type(multiblock_t), dimension(:), pointer :: dvar
    if ( associated( dvar ) ) then
       deallocate( dvar )
    endif
    allocate( dvar(0) )
-end subroutine init_xml_type_multidomain_t_array
-subroutine init_xml_type_multidomain_t(dvar)
-   type(multidomain_t) :: dvar
+end subroutine init_xml_type_multiblock_t_array
+subroutine init_xml_type_multiblock_t(dvar)
+   type(multiblock_t) :: dvar
    dvar%ndomain = 1
+   dvar%nblk = 1
    dvar%ngc = 1
    dvar%ngls = 1
-end subroutine init_xml_type_multidomain_t
-subroutine write_xml_type_multidomain_t_array( &
+end subroutine init_xml_type_multiblock_t
+subroutine write_xml_type_multiblock_t_array( &
       info, tag, indent, dvar )
    type(XML_PARSE)                                 :: info
    character(len=*), intent(in)                    :: tag
    integer                                         :: indent
-   type(multidomain_t), dimension(:)        :: dvar
+   type(multiblock_t), dimension(:)        :: dvar
    integer                                         :: i
    do i = 1,size(dvar)
-       call write_xml_type_multidomain_t( info, tag, indent, dvar(i) )
+       call write_xml_type_multiblock_t( info, tag, indent, dvar(i) )
    enddo
-end subroutine write_xml_type_multidomain_t_array
+end subroutine write_xml_type_multiblock_t_array
 
-subroutine write_xml_type_multidomain_t( &
+subroutine write_xml_type_multiblock_t( &
       info, tag, indent, dvar )
    type(XML_PARSE)                                 :: info
    character(len=*), intent(in)                    :: tag
    integer                                         :: indent
-   type(multidomain_t)                      :: dvar
+   type(multiblock_t)                      :: dvar
    character(len=100)                              :: indentation
    indentation = ' '
    write(info%lun, '(4a)' ) indentation(1:min(indent,100)),&
        '<',trim(tag), '>'
    call write_to_xml_integer( info, 'ndomain', indent+3, dvar%ndomain)
+   call write_to_xml_integer( info, 'nblk', indent+3, dvar%nblk)
    call write_to_xml_integer( info, 'ngc', indent+3, dvar%ngc)
    call write_to_xml_integer( info, 'ngls', indent+3, dvar%ngls)
    write(info%lun,'(4a)') indentation(1:min(indent,100)), &
        '</' //trim(tag) // '>'
-end subroutine write_xml_type_multidomain_t
+end subroutine write_xml_type_multiblock_t
 
 subroutine read_xml_type_geometry_t_array( &
       info, tag, endtag, attribs, noattribs, data, nodata, &
@@ -772,11 +781,11 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
    character(len=80)                            :: tag
    logical                                         :: has_Equations
    logical                                         :: has_RunTimeParameters
-   logical                                         :: has_MultiDomain
+   logical                                         :: has_MultiBlock
    logical                                         :: has_Geometry
    has_Equations                        = .false.
    has_RunTimeParameters                = .false.
-   has_MultiDomain                      = .false.
+   has_MultiBlock                       = .false.
    has_Geometry                         = .false.
    call init_xml_type_input_type(dvar)
    has_dvar = .true.
@@ -834,10 +843,10 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
          call read_xml_type_runtime_t( &
             info, tag, endtag, attribs, noattribs, data, nodata, &
             dvar%RunTimeParameters, has_RunTimeParameters )
-      case('MultiDomain')
-         call read_xml_type_multidomain_t( &
+      case('MultiBlock')
+         call read_xml_type_multiblock_t( &
             info, tag, endtag, attribs, noattribs, data, nodata, &
-            dvar%MultiDomain, has_MultiDomain )
+            dvar%MultiBlock, has_MultiBlock )
       case('Geometry')
          call read_xml_type_geometry_t( &
             info, tag, endtag, attribs, noattribs, data, nodata, &
@@ -862,9 +871,9 @@ subroutine read_xml_type_input_type( info, starttag, endtag, attribs, noattribs,
       has_dvar = .false.
       call xml_report_errors(info, 'Missing data on RunTimeParameters')
    endif
-   if ( .not. has_MultiDomain ) then
+   if ( .not. has_MultiBlock ) then
       has_dvar = .false.
-      call xml_report_errors(info, 'Missing data on MultiDomain')
+      call xml_report_errors(info, 'Missing data on MultiBlock')
    endif
    if ( .not. has_Geometry ) then
       has_dvar = .false.
@@ -905,7 +914,7 @@ subroutine write_xml_type_input_type( &
        '<',trim(tag), '>'
    call write_xml_type_equations_t( info, 'Equations', indent+3, dvar%Equations)
    call write_xml_type_runtime_t( info, 'RunTimeParameters', indent+3, dvar%RunTimeParameters)
-   call write_xml_type_multidomain_t( info, 'MultiDomain', indent+3, dvar%MultiDomain)
+   call write_xml_type_multiblock_t( info, 'MultiBlock', indent+3, dvar%MultiBlock)
    call write_xml_type_geometry_t( info, 'Geometry', indent+3, dvar%Geometry)
    write(info%lun,'(4a)') indentation(1:min(indent,100)), &
        '</' //trim(tag) // '>'

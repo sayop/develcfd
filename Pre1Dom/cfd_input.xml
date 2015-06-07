@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<cfd_input>
+   <input_data>
+      <Equations>
+         <Formulation>FINITE_DIFFERENCE</Formulation>
+         <iVisc>1</iVisc>
+      </Equations>
+      <RunTimeParameters>
+         <restart>0</restart>
+      </RunTimeParameters>
+      <MultiBlock>
+         <ndomain>1</ndomain>
+         <nblk>80</nblk>
+         <ngc>2</ngc>
+         <ngls>2</ngls>
+      </MultiBlock>
+      <Geometry>
+         <xlen>0.1</xlen>
+         <ylen>0.1</ylen>
+         <zlen>0.1</zlen>
+         <xstart>0.0</xstart>
+         <ystart>0.0</ystart>
+         <zstart>0.0</zstart>
+         <isize>21</isize>
+         <jsize>21</jsize>
+         <ksize>21</ksize>
+         <ndivide>5  4  4</ndivide>
+      </Geometry>
+      <BoundaryCondition>
+         <imin>1</imin>
+         <imax>2</imax>
+         <jmin>4</jmin>
+         <jmax>4</jmax>
+         <kmin>4</kmin>
+         <kmax>4</kmax>
+      </BoundaryCondition>
+   </input_data>
+</cfd_input>

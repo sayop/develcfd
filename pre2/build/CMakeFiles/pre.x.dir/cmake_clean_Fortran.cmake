@@ -4,9 +4,9 @@ FILE(REMOVE
   "IO_M.mod"
   "CMakeFiles/pre.x.dir/io_m.mod.stamp"
 
-  "multidomainvars_m.mod"
-  "MULTIDOMAINVARS_M.mod"
-  "CMakeFiles/pre.x.dir/multidomainvars_m.mod.stamp"
+  "multiblockvars_m.mod"
+  "MULTIBLOCKVARS_M.mod"
+  "CMakeFiles/pre.x.dir/multiblockvars_m.mod.stamp"
 
   "parameters_m.mod"
   "PARAMETERS_M.mod"

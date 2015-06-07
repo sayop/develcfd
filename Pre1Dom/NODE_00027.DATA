@@ -1,0 +1,57 @@
+          DOMAIN ID:     1
+           BLOCK ID:    27
+NUMBER OF NEIGHBORS:    26
+      ISTART        IEND      JSTART        JEND      KSTART        KEND
+           5           8          11          15          11          15
+NEIGHBOR ID:     6
+   LOCATION:   -1   -1   -1
+NEIGHBOR ID:     7
+   LOCATION:   -1   -1    0
+NEIGHBOR ID:     8
+   LOCATION:   -1   -1    1
+NEIGHBOR ID:    10
+   LOCATION:   -1    0   -1
+NEIGHBOR ID:    11
+   LOCATION:   -1    0    0
+NEIGHBOR ID:    12
+   LOCATION:   -1    0    1
+NEIGHBOR ID:    14
+   LOCATION:   -1    1   -1
+NEIGHBOR ID:    15
+   LOCATION:   -1    1    0
+NEIGHBOR ID:    16
+   LOCATION:   -1    1    1
+NEIGHBOR ID:    22
+   LOCATION:    0   -1   -1
+NEIGHBOR ID:    23
+   LOCATION:    0   -1    0
+NEIGHBOR ID:    24
+   LOCATION:    0   -1    1
+NEIGHBOR ID:    26
+   LOCATION:    0    0   -1
+NEIGHBOR ID:    28
+   LOCATION:    0    0    1
+NEIGHBOR ID:    30
+   LOCATION:    0    1   -1
+NEIGHBOR ID:    31
+   LOCATION:    0    1    0
+NEIGHBOR ID:    32
+   LOCATION:    0    1    1
+NEIGHBOR ID:    38
+   LOCATION:    1   -1   -1
+NEIGHBOR ID:    39
+   LOCATION:    1   -1    0
+NEIGHBOR ID:    40
+   LOCATION:    1   -1    1
+NEIGHBOR ID:    42
+   LOCATION:    1    0   -1
+NEIGHBOR ID:    43
+   LOCATION:    1    0    0
+NEIGHBOR ID:    44
+   LOCATION:    1    0    1
+NEIGHBOR ID:    46
+   LOCATION:    1    1   -1
+NEIGHBOR ID:    47
+   LOCATION:    1    1    0
+NEIGHBOR ID:    48
+   LOCATION:    1    1    1

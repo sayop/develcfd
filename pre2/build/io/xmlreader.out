@@ -75,7 +75,7 @@
  XML_GET - number of data lines:           2
  tag: typedef                                                                         
  attribs:            1
-   name = multidomain_t
+   name = multiblock_t
  data:            2
    ><
    ><
@@ -85,6 +85,17 @@
  tag: component                                                                       
  attribs:            3
    name = ndomain
+   type = integer
+   default = 1
+ data:            2
+   ><
+   ><
+ XML_GET - tag found: component
+ XML_GET - number of attributes:           3
+ XML_GET - number of data lines:           2
+ tag: component                                                                       
+ attribs:            3
+   name = nblk
    type = integer
    default = 1
  data:            2
@@ -295,8 +306,8 @@
  XML_GET - number of data lines:           2
  tag: component                                                                       
  attribs:            2
-   name = MultiDomain
-   type = multidomain_t
+   name = MultiBlock
+   type = multiblock_t
  data:            2
    ><
    ><

@@ -9,7 +9,6 @@ MODULE io_m
    REAL(KIND=wp) :: rhoinit, uinit, vinit, cgammainit, pinit
    INTEGER, PARAMETER :: IOunit = 10, filenameLength = 64
    CHARACTER(LEN=50) :: prjTitle
-   CHARACTER(LEN=filenameLength) :: gridFile
 CONTAINS
 
 !-----------------------------------------------------------------------------!

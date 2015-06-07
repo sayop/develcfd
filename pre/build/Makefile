@@ -114,6 +114,14 @@ pre.x/fast:
 	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/build
 .PHONY : pre.x/fast
 
+CreateGrid.o: CreateGrid.F90.o
+.PHONY : CreateGrid.o
+
+# target to build an object file
+CreateGrid.F90.o:
+	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/CreateGrid.F90.o
+.PHONY : CreateGrid.F90.o
+
 PreSetup.o: PreSetup.F90.o
 .PHONY : PreSetup.o
 
@@ -138,13 +146,13 @@ home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o:
 	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o
 .PHONY : home/sayop/MyCFD/develcfd/src/main/Parameters.F90.o
 
-home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o: home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o
+home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.o: home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o
+.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.o
 
 # target to build an object file
-home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o:
-	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
-.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.F90.o
+home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o:
+	$(MAKE) -f CMakeFiles/pre.x.dir/build.make CMakeFiles/pre.x.dir/home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o
+.PHONY : home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90.o
 
 io/input.o: io/input.f90.o
 .PHONY : io/input.o
@@ -171,10 +179,11 @@ help:
 	@echo "... edit_cache"
 	@echo "... pre.x"
 	@echo "... rebuild_cache"
+	@echo "... CreateGrid.o"
 	@echo "... PreSetup.o"
 	@echo "... home/sayop/MyCFD/develcfd/src/io/io.o"
 	@echo "... home/sayop/MyCFD/develcfd/src/main/Parameters.o"
-	@echo "... home/sayop/MyCFD/develcfd/src/variables/MultiDomainVars.o"
+	@echo "... home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.o"
 	@echo "... io/input.o"
 	@echo "... pre.o"
 .PHONY : help

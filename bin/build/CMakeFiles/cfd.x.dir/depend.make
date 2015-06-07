@@ -27,31 +27,31 @@ CMakeFiles/cfd.x.dir/main/Parameters.F90.o.provides.build:
 	$(CMAKE_COMMAND) -E touch CMakeFiles/cfd.x.dir/main/Parameters.F90.o.provides.build
 CMakeFiles/cfd.x.dir/build: CMakeFiles/cfd.x.dir/main/Parameters.F90.o.provides.build
 
-CMakeFiles/cfd.x.dir/main/main.F90.o.requires: CMakeFiles/cfd.x.dir/initmultidomain_m.mod.proxy
-CMakeFiles/cfd.x.dir/main/main.F90.o: CMakeFiles/cfd.x.dir/initmultidomain_m.mod.stamp
+CMakeFiles/cfd.x.dir/main/main.F90.o.requires: CMakeFiles/cfd.x.dir/initmultiblock_m.mod.proxy
+CMakeFiles/cfd.x.dir/main/main.F90.o: CMakeFiles/cfd.x.dir/initmultiblock_m.mod.stamp
 CMakeFiles/cfd.x.dir/main/main.F90.o.requires: CMakeFiles/cfd.x.dir/io_m.mod.proxy
 CMakeFiles/cfd.x.dir/main/main.F90.o: CMakeFiles/cfd.x.dir/io_m.mod.stamp
-CMakeFiles/cfd.x.dir/main/main.F90.o.requires: CMakeFiles/cfd.x.dir/multidomainvars_m.mod.proxy
-CMakeFiles/cfd.x.dir/main/main.F90.o: CMakeFiles/cfd.x.dir/multidomainvars_m.mod.stamp
+CMakeFiles/cfd.x.dir/main/main.F90.o.requires: CMakeFiles/cfd.x.dir/multiblockvars_m.mod.proxy
+CMakeFiles/cfd.x.dir/main/main.F90.o: CMakeFiles/cfd.x.dir/multiblockvars_m.mod.stamp
 CMakeFiles/cfd.x.dir/main/main.F90.o.requires: CMakeFiles/cfd.x.dir/parameters_m.mod.proxy
 CMakeFiles/cfd.x.dir/main/main.F90.o: CMakeFiles/cfd.x.dir/parameters_m.mod.stamp
 
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires: CMakeFiles/cfd.x.dir/multidomainvars_m.mod.proxy
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o: CMakeFiles/cfd.x.dir/multidomainvars_m.mod.stamp
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires: CMakeFiles/cfd.x.dir/parameters_m.mod.proxy
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o: CMakeFiles/cfd.x.dir/parameters_m.mod.stamp
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires: CMakeFiles/cfd.x.dir/readstructuredgrid_m.mod.proxy
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o: CMakeFiles/cfd.x.dir/readstructuredgrid_m.mod.stamp
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.requires: CMakeFiles/cfd.x.dir/xml_data_input.mod.proxy
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o: CMakeFiles/cfd.x.dir/xml_data_input.mod.stamp
-CMakeFiles/cfd.x.dir/initmultidomain_m.mod.proxy: CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides
-CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides.build:
-	$(CMAKE_COMMAND) -E cmake_copy_f90_mod initmultidomain_m CMakeFiles/cfd.x.dir/initmultidomain_m.mod.stamp GNU
-	$(CMAKE_COMMAND) -E touch CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides.build
-CMakeFiles/cfd.x.dir/build: CMakeFiles/cfd.x.dir/multidomain/InitMultiDomain.F90.o.provides.build
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires: CMakeFiles/cfd.x.dir/multiblockvars_m.mod.proxy
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o: CMakeFiles/cfd.x.dir/multiblockvars_m.mod.stamp
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires: CMakeFiles/cfd.x.dir/parameters_m.mod.proxy
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o: CMakeFiles/cfd.x.dir/parameters_m.mod.stamp
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires: CMakeFiles/cfd.x.dir/readstructuredgrid_m.mod.proxy
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o: CMakeFiles/cfd.x.dir/readstructuredgrid_m.mod.stamp
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.requires: CMakeFiles/cfd.x.dir/xml_data_input.mod.proxy
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o: CMakeFiles/cfd.x.dir/xml_data_input.mod.stamp
+CMakeFiles/cfd.x.dir/initmultiblock_m.mod.proxy: CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides
+CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides.build:
+	$(CMAKE_COMMAND) -E cmake_copy_f90_mod initmultiblock_m CMakeFiles/cfd.x.dir/initmultiblock_m.mod.stamp GNU
+	$(CMAKE_COMMAND) -E touch CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides.build
+CMakeFiles/cfd.x.dir/build: CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o.provides.build
 
-CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o.requires: CMakeFiles/cfd.x.dir/multidomainvars_m.mod.proxy
-CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o: CMakeFiles/cfd.x.dir/multidomainvars_m.mod.stamp
+CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o.requires: CMakeFiles/cfd.x.dir/multiblockvars_m.mod.proxy
+CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o: CMakeFiles/cfd.x.dir/multiblockvars_m.mod.stamp
 CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o.requires: CMakeFiles/cfd.x.dir/parameters_m.mod.proxy
 CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o: CMakeFiles/cfd.x.dir/parameters_m.mod.stamp
 CMakeFiles/cfd.x.dir/readstructuredgrid_m.mod.proxy: CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o.provides
@@ -68,10 +68,10 @@ CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o.provides.build:
 	$(CMAKE_COMMAND) -E touch CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o.provides.build
 CMakeFiles/cfd.x.dir/build: CMakeFiles/cfd.x.dir/variables/FlowVariables.F90.o.provides.build
 
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.requires: CMakeFiles/cfd.x.dir/parameters_m.mod.proxy
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o: CMakeFiles/cfd.x.dir/parameters_m.mod.stamp
-CMakeFiles/cfd.x.dir/multidomainvars_m.mod.proxy: CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides
-CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides.build:
-	$(CMAKE_COMMAND) -E cmake_copy_f90_mod multidomainvars_m CMakeFiles/cfd.x.dir/multidomainvars_m.mod.stamp GNU
-	$(CMAKE_COMMAND) -E touch CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides.build
-CMakeFiles/cfd.x.dir/build: CMakeFiles/cfd.x.dir/variables/MultiDomainVars.F90.o.provides.build
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.requires: CMakeFiles/cfd.x.dir/parameters_m.mod.proxy
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o: CMakeFiles/cfd.x.dir/parameters_m.mod.stamp
+CMakeFiles/cfd.x.dir/multiblockvars_m.mod.proxy: CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides
+CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides.build:
+	$(CMAKE_COMMAND) -E cmake_copy_f90_mod multiblockvars_m CMakeFiles/cfd.x.dir/multiblockvars_m.mod.stamp GNU
+	$(CMAKE_COMMAND) -E touch CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides.build
+CMakeFiles/cfd.x.dir/build: CMakeFiles/cfd.x.dir/variables/MultiBlockVars.F90.o.provides.build
