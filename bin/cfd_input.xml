@@ -9,21 +9,30 @@
          <restart>0</restart>
       </RunTimeParameters>
       <MultiBlock>
-         <ndomain>256</ndomain>
-         <nblk>256</nblk>
+         <ndomain>1</ndomain>
+         <nblk>8</nblk>
          <ngc>2</ngc>
          <ngls>2</ngls>
       </MultiBlock>
       <Geometry>
-         <xlen>0.000000</xlen>
-         <ylen>0.000000</ylen>
-         <zlen>0.000000</zlen>
-         <xstart>0.000000</xstart>
-         <ystart>0.000000</ystart>
-         <zstart>0.000000</zstart>
-         <imax>0</imax>
-         <jmax>0</jmax>
-         <kmax>0</kmax>
+         <xlen>0.1</xlen>
+         <ylen>0.1</ylen>
+         <zlen>0.1</zlen>
+         <xstart>0.0</xstart>
+         <ystart>0.0</ystart>
+         <zstart>0.0</zstart>
+         <isize>11</isize>
+         <jsize>11</jsize>
+         <ksize>11</ksize>
+         <ndivide>2  2  2</ndivide>
       </Geometry>
+      <BoundaryCondition>
+         <imin>1</imin>
+         <imax>2</imax>
+         <jmin>4</jmin>
+         <jmax>4</jmax>
+         <kmin>4</kmin>
+         <kmax>4</kmax>
+      </BoundaryCondition>
    </input_data>
 </cfd_input>

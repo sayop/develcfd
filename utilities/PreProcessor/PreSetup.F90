@@ -11,6 +11,7 @@ CONTAINS
    SUBROUTINE ReadPlot3DGrid(ndomain, nblk, dom, blk, ngc)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain
+      USE AllocateVars_m, ONLY: AllocateMultiBlockXYZ
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
@@ -25,13 +26,16 @@ CONTAINS
       CHARACTER(LEN=128) :: GRIDFILE
 
       GRIDFILE = 'grid.dat'
+      WRITE(*,*) ''
       WRITE(*,*) '# Reading PLOT3D structured grid file: ', GRIDFILE
 
       OPEN(10, FILE = GRIDFILE, FORM = "FORMATTED")
       READ(10,*) nblock
       IF (nblock .NE. nblk) THEN
+         WRITE(*,*) '-----------------------------------------------------------'
          WRITE(*,*) 'WARNING: Please check "nblk" in input file.'
          WRITE(*,*) 'The number of blocks read from grid is NOT equal to "nblk".'
+         WRITE(*,*) '-----------------------------------------------------------'
          STOP
       END IF
 
@@ -61,15 +65,10 @@ CONTAINS
          blk(m)%imax = blk(m)%iend
          blk(m)%jmax = blk(m)%jend
          blk(m)%kmax = blk(m)%kend
-         ALLOCATE(blk(m)%x(1-ngc:blk(m)%isize+ngc, &
-                           1-ngc:blk(m)%jsize+ngc, &
-                           1-ngc:blk(m)%ksize+ngc))
-         ALLOCATE(blk(m)%y(1-ngc:blk(m)%isize+ngc, &
-                           1-ngc:blk(m)%jsize+ngc, &
-                           1-ngc:blk(m)%ksize+ngc))
-         ALLOCATE(blk(m)%z(1-ngc:blk(m)%isize+ngc, &
-                           1-ngc:blk(m)%jsize+ngc, &
-                           1-ngc:blk(m)%ksize+ngc))
+
+         CALL AllocateMultiBlockXYZ(blk, m, 1-ngc, blk(m)%isize+ngc, &
+                                            1-ngc, blk(m)%jsize+ngc, &
+                                            1-ngc, blk(m)%ksize+ngc)
          blk(m)%domainID = m
 
          !> Initialize domain info
@@ -113,6 +112,7 @@ CONTAINS
 
       CHARACTER(LEN=128) BCFILE
 
+      WRITE(*,*) ''
       WRITE(*,*) '# Reading bc info...'
 
       BCFILE = 'bcinfo.dat'
@@ -139,6 +139,7 @@ CONTAINS
 
       CHARACTER(LEN=128), INTENT(IN) :: GRIDFILE
 
+      WRITE(*,*) ''
       WRITE(*,*) '# Writing a grid file: ', GRIDFILE
 
       OPEN(20, FILE = GRIDFILE, FORM = "FORMATTED")
@@ -181,6 +182,7 @@ CONTAINS
       !> Each vertex point has 8 neighbors.
       INTEGER, DIMENSION(4,8,nblk) :: v_neighbor
 
+      WRITE(*,*) ''
       WRITE(*,*) '# Finding neighbor block info...'
       !> Collect vertices' (x,y,z) coordinates for every blocks 
       DO m = 1, nblk
@@ -338,6 +340,7 @@ CONTAINS
       INTEGER, INTENT(IN) :: nblk, ngc
       INTEGER :: m
 
+      WRITE(*,*) ''
       WRITE(*,*) '# Creating ghost layers...'
 
       !> Arrange node points to avoid repeated use of node points
@@ -709,16 +712,17 @@ CONTAINS
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE WriteNODEfiles(nblk, blk)
+   SUBROUTINE WriteNODEfiles(nblk, blk, ngc)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(IN) :: blk
-      INTEGER, INTENT(IN) :: nblk
+      INTEGER, INTENT(IN) :: nblk, ngc
       INTEGER :: m, i, j, k, neighbors
       CHARACTER(LEN=128) :: NODEFILE
 
+      WRITE(*,*) ''
       WRITE(*,*) '# Writing NODE Files...'
 
       DO m = 1, nblk
@@ -741,6 +745,7 @@ CONTAINS
          WRITE(30,'(A20,I6)') 'DOMAIN ID:', blk(m)%domainID
          WRITE(30,'(A20,I6)') 'BLOCK ID:', m
          WRITE(30,'(A20,I6)') 'NUMBER OF NEIGHBORS:', neighbors
+         WRITE(30,'(A20,I6)') 'NUMBER OF LEVELS:', ngc
          WRITE(30,'(6A12)') 'ISTART','IEND','JSTART','JEND','KSTART','KEND'
          WRITE(30,*) blk(m)%istart, blk(m)%iend, &
                      blk(m)%jstart, blk(m)%jend, &

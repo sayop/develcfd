@@ -323,10 +323,11 @@ CMAKE_USE_RELATIVE_PATHS-ADVANCED:INTERNAL=1
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 IO_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/bin/build/io/input.f90;/home/sayop/MyCFD/develcfd/src/io/io.F90
 IO_SRC_FILES_INIT:INTERNAL=/home/sayop/MyCFD/develcfd/bin/build/io/input.f90
-MAIN_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/src/main/main.F90;/home/sayop/MyCFD/develcfd/src/main/Parameters.F90
-MULTIDOMAIN_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/src/multidomain/ReadStructuredGrid.F90;/home/sayop/MyCFD/develcfd/src/multidomain/InitMultiBlock.F90
+MAIN_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/src/main/main.F90;/home/sayop/MyCFD/develcfd/src/main/SetupSimulation.F90;/home/sayop/MyCFD/develcfd/src/main/Parameters.F90
+MULTIBLOCK_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/src/multiblock/InitMultiBlock.F90;/home/sayop/MyCFD/develcfd/src/multiblock/CommunicateData.F90
+MULTIDOMAIN_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/src/multiblock/InitMultiBlock.F90
 PREIO_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/bin/build/io/input.f90;/home/sayop/MyCFD/develcfd/src/io/io.F90
-VARS_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90;/home/sayop/MyCFD/develcfd/src/variables/FlowVariables.F90
+VARS_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/src/variables/MultiBlockVars.F90;/home/sayop/MyCFD/develcfd/src/variables/FlowVariables.F90;/home/sayop/MyCFD/develcfd/src/variables/AllocateVariables.F90
 //MODIFIED property for variable: xml-fortran_DIR
 xml-fortran_DIR-MODIFIED:INTERNAL=ON
 

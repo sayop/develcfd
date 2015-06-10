@@ -38,4 +38,54 @@ CONTAINS
 
    END SUBROUTINE WriteInputFiles
 
+!-----------------------------------------------------------------------------!
+   SUBROUTINE WriteRESTfile(blk,  nblk)
+!-----------------------------------------------------------------------------!
+      USE MultiBlockVars_m, ONLY: MultiBlock
+
+      IMPLICIT NONE
+      TYPE(MultiBlock), DIMENSION(:), INTENT(IN) :: blk
+      INTEGER, INTENT(IN) :: nblk
+      INTEGER :: iblk, i, j, k
+      INTEGER :: n
+
+      CHARACTER(LEN=128) :: RESTFILE
+
+      RESTFILE = 'REST_00000.FUNC'
+
+      OPEN(20, FILE = RESTFILE, FORM = "FORMATTED")
+      !> Write number of blocks
+      WRITE(20,*) nblk
+      DO iblk = 1, nblk
+         WRITE(20,*) blk(iblk)%isize, blk(iblk)%jsize, blk(iblk)%ksize, 5
+!         WRITE(20,*) blk(iblk)%isize, blk(iblk)%jsize, blk(iblk)%ksize
+      END DO
+
+      DO iblk = 1, nblk
+!         WRITE(20,*) 1, 1.0, 100.0, 0.0
+         WRITE(20,*) &
+         (((blk(iblk)%flow%RHO(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
+                                      j=blk(iblk)%jmin, blk(iblk)%jmax), &
+                                      k=blk(iblk)%kmin, blk(iblk)%kmax), &
+         (((blk(iblk)%flow%U(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
+                                    j=blk(iblk)%jmin, blk(iblk)%jmax), &
+                                    k=blk(iblk)%kmin, blk(iblk)%kmax), &
+         (((blk(iblk)%flow%V(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
+                                    j=blk(iblk)%jmin, blk(iblk)%jmax), &
+                                    k=blk(iblk)%kmin, blk(iblk)%kmax), &
+         (((blk(iblk)%flow%W(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
+                                    j=blk(iblk)%jmin, blk(iblk)%jmax), &
+                                    k=blk(iblk)%kmin, blk(iblk)%kmax), &
+         (((blk(iblk)%flow%T(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
+                                    j=blk(iblk)%jmin, blk(iblk)%jmax), &
+                                    k=blk(iblk)%kmin, blk(iblk)%kmax)
+!         ((((blk(iblk)%flow%Q(i,j,k,n), i=blk(iblk)%imin, blk(iblk)%imax), &
+!                                       j=blk(iblk)%jmin, blk(iblk)%jmax), &
+!                                       k=blk(iblk)%kmin, blk(iblk)%kmax), &
+!                                       n=1,5)
+      END DO
+      CLOSE(20)
+
+   END SUBROUTINE
+
 END MODULE io_m

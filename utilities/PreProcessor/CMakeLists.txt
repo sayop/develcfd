@@ -28,6 +28,7 @@ set(PRE_EXE_NAME pre.x CACHE STRING "PRE executable name")
 set(PRE_SRC_FILES
    ${CFD_BASE_DIR}/main/Parameters.F90
    ${CFD_BASE_DIR}/variables/MultiBlockVars.F90
+   ${CFD_BASE_DIR}/variables/AllocateVariables.F90
    ${PREIO_SRC_FILES}
    ${CMAKE_CURRENT_SOURCE_DIR}/PreSetup.F90
    ${CMAKE_CURRENT_SOURCE_DIR}/CreateGrid.F90

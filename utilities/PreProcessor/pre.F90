@@ -48,7 +48,7 @@ PROGRAM pre
    CALL CreateGhostLayers(nblk, blk, ngc)
 
    !> Write NODE files
-   CALL WriteNODEfiles(nblk, blk)
+   CALL WriteNODEfiles(nblk, blk, ngc)
 
    !> Write a grid file for simulation
    GRIDFILE = 'GRID.DATA'

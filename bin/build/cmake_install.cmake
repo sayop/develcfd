@@ -36,7 +36,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/sayop/MyCFD/develcfd/bin/build/main/cmake_install.cmake")
   INCLUDE("/home/sayop/MyCFD/develcfd/bin/build/io/cmake_install.cmake")
-  INCLUDE("/home/sayop/MyCFD/develcfd/bin/build/multidomain/cmake_install.cmake")
+  INCLUDE("/home/sayop/MyCFD/develcfd/bin/build/multiblock/cmake_install.cmake")
   INCLUDE("/home/sayop/MyCFD/develcfd/bin/build/variables/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)

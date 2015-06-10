@@ -138,6 +138,14 @@ main/Parameters.F90.o:
 	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/main/Parameters.F90.o
 .PHONY : main/Parameters.F90.o
 
+main/SetupSimulation.o: main/SetupSimulation.F90.o
+.PHONY : main/SetupSimulation.o
+
+# target to build an object file
+main/SetupSimulation.F90.o:
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/main/SetupSimulation.F90.o
+.PHONY : main/SetupSimulation.F90.o
+
 main/main.o: main/main.F90.o
 .PHONY : main/main.o
 
@@ -146,21 +154,29 @@ main/main.F90.o:
 	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/main/main.F90.o
 .PHONY : main/main.F90.o
 
-multidomain/InitMultiBlock.o: multidomain/InitMultiBlock.F90.o
-.PHONY : multidomain/InitMultiBlock.o
+multiblock/CommunicateData.o: multiblock/CommunicateData.F90.o
+.PHONY : multiblock/CommunicateData.o
 
 # target to build an object file
-multidomain/InitMultiBlock.F90.o:
-	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multidomain/InitMultiBlock.F90.o
-.PHONY : multidomain/InitMultiBlock.F90.o
+multiblock/CommunicateData.F90.o:
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multiblock/CommunicateData.F90.o
+.PHONY : multiblock/CommunicateData.F90.o
 
-multidomain/ReadStructuredGrid.o: multidomain/ReadStructuredGrid.F90.o
-.PHONY : multidomain/ReadStructuredGrid.o
+multiblock/InitMultiBlock.o: multiblock/InitMultiBlock.F90.o
+.PHONY : multiblock/InitMultiBlock.o
 
 # target to build an object file
-multidomain/ReadStructuredGrid.F90.o:
-	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multidomain/ReadStructuredGrid.F90.o
-.PHONY : multidomain/ReadStructuredGrid.F90.o
+multiblock/InitMultiBlock.F90.o:
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/multiblock/InitMultiBlock.F90.o
+.PHONY : multiblock/InitMultiBlock.F90.o
+
+variables/AllocateVariables.o: variables/AllocateVariables.F90.o
+.PHONY : variables/AllocateVariables.o
+
+# target to build an object file
+variables/AllocateVariables.F90.o:
+	$(MAKE) -f CMakeFiles/cfd.x.dir/build.make CMakeFiles/cfd.x.dir/variables/AllocateVariables.F90.o
+.PHONY : variables/AllocateVariables.F90.o
 
 variables/FlowVariables.o: variables/FlowVariables.F90.o
 .PHONY : variables/FlowVariables.o
@@ -190,9 +206,11 @@ help:
 	@echo "... io/input.o"
 	@echo "... io/io.o"
 	@echo "... main/Parameters.o"
+	@echo "... main/SetupSimulation.o"
 	@echo "... main/main.o"
-	@echo "... multidomain/InitMultiBlock.o"
-	@echo "... multidomain/ReadStructuredGrid.o"
+	@echo "... multiblock/CommunicateData.o"
+	@echo "... multiblock/InitMultiBlock.o"
+	@echo "... variables/AllocateVariables.o"
 	@echo "... variables/FlowVariables.o"
 	@echo "... variables/MultiBlockVars.o"
 .PHONY : help

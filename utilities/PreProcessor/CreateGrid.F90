@@ -13,6 +13,7 @@ CONTAINS
       USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain
       USE xml_data_input
       USE PreSetup_m, ONLY: WriteGRID
+      USE AllocateVars_m, ONLY: AllocateMultiBlockXYZ
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(OUT) :: blk
@@ -25,7 +26,9 @@ CONTAINS
       REAL(KIND=wp) :: dx, dy, dz
       CHARACTER(LEN=128) :: GRIDFILE
 
+      WRITE(*,*) ''
       WRITE(*,*) '# Creating a single domain structured grid in plot3d format.'
+
       IF (ndomain .NE. 1) THEN
          WRITE(*,*) '------------------------------------------------------'
          WRITE(*,*) 'WARNING: Please check "ndomain" in input file!'
@@ -75,6 +78,16 @@ CONTAINS
          END DO
       END DO
 
+      IF ((isize - 2 .LT. (ndiv(1) - 1)) .OR. &
+          (jsize - 2 .LT. (ndiv(2) - 1)) .OR. &
+          (ksize - 2 .LT. (ndiv(3) - 1))) THEN
+          WRITE(*,*) "--------------------------------------------------------"
+          WRITE(*,*) "Can't divide the domain with this 'ndivide' setup!"
+          WRITE(*,*) "Please re-adjust 'ndivide' values regarding domain size."
+          WRITE(*,*) "--------------------------------------------------------"
+          STOP
+      END IF
+
       !> Determine the size of evenly divided blocks
       iEvenSize = NINT(REAL(isize + ndiv(1) - 1) / REAL(ndiv(1)))
       jEvenSize = NINT(REAL(jsize + ndiv(2) - 1) / REAL(ndiv(2)))
@@ -122,15 +135,12 @@ CONTAINS
      
       !> Assign node point coordinates to each blocks
       BlockLoop: DO iblk = 1, nblk
-         ALLOCATE(blk(iblk)%x(blk(iblk)%imin-ngc:blk(iblk)%imax+ngc, &
-                              blk(iblk)%jmin-ngc:blk(iblk)%jmax+ngc, &
-                              blk(iblk)%kmin-ngc:blk(iblk)%kmax+ngc))
-         ALLOCATE(blk(iblk)%y(blk(iblk)%imin-ngc:blk(iblk)%imax+ngc, &
-                              blk(iblk)%jmin-ngc:blk(iblk)%jmax+ngc, &
-                              blk(iblk)%kmin-ngc:blk(iblk)%kmax+ngc))
-         ALLOCATE(blk(iblk)%z(blk(iblk)%imin-ngc:blk(iblk)%imax+ngc, &
-                              blk(iblk)%jmin-ngc:blk(iblk)%jmax+ngc, &
-                              blk(iblk)%kmin-ngc:blk(iblk)%kmax+ngc))
+         CALL AllocateMultiBlockXYZ(blk, iblk, blk(iblk)%imin-ngc, &
+                                               blk(iblk)%imax+ngc, &
+                                               blk(iblk)%jmin-ngc, &
+                                               blk(iblk)%jmax+ngc, &
+                                               blk(iblk)%kmin-ngc, &
+                                               blk(iblk)%kmax+ngc)
 
          blk(iblk)%domainID = 1
 

@@ -1,5 +1,9 @@
 # Remove fortran modules provided by this target.
 FILE(REMOVE
+  "allocatevars_m.mod"
+  "ALLOCATEVARS_M.mod"
+  "CMakeFiles/pre.x.dir/allocatevars_m.mod.stamp"
+
   "creategrid_m.mod"
   "CREATEGRID_M.mod"
   "CMakeFiles/pre.x.dir/creategrid_m.mod.stamp"

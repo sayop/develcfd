@@ -10,7 +10,7 @@
       </RunTimeParameters>
       <MultiBlock>
          <ndomain>1</ndomain>
-         <nblk>80</nblk>
+         <nblk>8</nblk>
          <ngc>2</ngc>
          <ngls>2</ngls>
       </MultiBlock>
@@ -21,10 +21,10 @@
          <xstart>0.0</xstart>
          <ystart>0.0</ystart>
          <zstart>0.0</zstart>
-         <isize>21</isize>
-         <jsize>21</jsize>
-         <ksize>21</ksize>
-         <ndivide>5  4  4</ndivide>
+         <isize>11</isize>
+         <jsize>11</jsize>
+         <ksize>11</ksize>
+         <ndivide>2  2  2</ndivide>
       </Geometry>
       <BoundaryCondition>
          <imin>1</imin>

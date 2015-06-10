@@ -29,8 +29,8 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/2.8.10.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/2.8.10.2/CMakeFortranCompiler.cmake"
   "CMakeFiles/2.8.10.2/CMakeSystem.cmake"
-  "/home/sayop/MyCFD/bak/src/io/CMakeLists.txt"
-  "/home/sayop/MyCFD/bak/utilities/PreProcessor/CMakeLists.txt"
+  "/home/sayop/MyCFD/develcfd/src/io/CMakeLists.txt"
+  "/home/sayop/MyCFD/develcfd/utilities/PreProcessor/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
