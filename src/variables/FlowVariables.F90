@@ -7,7 +7,6 @@ MODULE FlowVariables_m
 
    IMPLICIT NONE
 
-   !> Multiblocks related variables
    TYPE FlowVars
       !> Conservative variables
       REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:,:) :: Q
@@ -20,6 +19,10 @@ MODULE FlowVariables_m
       REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: RHO
       !> Temperature
       REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: T
+      !> Internal energy per unit mass: e
+      REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: e
+      !> Total energy per unit mass: Et
+      REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: Et
    END TYPE
 
 CONTAINS
@@ -31,7 +34,7 @@ CONTAINS
 !-----------------------------------------------------------------------------!
 
       IMPLICIT NONE
-      TYPE(FlowVars), INTENT(OUT) :: flow
+      TYPE(FlowVars), INTENT(INOUT) :: flow
       INTEGER, INTENT(IN) :: nvar
       INTEGER, INTENT(IN) :: imin, imax, jmin, jmax, kmin, kmax
 
@@ -49,15 +52,15 @@ CONTAINS
 !-----------------------------------------------------------------------------!
 
       IMPLICIT NONE
-      TYPE(FlowVars), INTENT(OUT) :: flow
+      TYPE(FlowVars), INTENT(INOUT) :: flow
       INTEGER, INTENT(IN) :: imin, imax, jmin, jmax, kmin, kmax
 
-      ALLOCATE(flow%U(imin:imax, jmin:jmax , kmin:kmax))
-      ALLOCATE(flow%V(imin:imax, jmin:jmax , kmin:kmax))
-      ALLOCATE(flow%W(imin:imax, jmin:jmax , kmin:kmax))
-      ALLOCATE(flow%P(imin:imax, jmin:jmax , kmin:kmax))
-      ALLOCATE(flow%T(imin:imax, jmin:jmax , kmin:kmax))
-      ALLOCATE(flow%RHO(imin:imax, jmin:jmax , kmin:kmax))
+      ALLOCATE(flow%U(imin:imax, jmin:jmax, kmin:kmax))
+      ALLOCATE(flow%V(imin:imax, jmin:jmax, kmin:kmax))
+      ALLOCATE(flow%W(imin:imax, jmin:jmax, kmin:kmax))
+      ALLOCATE(flow%P(imin:imax, jmin:jmax, kmin:kmax))
+      ALLOCATE(flow%T(imin:imax, jmin:jmax, kmin:kmax))
+      ALLOCATE(flow%RHO(imin:imax, jmin:jmax, kmin:kmax))
 
       !> Initialize with zero value
       flow%U = 0.0_wp

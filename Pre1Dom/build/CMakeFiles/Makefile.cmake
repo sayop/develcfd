@@ -23,8 +23,6 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake"
   "/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/Platform/Linux.cmake"
   "/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/Platform/UnixPaths.cmake"
-  "/home/sayop/LocalLibs/xml-fortran/install/xml-fortranConfig.cmake"
-  "/home/sayop/LocalLibs/xml-fortran/install/xml-fortranConfigVersion.cmake"
   "CMakeFiles/2.8.10.2/CMakeCCompiler.cmake"
   "CMakeFiles/2.8.10.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/2.8.10.2/CMakeFortranCompiler.cmake"

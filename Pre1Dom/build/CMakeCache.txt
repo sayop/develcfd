@@ -86,7 +86,7 @@ CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
 CMAKE_Fortran_COMPILER:FILEPATH=/usr/bin/gfortran
 
 //Flags for Fortran compiler.
-CMAKE_Fortran_FLAGS:STRING=-DCREATE_GRID
+CMAKE_Fortran_FLAGS:STRING=
 
 //Flags used by the compiler during debug builds.
 CMAKE_Fortran_FLAGS_DEBUG:STRING=-g
@@ -185,7 +185,7 @@ PreProcessor_BINARY_DIR:STATIC=/home/sayop/MyCFD/develcfd/Pre1Dom/build
 PreProcessor_SOURCE_DIR:STATIC=/home/sayop/MyCFD/develcfd/utilities/PreProcessor
 
 //The directory containing a CMake configuration file for xml-fortran.
-xml-fortran_DIR:PATH=/home/sayop/LocalLibs/xml-fortran/install
+xml-fortran_DIR:PATH=xml-fortran_DIR-NOTFOUND
 
 
 ########################
@@ -260,8 +260,6 @@ CMAKE_EXPORT_COMPILE_COMMANDS-ADVANCED:INTERNAL=1
 CMAKE_Fortran_COMPILER-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_Fortran_FLAGS
 CMAKE_Fortran_FLAGS-ADVANCED:INTERNAL=1
-//MODIFIED property for variable: CMAKE_Fortran_FLAGS
-CMAKE_Fortran_FLAGS-MODIFIED:INTERNAL=ON
 //ADVANCED property for variable: CMAKE_Fortran_FLAGS_DEBUG
 CMAKE_Fortran_FLAGS_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_Fortran_FLAGS_MINSIZEREL
@@ -328,7 +326,5 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 IO_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/Pre1Dom/build/io/input.f90;/home/sayop/MyCFD/develcfd/src/io/io.F90
 IO_SRC_FILES_INIT:INTERNAL=/home/sayop/MyCFD/develcfd/Pre1Dom/build/io/input.f90
 PREIO_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/Pre1Dom/build/io/input.f90;/home/sayop/MyCFD/develcfd/src/io/io.F90
-PRE_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/utilities/PreProcessor/../../src//main/Parameters.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/../../src//variables/MultiBlockVars.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/../../src//variables/AllocateVariables.F90;/home/sayop/MyCFD/develcfd/Pre1Dom/build/io/input.f90;/home/sayop/MyCFD/develcfd/src/io/io.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/PreSetup.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/CreateGrid.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/pre.F90
-//MODIFIED property for variable: xml-fortran_DIR
-xml-fortran_DIR-MODIFIED:INTERNAL=ON
+PRE_SRC_FILES:INTERNAL=/home/sayop/MyCFD/develcfd/utilities/PreProcessor/../../src//main/Parameters.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/../../src//variables/MultiBlockVars.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/../../src//variables/FlowVariables.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/../../src//variables/GridTransformVars.F90;/home/sayop/MyCFD/develcfd/Pre1Dom/build/io/input.f90;/home/sayop/MyCFD/develcfd/src/io/io.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/PreSetup.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/CreateGrid.F90;/home/sayop/MyCFD/develcfd/utilities/PreProcessor/pre.F90
 

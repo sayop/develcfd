@@ -1,0 +1,4 @@
+set(EOS_SRC_FILES
+   ${CMAKE_CURRENT_SOURCE_DIR}/thermodynamics/PerfectGas.F90
+   CACHE INTERNAL "" FORCE)
+

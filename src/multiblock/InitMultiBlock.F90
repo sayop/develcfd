@@ -155,10 +155,12 @@ CONTAINS
       BCFILE = 'bcinfo.dat'
       OPEN(10, FILE = BCFILE, FORM = "FORMATTED")
       READ(10,*)
-!      DO m = 1, nblk
-!         !> Allocate bc_index arrays
-!         READ(10,*) iblk, blk(m)%bc_index(iblk)
-!      END DO
+
+      DO m = 1, nblk
+         READ(10,*) iblk, blk(iblk)%bc_imin, blk(iblk)%bc_imax, &
+                          blk(iblk)%bc_jmin, blk(iblk)%bc_jmax, &
+                          blk(iblk)%bc_kmin, blk(iblk)%bc_kmax
+      END DO
       CLOSE(10)
 
    END SUBROUTINE

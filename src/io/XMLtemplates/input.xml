@@ -29,6 +29,18 @@
       <component name="ksize" type="integer" default="2"/>
       <component name="ndivide" type="integer" shape="3" default="(/ 1, 1, 1 /)"/>
    </typedef>
+   <typedef name="gridstretch_t">
+      <component name="xpower" type="double"  default="0.0"/>
+      <component name="ypower" type="double"  default="0.0"/>
+      <component name="zpower" type="double"  default="0.0"/>
+      <component name="xstrength" type="double"  default="0.0"/>
+      <component name="ystrength" type="double"  default="0.0"/>
+      <component name="zstrength" type="double"  default="0.0"/>
+   </typedef>
+   <typedef name="gridtransform_t">
+      <component name="order" type="integer"  default="2"/>
+      <component name="printjacobian" type="logical"  default=".false."/>
+   </typedef>
    <typedef name="boundarycondition_t">
       <component name="imin" type="integer"  default="1"/>
       <component name="imax" type="integer"  default="1"/>
@@ -36,6 +48,20 @@
       <component name="jmax" type="integer"  default="1"/>
       <component name="kmin" type="integer"  default="1"/>
       <component name="kmax" type="integer"  default="1"/>
+   </typedef>
+   <typedef name="initialcondition_t">
+      <component name="u" type="double"      default="0.0"/>
+      <component name="v" type="double"      default="0.0"/>
+      <component name="w" type="double"      default="0.0"/>
+      <component name="temp" type="double"   default="297.0"/>
+      <component name="pres" type="double"   default="101325.0"/>
+   </typedef>
+   <typedef name="species_t">
+      <component name="nspec" type="integer"  default="1"/>
+      <component name="species" type="word-array" length="12"  default="'AIR'"/>
+      <component name="massfrac" type="double-array"    default="1.0"/>
+      <component name="lewis" type="double-array"    default="1.0"/>
+      <component name="gaslaw" type="word" length="12" default="'CPG'"/>
    </typedef>
    <typedef name="runtime_t">
       <component name="restart"  type="integer" default="0"/>
@@ -45,7 +71,11 @@
       <component name="RunTimeParameters"      type="runtime_t"/>
       <component name="MultiBlock"             type="multiblock_t"/>
       <component name="Geometry"               type="geometry_t"/>
+      <component name="GridStretch"            type="gridstretch_t"/>
+      <component name="GridTransform"          type="gridtransform_t"/>
       <component name="BoundaryCondition"      type="boundarycondition_t"/>
+      <component name="InitialCondition"       type="initialcondition_t"/>
+      <component name="Species"                type="species_t"/>
    </typedef>
    <variable name="input_data" type="input_type"/>
 </template>

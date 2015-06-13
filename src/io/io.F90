@@ -35,7 +35,6 @@ CONTAINS
      filename = 'cfd_input.xml'
      CALL write_xml_file_input(filename)
 
-
    END SUBROUTINE WriteInputFiles
 
 !-----------------------------------------------------------------------------!

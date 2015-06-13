@@ -10,15 +10,16 @@ CONTAINS
 !-----------------------------------------------------------------------------!
    SUBROUTINE Create1DomainGrid(ndomain, nblk, dom, blk, ngc)
 !-----------------------------------------------------------------------------!
-      USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain
+      USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain, &
+                                  AllocateMultiBlockXYZ
       USE xml_data_input
       USE PreSetup_m, ONLY: WriteGRID
-      USE AllocateVars_m, ONLY: AllocateMultiBlockXYZ
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(OUT) :: blk
       TYPE(MultiDomain), DIMENSION(:), INTENT(OUT) :: dom
-      INTEGER, INTENT(IN) :: ndomain, nblk, ngc
+      INTEGER, INTENT(IN) :: ndomain, ngc
+      INTEGER, INTENT(INOUT) :: nblk
       INTEGER :: i, j, k, iblk, n
       INTEGER, DIMENSION(3) :: ndiv
       INTEGER :: iEvenSize, jEvenSize, kEvenSize
@@ -71,9 +72,21 @@ CONTAINS
       DO i = 1, isize
          DO j = 1, jsize
             DO k = 1, ksize
-               dom(1)%x(i,j,k) = input_data%Geometry%xstart + dx * (i - 1)
-               dom(1)%y(i,j,k) = input_data%Geometry%ystart + dy * (j - 1)
-               dom(1)%z(i,j,k) = input_data%Geometry%zstart + dz * (k - 1)
+               dom(1)%x(i,j,k) = StretchingFn(input_data%Geometry%xstart, &
+                                              input_data%Geometry%xlen, &
+                                              isize, i, &
+                                              input_data%GridStretch%xpower, &
+                                              input_data%GridStretch%xstrength)
+               dom(1)%y(i,j,k) = StretchingFn(input_data%Geometry%ystart, &
+                                              input_data%Geometry%ylen, &
+                                              jsize, j, &
+                                              input_data%GridStretch%ypower, &
+                                              input_data%GridStretch%ystrength)
+               dom(1)%z(i,j,k) = StretchingFn(input_data%Geometry%zstart, &
+                                              input_data%Geometry%zlen, &
+                                              ksize, k, &
+                                              input_data%GridStretch%zpower, &
+                                              input_data%GridStretch%zstrength)
             END DO
          END DO
       END DO
@@ -135,7 +148,7 @@ CONTAINS
      
       !> Assign node point coordinates to each blocks
       BlockLoop: DO iblk = 1, nblk
-         CALL AllocateMultiBlockXYZ(blk, iblk, blk(iblk)%imin-ngc, &
+         CALL AllocateMultiBlockXYZ(blk(iblk), blk(iblk)%imin-ngc, &
                                                blk(iblk)%imax+ngc, &
                                                blk(iblk)%jmin-ngc, &
                                                blk(iblk)%jmax+ngc, &
@@ -160,6 +173,28 @@ CONTAINS
       GRIDFILE = 'grid.dat'
       CALL WriteGRID(nblk, blk, GRIDFILE) 
    END SUBROUTINE
+
+   FUNCTION StretchingFn(lineStart, lineLength, nsize, indx, power, strength) RESULT(outcome)
+   !> This function provides xi(i) function to make stretched line.
+      REAL(KIND=wp), INTENT(IN) :: lineStart, lineLength, power, strength
+      INTEGER, INTENT(IN) :: nsize, indx
+      INTEGER :: ncell
+      REAL(KIND=wp) :: xi
+
+      ncell = nsize - 1
+      xi = REAL(indx - 1) / REAL(ncell)
+
+      xi = xi ** (abs(power))
+
+      !> one-sided boundary layer stretching
+      outcome = lineLength * xi
+
+      !> internal layer stretching
+      outcome = outcome + strength * (lineStart + 0.5_wp * lineLength - lineLength * xi) * &
+                                     (1.0_wp - xi) * xi
+      outcome = lineStart + outcome
+   END FUNCTION StretchingFn
+
 END MODULE
 
 

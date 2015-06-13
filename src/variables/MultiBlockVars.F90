@@ -6,6 +6,7 @@ MODULE MultiBlockVars_m
    USE Parameters_m, ONLY: wp
    USE GridTransformVars_m, ONLY: GridMetrics
    USE FlowVariables_m, ONLY: FlowVars
+   USE SpeciesVars_m, ONLY: SpeciesData
 
    IMPLICIT NONE
 
@@ -52,27 +53,11 @@ MODULE MultiBlockVars_m
       !> Flow variables
       TYPE(FlowVars) :: flow
 
+      !> Species data
+      TYPE(SpeciesData) :: spc
+
    END TYPE MultiBlock
 
-   !> Multiblocks related variables for PreProcessor
-   TYPE MultiBlock_pre
-      INTEGER :: isize, jsize, ksize
-      INTEGER :: imin, imax, jmin, jmax, kmin, kmax
-      INTEGER :: istart, iend, jstart, jend, kstart, kend
-      INTEGER :: domainID
-      !> Grid coordinates
-      REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: x, y, z
-      !> Grid coordinates based on cell-center (Not currently used)
-      !REAL(KIND=WP), ALLOCATABLE, DIMENSION(:,:,:) :: xc, yc, zc
-
-      !> used to indicate which type of boundary conditions will be used
-      !> for surfaces surrounding the block.
-      INTEGER :: bc_imin, bc_imax, bc_jmin, bc_jmax, bc_kmin, bc_kmax
-
-      !> neighbor array stores the index of neighbors surrounding the block
-      INTEGER, DIMENSION(-1:1,-1:1,-1:1) :: neighbor
-
-   END TYPE MultiBlock_pre
 
 CONTAINS
 

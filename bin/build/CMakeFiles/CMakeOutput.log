@@ -28,30 +28,33 @@ The CXX compiler identification is GNU, found in "/home/sayop/MyCFD/develcfd/bin
 Determining if the C compiler works passed with the following output:
 Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec3162635273/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec3162635273.dir/build.make CMakeFiles/cmTryCompileExec3162635273.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec3469632696/fast"
 make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3469632696.dir/build.make CMakeFiles/cmTryCompileExec3469632696.dir/build
+make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec3162635273.dir/testCCompiler.c.o
-/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3162635273.dir/testCCompiler.c.o   -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTryCompileExec3162635273
-/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3162635273.dir/link.txt --verbose=1
-/usr/bin/cc         CMakeFiles/cmTryCompileExec3162635273.dir/testCCompiler.c.o  -o cmTryCompileExec3162635273 -rdynamic 
+Building C object CMakeFiles/cmTryCompileExec3469632696.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3469632696.dir/testCCompiler.c.o   -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec3469632696
+/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3469632696.dir/link.txt --verbose=1
+/usr/bin/cc         CMakeFiles/cmTryCompileExec3469632696.dir/testCCompiler.c.o  -o cmTryCompileExec3469632696 -rdynamic 
+make[2]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 make[1]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec108681452/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec108681452.dir/build.make CMakeFiles/cmTryCompileExec108681452.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec136411814/fast"
 make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec136411814.dir/build.make CMakeFiles/cmTryCompileExec136411814.dir/build
+make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building C object CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o
-/usr/bin/cc    -o CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o   -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCCompilerABI.c
-Linking C executable cmTryCompileExec108681452
-/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec108681452.dir/link.txt --verbose=1
-/usr/bin/cc       -v CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec108681452 -rdynamic  
+Building C object CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o   -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec136411814
+/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec136411814.dir/link.txt --verbose=1
+/usr/bin/cc       -v CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec136411814 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/cc
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6/lto-wrapper
@@ -61,8 +64,9 @@ Thread model: posix
 gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec108681452' '-rdynamic' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec108681452 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec136411814' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec136411814 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o
+make[2]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 make[1]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 
 
@@ -70,15 +74,16 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec108681452/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec108681452.dir/build.make CMakeFiles/cmTryCompileExec108681452.dir/build]
+  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec136411814/fast"]
   ignore line: [make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec136411814.dir/build.make CMakeFiles/cmTryCompileExec136411814.dir/build]
+  ignore line: [make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp']
   ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
-  ignore line: [Building C object CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o   -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTryCompileExec108681452]
-  ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec108681452.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/cc       -v CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec108681452 -rdynamic  ]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o   -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec136411814]
+  ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec136411814.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc       -v CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec136411814 -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/cc]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6/lto-wrapper]
@@ -88,8 +93,8 @@ Parsed C implicit link information from above output:
   ignore line: [gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec108681452' '-rdynamic' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec108681452 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec136411814' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec136411814 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -104,7 +109,7 @@ Parsed C implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTryCompileExec108681452] ==> ignore
+    arg [cmTryCompileExec136411814] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o] ==> ignore
@@ -116,7 +121,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../..]
-    arg [CMakeFiles/cmTryCompileExec108681452.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTryCompileExec136411814.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -147,30 +152,33 @@ Parsed C implicit link information from above output:
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec2264895806/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec2264895806.dir/build.make CMakeFiles/cmTryCompileExec2264895806.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec1917590655/fast"
 make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1917590655.dir/build.make CMakeFiles/cmTryCompileExec1917590655.dir/build
+make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec2264895806.dir/testCXXCompiler.cxx.o
-/usr/bin/c++     -o CMakeFiles/cmTryCompileExec2264895806.dir/testCXXCompiler.cxx.o -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTryCompileExec2264895806
-/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2264895806.dir/link.txt --verbose=1
-/usr/bin/c++          CMakeFiles/cmTryCompileExec2264895806.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec2264895806 -rdynamic 
+Building CXX object CMakeFiles/cmTryCompileExec1917590655.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec1917590655.dir/testCXXCompiler.cxx.o -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec1917590655
+/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1917590655.dir/link.txt --verbose=1
+/usr/bin/c++          CMakeFiles/cmTryCompileExec1917590655.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec1917590655 -rdynamic 
+make[2]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 make[1]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec4162257840/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec4162257840.dir/build.make CMakeFiles/cmTryCompileExec4162257840.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec3551703343/fast"
 make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3551703343.dir/build.make CMakeFiles/cmTryCompileExec3551703343.dir/build
+make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building CXX object CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/c++     -o CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTryCompileExec4162257840
-/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4162257840.dir/link.txt --verbose=1
-/usr/bin/c++        -v CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec4162257840 -rdynamic  
+Building CXX object CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec3551703343
+/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3551703343.dir/link.txt --verbose=1
+/usr/bin/c++        -v CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec3551703343 -rdynamic  
 Using built-in specs.
 COLLECT_GCC=/usr/bin/c++
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6/lto-wrapper
@@ -180,8 +188,9 @@ Thread model: posix
 gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) 
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec4162257840' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec4162257840 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3551703343' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec3551703343 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o
+make[2]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 make[1]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 
 
@@ -189,15 +198,16 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec4162257840/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec4162257840.dir/build.make CMakeFiles/cmTryCompileExec4162257840.dir/build]
+  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec3551703343/fast"]
   ignore line: [make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec3551703343.dir/build.make CMakeFiles/cmTryCompileExec3551703343.dir/build]
+  ignore line: [make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp']
   ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
-  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTryCompileExec4162257840]
-  ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4162257840.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/c++        -v CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec4162257840 -rdynamic  ]
+  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTryCompileExec3551703343]
+  ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3551703343.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++        -v CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec3551703343 -rdynamic  ]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/c++]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6/lto-wrapper]
@@ -207,8 +217,8 @@ Parsed CXX implicit link information from above output:
   ignore line: [gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ]
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec4162257840' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec4162257840 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3551703343' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec3551703343 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -223,7 +233,7 @@ Parsed CXX implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTryCompileExec4162257840] ==> ignore
+    arg [cmTryCompileExec3551703343] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o] ==> ignore
@@ -235,7 +245,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../..]
-    arg [CMakeFiles/cmTryCompileExec4162257840.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTryCompileExec3551703343.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -277,31 +287,34 @@ The Fortran compiler identification is GNU, found in "/home/sayop/MyCFD/develcfd
 Determining if the Fortran compiler works passed with the following output:
 Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec1721099664/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec1721099664.dir/build.make CMakeFiles/cmTryCompileExec1721099664.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec1697421102/fast"
 make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1697421102.dir/build.make CMakeFiles/cmTryCompileExec1697421102.dir/build
+make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building Fortran object CMakeFiles/cmTryCompileExec1721099664.dir/testFortranCompiler.f.o
-/usr/bin/gfortran    -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testFortranCompiler.f -o CMakeFiles/cmTryCompileExec1721099664.dir/testFortranCompiler.f.o
-Linking Fortran executable cmTryCompileExec1721099664
-/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1721099664.dir/link.txt --verbose=1
-/usr/bin/gfortran         CMakeFiles/cmTryCompileExec1721099664.dir/testFortranCompiler.f.o  -o cmTryCompileExec1721099664 -rdynamic 
+Building Fortran object CMakeFiles/cmTryCompileExec1697421102.dir/testFortranCompiler.f.o
+/usr/bin/gfortran    -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testFortranCompiler.f -o CMakeFiles/cmTryCompileExec1697421102.dir/testFortranCompiler.f.o
+Linking Fortran executable cmTryCompileExec1697421102
+/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1697421102.dir/link.txt --verbose=1
+/usr/bin/gfortran         CMakeFiles/cmTryCompileExec1697421102.dir/testFortranCompiler.f.o  -o cmTryCompileExec1697421102 -rdynamic 
+make[2]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 make[1]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 
 
 Detecting Fortran compiler ABI info compiled with the following output:
 Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec1538068362/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec1538068362.dir/build.make CMakeFiles/cmTryCompileExec1538068362.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec3763308695/fast"
 make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3763308695.dir/build.make CMakeFiles/cmTryCompileExec3763308695.dir/build
+make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building Fortran object CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o
-/usr/bin/gfortran    -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeFortranCompilerABI.F -o CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o
-Linking Fortran executable cmTryCompileExec1538068362
-/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1538068362.dir/link.txt --verbose=1
-/usr/bin/gfortran   -v     CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o  -o cmTryCompileExec1538068362 -rdynamic  
-Driving: /usr/bin/gfortran -v CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o -o cmTryCompileExec1538068362 -rdynamic -l gfortran -l m -shared-libgcc
+Building Fortran object CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o
+/usr/bin/gfortran    -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeFortranCompilerABI.F -o CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o
+Linking Fortran executable cmTryCompileExec3763308695
+/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3763308695.dir/link.txt --verbose=1
+/usr/bin/gfortran   -v     CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o  -o cmTryCompileExec3763308695 -rdynamic  
+Driving: /usr/bin/gfortran -v CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o -o cmTryCompileExec3763308695 -rdynamic -l gfortran -l m -shared-libgcc
 Using built-in specs.
 COLLECT_GCC=/usr/bin/gfortran
 COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6/lto-wrapper
@@ -311,11 +324,12 @@ Thread model: posix
 gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) 
 Reading specs from /usr/lib/gcc/x86_64-linux-gnu/4.6/libgfortran.spec
 rename spec lib to liborig
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec1538068362' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3763308695' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
 COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/
 LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec1538068362' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec1538068362 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3763308695' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec3763308695 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o
+make[2]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 make[1]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 
 
@@ -323,16 +337,17 @@ Parsed Fortran implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec1538068362/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec1538068362.dir/build.make CMakeFiles/cmTryCompileExec1538068362.dir/build]
+  ignore line: [Run Build Command:/usr/bin/make "cmTryCompileExec3763308695/fast"]
   ignore line: [make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec3763308695.dir/build.make CMakeFiles/cmTryCompileExec3763308695.dir/build]
+  ignore line: [make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp']
   ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
-  ignore line: [Building Fortran object CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o]
-  ignore line: [/usr/bin/gfortran    -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeFortranCompilerABI.F -o CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o]
-  ignore line: [Linking Fortran executable cmTryCompileExec1538068362]
-  ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1538068362.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/gfortran   -v     CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o  -o cmTryCompileExec1538068362 -rdynamic  ]
-  ignore line: [Driving: /usr/bin/gfortran -v CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o -o cmTryCompileExec1538068362 -rdynamic -l gfortran -l m -shared-libgcc]
+  ignore line: [Building Fortran object CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o]
+  ignore line: [/usr/bin/gfortran    -c /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/share/cmake-2.8/Modules/CMakeFortranCompilerABI.F -o CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o]
+  ignore line: [Linking Fortran executable cmTryCompileExec3763308695]
+  ignore line: [/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3763308695.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/gfortran   -v     CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o  -o cmTryCompileExec3763308695 -rdynamic  ]
+  ignore line: [Driving: /usr/bin/gfortran -v CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o -o cmTryCompileExec3763308695 -rdynamic -l gfortran -l m -shared-libgcc]
   ignore line: [Using built-in specs.]
   ignore line: [COLLECT_GCC=/usr/bin/gfortran]
   ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/4.6/lto-wrapper]
@@ -342,11 +357,11 @@ Parsed Fortran implicit link information from above output:
   ignore line: [gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ]
   ignore line: [Reading specs from /usr/lib/gcc/x86_64-linux-gnu/4.6/libgfortran.spec]
   ignore line: [rename spec lib to liborig]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec1538068362' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3763308695' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
   ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/]
   ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/4.6/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../:/lib/:/usr/lib/]
-  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec1538068362' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
-  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec1538068362 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec3763308695' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/4.6/collect2 --sysroot=/ --build-id --no-add-needed --as-needed --eh-frame-hdr -m elf_x86_64 --hash-style=gnu -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec3763308695 /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/4.6 -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../.. CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/4.6/crtend.o /usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/collect2] ==> ignore
     arg [--sysroot=/] ==> ignore
     arg [--build-id] ==> ignore
@@ -361,7 +376,7 @@ Parsed Fortran implicit link information from above output:
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTryCompileExec1538068362] ==> ignore
+    arg [cmTryCompileExec3763308695] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/lib/gcc/x86_64-linux-gnu/4.6/crtbegin.o] ==> ignore
@@ -373,7 +388,7 @@ Parsed Fortran implicit link information from above output:
     arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
     arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
     arg [-L/usr/lib/gcc/x86_64-linux-gnu/4.6/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/4.6/../../..]
-    arg [CMakeFiles/cmTryCompileExec1538068362.dir/CMakeFortranCompilerABI.F.o] ==> ignore
+    arg [CMakeFiles/cmTryCompileExec3763308695.dir/CMakeFortranCompilerABI.F.o] ==> ignore
     arg [-lgfortran] ==> lib [gfortran]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -408,15 +423,17 @@ Parsed Fortran implicit link information from above output:
 Determining if the Fortran compiler supports Fortran 90 passed with the following output:
 Change Dir: /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp
 
-Run Build Command:/usr/bin/make "cmTryCompileExec3282853957/fast"
-/usr/bin/make -f CMakeFiles/cmTryCompileExec3282853957.dir/build.make CMakeFiles/cmTryCompileExec3282853957.dir/build
+Run Build Command:/usr/bin/make "cmTryCompileExec2710863946/fast"
 make[1]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2710863946.dir/build.make CMakeFiles/cmTryCompileExec2710863946.dir/build
+make[2]: Entering directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 /home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_progress_report /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/CMakeFiles 1
-Building Fortran object CMakeFiles/cmTryCompileExec3282853957.dir/testFortranCompilerF90.f90.o
-/usr/bin/gfortran    -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testFortranCompilerF90.f90 -o CMakeFiles/cmTryCompileExec3282853957.dir/testFortranCompilerF90.f90.o
-Linking Fortran executable cmTryCompileExec3282853957
-/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3282853957.dir/link.txt --verbose=1
-/usr/bin/gfortran         CMakeFiles/cmTryCompileExec3282853957.dir/testFortranCompilerF90.f90.o  -o cmTryCompileExec3282853957 -rdynamic 
+Building Fortran object CMakeFiles/cmTryCompileExec2710863946.dir/testFortranCompilerF90.f90.o
+/usr/bin/gfortran    -c /home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp/testFortranCompilerF90.f90 -o CMakeFiles/cmTryCompileExec2710863946.dir/testFortranCompilerF90.f90.o
+Linking Fortran executable cmTryCompileExec2710863946
+/home/sayop/LocalLibs/cmake-2.8.10.2-Linux-i386/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2710863946.dir/link.txt --verbose=1
+/usr/bin/gfortran         CMakeFiles/cmTryCompileExec2710863946.dir/testFortranCompilerF90.f90.o  -o cmTryCompileExec2710863946 -rdynamic 
+make[2]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 make[1]: Leaving directory `/home/sayop/MyCFD/develcfd/bin/build/CMakeFiles/CMakeTmp'
 
 

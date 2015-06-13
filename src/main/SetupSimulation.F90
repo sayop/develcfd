@@ -29,12 +29,12 @@ CONTAINS
 
       !> Read bc info for every surfaces surrouding the block
       !> Will read from bcinfo.dat
-      !CALL ReadBCinfo(nblk, blk)
+      CALL ReadBCinfo(nblk, blk)
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE InitializeFlowVars(blk, nblk, ngc)
+   SUBROUTINE InitializeFlowVars(blk, nblk)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
       USE FlowVariables_m, ONLY: FlowVars, AllocateConservedVars, &
@@ -43,7 +43,7 @@ CONTAINS
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
-      INTEGER, INTENT(IN) :: nblk, ngc
+      INTEGER, INTENT(IN) :: nblk
       INTEGER :: iblk, nvar
 
       !> Number of conserved variables
@@ -66,12 +66,41 @@ CONTAINS
                                                     blk(iblk)%kmax)
       END DO
 
+   END SUBROUTINE
 
-      !> Initialize the solutions of flow variables
-      CALL SetInitialConditions(blk, nblk)
+!-----------------------------------------------------------------------------!
+   SUBROUTINE InitializeSpeciesVars(blk, nblk)
+!-----------------------------------------------------------------------------!
+      USE MultiBlockVars_m, ONLY: MultiBlock
+      USE SpeciesVars_m
+      USE xml_data_input
 
-      !> Receive node data from neighbors
-      CALL RecvDataFromNeighbor(blk, nblk, ngc)
+      IMPLICIT NONE
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk
+      INTEGER :: iblk, ispc
+
+      nspec = input_data%Species%nspec
+      !> Allocate memories for global species data
+      ALLOCATE(SPC(nspec))
+
+      DO ispc = 1, nspec
+         SPC(ispc)%spcName  = input_data%Species%species(ispc)
+         SPC(ispc)%Lewis    = input_data%Species%lewis(ispc)
+         !> Temporary setup for specific heat: Here AIR property is adopted!
+         SPC(ispc)%Cp       = 1010.0_wp
+         SPC(ispc)%Cv       = 718.0_wp
+         SPC(ispc)%R        = SPC(ispc)%Cp - SPC(ispc)%Cv
+      END DO
+      
+      DO iblk = 1, nblk
+         CALL AllocateSpeciesData(blk(iblk)%spc, nspec, blk(iblk)%imin, &
+                                                        blk(iblk)%imax, &
+                                                        blk(iblk)%jmin, &
+                                                        blk(iblk)%jmax, &
+                                                        blk(iblk)%kmin, &
+                                                        blk(iblk)%kmax)
+      END DO
 
    END SUBROUTINE
 
@@ -80,37 +109,47 @@ CONTAINS
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
       USE xml_data_input
+      USE PerfectGas_m, ONLY: EvaluateDensity
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: nblk
       INTEGER :: iblk
+      REAL(KIND=wp) :: Rmix
+
+      !> Temporary assignment.
+      Rmix = 287.05_wp
 
       DO iblk = 1, nblk
-         blk(iblk)%flow%RHO = 0.1_wp
-         blk(iblk)%flow%U = 10.0_wp
-         blk(iblk)%flow%V = 0.0_wp
-         blk(iblk)%flow%W = 0.0_wp
-         blk(iblk)%flow%T(blk(iblk)%istart:blk(iblk)%iend, &
-                        blk(iblk)%jstart:blk(iblk)%jend, &
-                        blk(iblk)%kstart:blk(iblk)%kend) = 297.0_wp
-         blk(iblk)%flow%P = 101325.0_wp
+         blk(iblk)%flow%RHO = EvaluateDensity(input_data%InitialCondition%pres, &
+                                              input_data%Initialcondition%temp, &
+                                              Rmix)
+         blk(iblk)%flow%U   = input_data%InitialCondition%u
+         blk(iblk)%flow%V   = input_data%InitialCondition%v
+         blk(iblk)%flow%W   = input_data%InitialCondition%w
+         blk(iblk)%flow%P   = input_data%InitialCondition%pres
+         blk(iblk)%flow%T   = input_data%Initialcondition%temp
       END DO
 
    END SUBROUTINE
 
+
 !-----------------------------------------------------------------------------!
-   SUBROUTINE InitializeSimulationVars(blk, nblk, ngc)
+   SUBROUTINE InitializeSimulationVars(blk, nblk)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
       USE CoordinateTransform_m, ONLY: SetGridMetrics
+      USE xml_data_input
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
-      INTEGER, INTENT(IN) :: nblk, ngc
-      INTEGER :: iblk
+      INTEGER, INTENT(IN) :: nblk
+      INTEGER :: iblk, norder
 
-      CALL SetGridMetrics(blk, nblk, 2)      
+      !> order of accuracy for spatial discretization in generalized transform
+      norder = input_data%GridTransform%order
+
+      CALL SetGridMetrics(blk, nblk, norder)
 
    END SUBROUTINE
 

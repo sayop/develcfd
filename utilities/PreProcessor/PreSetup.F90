@@ -10,8 +10,8 @@ CONTAINS
 !-----------------------------------------------------------------------------!
    SUBROUTINE ReadPlot3DGrid(ndomain, nblk, dom, blk, ngc)
 !-----------------------------------------------------------------------------!
-      USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain
-      USE AllocateVars_m, ONLY: AllocateMultiBlockXYZ
+      USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain, &
+                                  AllocateMultiBlockXYZ
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
@@ -66,7 +66,7 @@ CONTAINS
          blk(m)%jmax = blk(m)%jend
          blk(m)%kmax = blk(m)%kend
 
-         CALL AllocateMultiBlockXYZ(blk, m, 1-ngc, blk(m)%isize+ngc, &
+         CALL AllocateMultiBlockXYZ(blk(m), 1-ngc, blk(m)%isize+ngc, &
                                             1-ngc, blk(m)%jsize+ngc, &
                                             1-ngc, blk(m)%ksize+ngc)
          blk(m)%domainID = m

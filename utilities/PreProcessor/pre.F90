@@ -17,9 +17,10 @@ PROGRAM pre
    WRITE(*,*) '#############################################'
    WRITE(*,*) '### PreProcessor: GRID generation program ###'
    WRITE(*,*) '#############################################'
-   !CALL WriteInputFiles()
+
    CALL ReadInputFiles()
 
+!   CALL WriteInputFiles()
    !> Initialize global variables for multiblock setup
    ndomain = input_data%MultiBlock%ndomain
    nblk    = input_data%MultiBlock%nblk

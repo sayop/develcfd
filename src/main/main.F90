@@ -10,7 +10,6 @@ PROGRAM main
    IMPLICIT NONE
    TYPE(MultiBlock), DIMENSION(:), ALLOCATABLE, TARGET :: blk
    REAL(KIND=wp) :: START, FINISH
-
    CALL CPU_TIME(START)
 
    WRITE(*,*) "##########################################################################"
@@ -30,9 +29,13 @@ PROGRAM main
    !> Read grid file and allocate multiblock variables
    CALL InitializeMultiBlock(blk, nblk, ngc)
 
-   CALL InitializeSimulationVars(blk, nblk, ngc)
+   CALL InitializeSimulationVars(blk, nblk)
 
-   CALL InitializeFlowVars(blk, nblk, ngc)
+   CALL InitializeFlowVars(blk, nblk)
+
+   CALL InitializeSpeciesVars(blk, nblk)
+
+   CALL SetInitialConditions(blk, nblk)
 
    CALL WriteRESTfile(blk, nblk)
 
