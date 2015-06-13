@@ -13,7 +13,7 @@ CONTAINS
       USE MultiBlockVars_m, ONLY: MultiBlock, MultiDomain, &
                                   AllocateMultiBlockXYZ
       USE xml_data_input
-      USE PreSetup_m, ONLY: WriteGRID
+      USE PreSetup_m, ONLY: WriteGRID, WriteBCinfo
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(OUT) :: blk
@@ -49,6 +49,14 @@ CONTAINS
       dom(1)%kend = ksize
       ndiv = input_data%Geometry%ndivide
 
+      !> Read BC info from inputfile
+      dom(1)%bc_imin = input_data%BoundaryCondition%imin
+      dom(1)%bc_imax = input_data%BoundaryCondition%imax
+      dom(1)%bc_jmin = input_data%BoundaryCondition%jmin
+      dom(1)%bc_jmax = input_data%BoundaryCondition%jmax
+      dom(1)%bc_kmin = input_data%BoundaryCondition%kmin
+      dom(1)%bc_kmax = input_data%BoundaryCondition%kmax
+
       n = 1
       DO i = 1, 3
          n = n * ndiv(i)
@@ -59,6 +67,9 @@ CONTAINS
          WRITE(*,*) '--------------------------------------------------------'
          STOP
       END IF
+
+      !> Allocate memory for storing blockID info into each domain
+      ALLOCATE(dom(1)%blockID(nblk))
 
       !> Initialize node point coordinates
       ALLOCATE(dom(1)%x(isize,jsize,ksize))
@@ -106,6 +117,7 @@ CONTAINS
       jEvenSize = NINT(REAL(jsize + ndiv(2) - 1) / REAL(ndiv(2)))
       kEvenSize = NINT(REAL(ksize + ndiv(3) - 1) / REAL(ndiv(3)))
 
+
       n = 1
       DO i = 1, ndiv(1)
          DO j = 1, ndiv(2)
@@ -140,6 +152,9 @@ CONTAINS
                END IF
                blk(n)%kmax = blk(n)%kend
                blk(n)%ksize = blk(n)%kmax - blk(n)%kmin + 1
+
+               !> Update blockID in the corresponding domain
+               dom(1)%blockID(n) = n
                n = n + 1
             END DO
          END DO
@@ -172,6 +187,10 @@ CONTAINS
       !> Write a PLOT3D structured grid: grid.dat
       GRIDFILE = 'grid.dat'
       CALL WriteGRID(nblk, blk, GRIDFILE) 
+
+      !> Write bcinfo.dat: ndomain = 1
+      CALL WriteBCinfo(ndomain, dom, nblk, blk)
+
    END SUBROUTINE
 
    FUNCTION StretchingFn(lineStart, lineLength, nsize, indx, power, strength) RESULT(outcome)

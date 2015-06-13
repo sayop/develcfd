@@ -101,6 +101,36 @@ CONTAINS
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
+   SUBROUTINE WriteBCinfo(ndom, dom, nblk, blk)
+!-----------------------------------------------------------------------------!
+      USE MultiBlockVars_m, ONLY: MultiDomain, MultiBlock
+
+      IMPLICIT NONE
+      TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: ndom, nblk
+      INTEGER :: idom, iblk
+
+      DO idom = 1, ndom
+         write(*,*) 'domain=1', dom(idom)%istart, dom(idom)%iend
+         DO iblk = 1, nblk
+            !> Update BC in i-direction
+            IF (blk(iblk)%istart .EQ. dom(idom)%istart) THEN
+               blk(iblk)%bc_imin = blk(idom)%bc_imin
+            ELSE
+               blk(iblk)%bc_imin = 0
+            END IF
+            IF (blk(iblk)%iend .EQ. dom(idom)%iend) THEN
+
+            ELSE
+
+            END IF
+            write(*,*) iblk, blk(iblk)%istart, blk(iblk)%iend
+         END DO
+      END DO
+   END SUBROUTINE
+
+!-----------------------------------------------------------------------------!
    SUBROUTINE ReadBCinfo(nblk, blk)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
@@ -126,6 +156,7 @@ CONTAINS
       CLOSE(10)
 
    END SUBROUTINE
+
 
 !-----------------------------------------------------------------------------!
    SUBROUTINE WriteGRID(nblk, blk, GRIDFILE)
