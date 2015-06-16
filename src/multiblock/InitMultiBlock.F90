@@ -19,6 +19,9 @@ CONTAINS
       INTEGER :: i, j, k
       CHARACTER(LEN=128) :: NODEFILE, charDUMP
 
+      WRITE(*,*) ''
+      WRITE(*,*) '# Reading NODE files.'
+
       DO m = 1, nblk
          WRITE(NODEFILE,'("NODE_",I5.5,".DATA")') m
          OPEN(30, FILE = NODEFILE, FORM = "FORMATTED")
@@ -150,7 +153,8 @@ CONTAINS
       INTEGER :: m, iblk
       CHARACTER(LEN=128) BCFILE
 
-      WRITE(*,*) 'Read boundary condition info for structured grid'
+      WRITE(*,*) ""
+      WRITE(*,*) '# Reading boundary condition info for structured grid'
 
       BCFILE = 'bcinfo.dat'
       OPEN(10, FILE = BCFILE, FORM = "FORMATTED")

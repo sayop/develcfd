@@ -15,7 +15,7 @@ add_subdirectory(main)
 add_subdirectory(io)
 add_subdirectory(multiblock)
 add_subdirectory(variables)
-add_subdirectory(EoS)
+add_subdirectory(properties)
 add_subdirectory(FDM)
 
 #
@@ -29,7 +29,7 @@ set(CFD_EXE_NAME cfd.x CACHE STRING "CFD executable name")
 set(CFD_SRC_FILES ${MAIN_SRC_FILES}
                   ${IO_SRC_FILES}
                   ${VARS_SRC_FILES}
-                  ${EOS_SRC_FILES}
+                  ${PROPERTY_SRC_FILES}
                   ${FDM_SRC_FILES}
                   ${MULTIBLOCK_SRC_FILES})
                   

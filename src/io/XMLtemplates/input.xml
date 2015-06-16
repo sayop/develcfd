@@ -8,8 +8,8 @@
       the makefile.
    </comment>
    <typedef name="equations_t">
-      <component name="Formulation" type="word" length="17"/>
-      <component name="iVisc"     type="integer"/>
+      <component name="discretization" type="word" length="17"/>
+      <component name="ivisc"     type="integer"/>
    </typedef>
    <typedef name="multiblock_t">
       <component name="ndomain" type="integer"    default="1"/>

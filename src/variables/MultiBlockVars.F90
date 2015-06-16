@@ -6,7 +6,7 @@ MODULE MultiBlockVars_m
    USE Parameters_m, ONLY: wp
    USE GridTransformVars_m, ONLY: GridMetrics
    USE FlowVariables_m, ONLY: FlowVars
-   USE SpeciesVars_m, ONLY: SpeciesData
+   USE ThermalGasVars_m, ONLY: SpeciesData, MixtureData
 
    IMPLICIT NONE
 
@@ -55,6 +55,9 @@ MODULE MultiBlockVars_m
 
       !> Species data
       TYPE(SpeciesData) :: spc
+
+      !> Mixture data: Mixture average thermodynamic variables
+      TYPE(MixtureData) :: Mix
 
    END TYPE MultiBlock
 

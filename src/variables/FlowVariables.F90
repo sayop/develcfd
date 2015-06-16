@@ -7,6 +7,8 @@ MODULE FlowVariables_m
 
    IMPLICIT NONE
 
+   REAL(KIND=wp) :: Tref, Pref, Uref, Vref, Wref
+
    TYPE FlowVars
       !> Conservative variables
       REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:,:) :: Q
@@ -19,10 +21,8 @@ MODULE FlowVariables_m
       REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: RHO
       !> Temperature
       REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: T
-      !> Internal energy per unit mass: e
-      REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: e
-      !> Total energy per unit mass: Et
-      REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: Et
+      !> Mixture total energy per unit mass: Etot
+      REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: Etot
    END TYPE
 
 CONTAINS

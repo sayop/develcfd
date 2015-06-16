@@ -21,6 +21,13 @@ CONTAINS
       INTEGER :: iblk
 
 
+      WRITE(*,*) ""
+      IF (norder .EQ. 2) THEN
+         WRITE(*,*) "# Setting up Grid Metrics in 2nd order accuracy..."
+      ELSE
+         WRITE(*,*) "# Setting up Grid Metrics in 4th order accuracy..."
+      END IF
+
       IF ((norder .NE. 2) .AND. (norder .NE. 4)) THEN
          WRITE(*,*) "---------------------------------------------------------"
          WRITE(*,*) "WARNING: Only 2nd and 4th order of accuracy are available"

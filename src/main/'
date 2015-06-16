@@ -72,7 +72,7 @@ CONTAINS
    SUBROUTINE InitializeSpeciesVars(blk, nblk)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
-      USE ThermalGasVars_m
+      USE SpeciesVars_m
       USE SetSpeciesData_m, ONLY: SetSpeciesThermoData
       USE xml_data_input
 
@@ -95,27 +95,16 @@ CONTAINS
          SPC(ispc)%R        = SPC(ispc)%Cp - SPC(ispc)%Cv
       END DO
 
-
       !> Read species data from Chemkin type input file
       CALL SetSpeciesThermoData(SPC, nspec)
       
-
       DO iblk = 1, nblk
-         !> Allocate variables associated with every single species
          CALL AllocateSpeciesData(blk(iblk)%spc, nspec, blk(iblk)%imin, &
                                                         blk(iblk)%imax, &
                                                         blk(iblk)%jmin, &
                                                         blk(iblk)%jmax, &
                                                         blk(iblk)%kmin, &
                                                         blk(iblk)%kmax)
-         !> Allocate variables associated mixture property and thermo-
-         !> dynamic data
-         CALL AllocateMixtureData(blk(iblk)%mix, blk(iblk)%imin, &
-                                                 blk(iblk)%imax, &
-                                                 blk(iblk)%jmin, &
-                                                 blk(iblk)%jmax, &
-                                                 blk(iblk)%kmin, &
-                                                 blk(iblk)%kmax)
       END DO
 
    END SUBROUTINE
@@ -123,34 +112,29 @@ CONTAINS
 !-----------------------------------------------------------------------------!
    SUBROUTINE SetInitialConditions(blk, nblk)
 !-----------------------------------------------------------------------------!
-      USE Parameters_m, ONLY: Ru
       USE MultiBlockVars_m, ONLY: MultiBlock
       USE xml_data_input
       USE PerfectGas_m, ONLY: EvaluateDensity
-      USE ThermalGasVars_m, ONLY: SPC, nspec
-      USE SetMixtureData_m, ONLY: EvaluateMWmix
+      USE FlowVariables_m, ONLY: Uref, Vref, Wref, Tref, Pref
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: nblk
-      INTEGER :: iblk, ispc
-      REAL(KIND=wp) :: Rmix, MWmix
-      !> Temporary storage for mass fraction 1-D array
-      REAL(KIND=wp), DIMENSION(1:nspec) :: mfr
+      INTEGER :: iblk
+      REAL(KIND=wp) :: Rmix
 
-      !> The below is used for computing density.
-      DO ispc = 1, nspec
-         mfr(ispc) = input_data%Species%massfrac(ispc)
-      END DO
-      MWmix = EvaluateMWmix(mfr)
-      Rmix = Ru / MWmix
-     
+      !> Temporary assignment.
+      Rmix = 287.05_wp
+
+      !> Setup Reference value
+      Uref = input_data%InitialCondition%u
+      Vref = input_data%InitialCondition%v
+      Wref = input_data%InitialCondition%w
+      Pref = input_data%InitialCondition%pres
+      Tref = input_data%Initialcondition%temp
+      
       !> Initialize every block flow variables
       DO iblk = 1, nblk
-         DO ispc = 1, nspec         
-            blk(iblk)%spc%MassFrac(:,:,:,ispc) = input_data%Species%massfrac(ispc)
-         END DO
-
          blk(iblk)%flow%RHO = EvaluateDensity(input_data%InitialCondition%pres, &
                                               input_data%Initialcondition%temp, &
                                               Rmix)
@@ -159,30 +143,39 @@ CONTAINS
          blk(iblk)%flow%W   = input_data%InitialCondition%w
          blk(iblk)%flow%P   = input_data%InitialCondition%pres
          blk(iblk)%flow%T   = input_data%Initialcondition%temp
-
-         !> Update state vector elements with primitive variables
-         CALL UpdateStateVector(blk(iblk))
+         !> Initialize internal energy: Needs gas properties
+!         blk(iblk)%flow%e   = EvaluateInternalEnergy(
       END DO
+
+      !> Update state vector elements with primitive variables
+      CALL UpdateStateVector(blk, nblk)
 
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE UpdateStateVector(blk)
+   SUBROUTINE UpdateStateVector(blk, nblk)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
       
       IMPLICIT NONE
-      TYPE(MultiBlock), INTENT(INOUT) :: blk
+      TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
+      INTEGER, INTENT(IN) :: nblk
+      INTEGER :: iblk
 
 
-      !> First element: RHO
-      blk%flow%Q(:,:,:,1) = blk%flow%RHO(:,:,:)
-      !> Second element: RHO * U
-      blk%flow%Q(:,:,:,2) = blk%flow%RHO(:,:,:) * blk%flow%U(:,:,:)
-      !> Second element: RHO * V
-      blk%flow%Q(:,:,:,3) = blk%flow%RHO(:,:,:) * blk%flow%V(:,:,:)
-      !> Second element: RHO * W
-      blk%flow%Q(:,:,:,4) = blk%flow%RHO(:,:,:) * blk%flow%W(:,:,:)
+      DO iblk = 1, nblk
+         !> First element: RHO
+         blk(iblk)%flow%Q(:,:,:,1) = blk(iblk)%flow%RHO(:,:,:)
+         !> Second element: RHO * U
+         blk(iblk)%flow%Q(:,:,:,2) = blk(iblk)%flow%RHO(:,:,:) * &
+                                     blk(iblk)%flow%U(:,:,:)
+         !> Second element: RHO * V
+         blk(iblk)%flow%Q(:,:,:,3) = blk(iblk)%flow%RHO(:,:,:) * &
+                                     blk(iblk)%flow%V(:,:,:)
+         !> Second element: RHO * W
+         blk(iblk)%flow%Q(:,:,:,4) = blk(iblk)%flow%RHO(:,:,:) * &
+                                     blk(iblk)%flow%W(:,:,:)
+      END DO
 
    END SUBROUTINE
 
@@ -194,20 +187,11 @@ CONTAINS
       USE MultiBlockVars_m, ONLY: MultiBlock
       USE CoordinateTransform_m, ONLY: SetGridMetrics
       USE xml_data_input
-      USE FlowVariables_m, ONLY: Uref, Vref, Wref, Tref, Pref
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: nblk
       INTEGER :: iblk, norder
-
-      !> Setup Reference value
-      Uref = input_data%InitialCondition%u
-      Vref = input_data%InitialCondition%v
-      Wref = input_data%InitialCondition%w
-      Pref = input_data%InitialCondition%pres
-      Tref = input_data%Initialcondition%temp
-
 
       IF (input_data%Equations%discretization .EQ. 'FINITE_DIFFERENCE') THEN
          !> order of accuracy for spatial discretization in generalized transform
