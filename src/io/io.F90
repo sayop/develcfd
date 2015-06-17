@@ -32,7 +32,7 @@ CONTAINS
      IMPLICIT NONE
      CHARACTER(LEN=filenameLength) :: filename
 
-     filename = 'cfd_input.xml'
+     filename = 'new_input.xml'
      CALL write_xml_file_input(filename)
 
    END SUBROUTINE WriteInputFiles

@@ -26,69 +26,136 @@ CONTAINS
       rho = P / (R * T)
    END FUNCTION
 
-   FUNCTION EvaluateInternalEnergy(Cv, T) RESULT(e)
+   FUNCTION EvaluateInternalEnergy(H, RHO, P) RESULT(Eint)
       IMPLICIT NONE
-      REAL(KIND=wp), INTENT(IN) :: Cv, T
-      REAL(KIND=wp) :: e
+      REAL(KIND=wp), INTENT(IN) :: H, RHO, P
+      REAL(KIND=wp) :: Eint
 
-      e = Cv * T
+      Eint = H - P / RHO
    END FUNCTION
 
-   FUNCTION EvaluateCp(T, Tmed, MW, THCOEF) RESULT(Cp)
-      !> Update constant pressure specific heat for single species
+   FUNCTION EvaluateEnthalpyFromEint(Eint, RHO, P) RESULT(H)
       IMPLICIT NONE
-      REAL(KIND=wp), INTENT(IN) :: T, Tmed, MW
-      REAL(KIND=wp), DIMENSION(14), INTENT(IN) :: THCOEF
+      REAL(KIND=wp), INTENT(IN) :: Eint, RHO, P
+      REAL(KIND=wp) :: H
+
+      H = Eint + P / RHO
+   END FUNCTION
+
+   FUNCTION EvaluateCp(ispc, T) RESULT(Cp)
+      !> Update constant pressure specific heat for single species
+      USE ThermalGasVars_m, ONLY: SPC
+      IMPLICIT NONE
+      INTEGER, INTENT(IN) :: ispc
+      REAL(KIND=wp), INTENT(IN) :: T
       REAL(KIND=wp) :: Cp
       INTEGER :: i
 
-      IF (T .LE. Tmed) THEN
+      !> Median temperature is 1000 K.
+      IF (T .LE. 1000.0_wp) THEN
          i = 8 !! For low temperature fit
       ELSE
          i = 1 !! For high temperature fit
       END IF
 
       !> This below actually is Cp/Ru in dimensionless
-      Cp = THCOEF(i) + THCOEF(i+1) * T + THCOEF(i+2) * T ** 2 + &
-           THCOEF(i+3) * T ** 3 + THCOEF(i+4) * T ** 4
+      Cp = SPC(ispc)%THCOEF(i) + SPC(ispc)%THCOEF(i+1) * T + & 
+                                 SPC(ispc)%THCOEF(i+2) * T ** 2 + &
+                                 SPC(ispc)%THCOEF(i+3) * T ** 3 + &
+                                 SPC(ispc)%THCOEF(i+4) * T ** 4
 
       !> Cp in [J/kmol.K]
       Cp = Cp * Ru
 
       !> Cp in [J/kg.K]
-      Cp = Cp / MW
+      Cp = Cp / SPC(ispc)%MW
    END FUNCTION
 
-   FUNCTION EvaluateHf(T, Tmed, MW, THCOEF) RESULT(Hf)
+   FUNCTION EvaluateEnthalpyTPG(ispc, T) RESULT(Htpg)
       !> Update heat of formation for single species
       !> Can be used for updating TPG enthalpy value.
+      USE ThermalGasVars_m, ONLY: SPC
       IMPLICIT NONE
-      REAL(KIND=wp), INTENT(IN) :: T, Tmed, MW
-      REAL(KIND=wp), DIMENSION(14), INTENT(IN) :: THCOEF
-      REAL(KIND=wp) :: Hf
+      INTEGER, INTENT(IN) :: ispc
+      REAL(KIND=wp), INTENT(IN) :: T
+      REAL(KIND=wp) :: Htpg
       INTEGER :: i
 
+      !> Median temperature is 1000 K.
+      IF (T .LE. 1000.0_wp) THEN
+         i = 8 !! For low temperature fit
+      ELSE
+         i = 1 !! For high temperature fit
+      END IF
+
       !> This below actually is Ho/(Ru.T) in dimensionless
-      Hf = THCOEF(i) + THCOEF(i+1) / 2.0_wp * T + &
-                       THCOEF(i+2) / 3.0_wp * T ** 2 + &
-                       THCOEF(i+3) / 4.0_wp * T ** 3 + &
-                       THCOEF(i+4) / 5.0_wp * T ** 4 + &
-                       THCOEF(i+5) / T
+      Htpg = SPC(ispc)%THCOEF(i) + SPC(ispc)%THCOEF(i+1) / 2.0_wp * T + &
+                                 SPC(ispc)%THCOEF(i+2) / 3.0_wp * T ** 2 + &
+                                 SPC(ispc)%THCOEF(i+3) / 4.0_wp * T ** 3 + &
+                                 SPC(ispc)%THCOEF(i+4) / 5.0_wp * T ** 4 + &
+                                 SPC(ispc)%THCOEF(i+5) / T
 
-      !> Ho in [J.kmol.K]
-      Hf = Hf * Ru * T
+      !> Ho in [J/kmol]
+      Htpg = Htpg * Ru * T
 
-      !> Ho in [J/kg.K]
-      Hf = Hf / MW
+      !> Ho in [J/kg]
+      Htpg = Htpg / SPC(ispc)%MW
    END FUNCTION
 
-   FUNCTION EvaluateEnthalpyCPG(Hf, Cp, Tref, T) RESULT(Hcpg)
-      !> Update absolute enthalpy for single species
+   FUNCTION EvaluateEnthalpyCPG(ispc, T) RESULT(Hcpg)
+      !> Tref should be first evaluated in advance!!!
+      !> This value is initialized in subroutine SetSpeciesThermoData.
+      !> Plz make sure that this subroutine is called earlier than this function.
+      USE FlowVariables_m, ONLY: Tref
+      !> SPC element values should be first evaluated!!!!
+      USE ThermalGasVars_m, ONLY: SPC
+      !> Update absolute enthalpy for single species with CPG assumption
       IMPLICIT NONE
-      REAL(KIND=wp), INTENT(IN) :: T, Tref, Hf, Cp
+      INTEGER, INTENT(IN) :: ispc
+      REAL(KIND=wp), INTENT(IN) :: T
       REAL(KIND=wp) :: Hcpg
 
-      Hcpg = Hf + (T - Tref) * Cp
+      Hcpg = SPC(ispc)%Href + (T - Tref) * SPC(ispc)%Cp
+   END FUNCTION
+
+   FUNCTION EvaluateTempFromHmixCPG(Hmix, mfr) RESULT(T)
+      !> Find temperature from enthalpy of mixture
+      USE FlowVariables_m, ONLY: Tref
+      USE ThermalGasVars_m, ONLY: SPC, nspec
+      IMPLICIT NONE
+      REAL(KIND=wp), INTENT(IN) :: Hmix
+      REAL(KIND=wp), DIMENSION(1:nspec), INTENT(IN) :: mfr
+      REAL(KIND=wp) :: T, r1, r2
+      INTEGER :: ispc
+
+      r1 = 0.0_wp
+      r2 = 0.0_wp
+      DO ispc = 1, nspec
+         r1 = r1 + mfr(ispc) * ( SPC(ispc)%Href - SPC(ispc)%Cp * Tref )
+         r2 = r2 + mfr(ispc) * SPC(ispc)%Cp
+      END DO
+
+      T = ( Hmix - r1 ) / r2
+   END FUNCTION
+
+   FUNCTION EvaluateTempFromHmixTPG(Hmix, mfr) RESULT(T)
+      !> Find temperature from enthalpy of mixture
+      USE FlowVariables_m, ONLY: Tref
+      USE ThermalGasVars_m, ONLY: SPC, nspec
+      IMPLICIT NONE
+      REAL(KIND=wp), INTENT(IN) :: Hmix
+      REAL(KIND=wp), DIMENSION(1:nspec), INTENT(IN) :: mfr
+      REAL(KIND=wp) :: T, r1, r2
+      INTEGER :: ispc
+
+      r1 = 0.0_wp
+      r2 = 0.0_wp
+      DO ispc = 1, nspec
+         r1 = r1 + mfr(ispc) * ( SPC(ispc)%Href - SPC(ispc)%Cp * Tref )
+         r2 = r2 + mfr(ispc) * SPC(ispc)%Cp
+      END DO
+
+      T = ( Hmix - r1 ) / r2
    END FUNCTION
 
 END MODULE

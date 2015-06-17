@@ -69,7 +69,8 @@ CONTAINS
       END IF
 
       !> Allocate memory for storing blockID info into each domain
-      ALLOCATE(dom(1)%blockID(nblk))
+      dom(1)%nblocks = nblk
+      ALLOCATE(dom(1)%blockID(dom(1)%nblocks))
 
       !> Initialize node point coordinates
       ALLOCATE(dom(1)%x(isize,jsize,ksize))

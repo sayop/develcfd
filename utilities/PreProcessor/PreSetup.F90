@@ -109,26 +109,67 @@ CONTAINS
       TYPE(MultiDomain), DIMENSION(:), INTENT(INOUT) :: dom
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: ndom, nblk
-      INTEGER :: idom, iblk
+      INTEGER :: idom, n, iblk
+      CHARACTER(LEN=128) BCFILE
 
       DO idom = 1, ndom
-         write(*,*) 'domain=1', dom(idom)%istart, dom(idom)%iend
-         DO iblk = 1, nblk
+         DO n = 1, dom(idom)%nblocks
+            iblk = dom(idom)%blockID(n)
             !> Update BC in i-direction
             IF (blk(iblk)%istart .EQ. dom(idom)%istart) THEN
-               blk(iblk)%bc_imin = blk(idom)%bc_imin
+               blk(iblk)%bc_imin = dom(idom)%bc_imin
             ELSE
                blk(iblk)%bc_imin = 0
             END IF
             IF (blk(iblk)%iend .EQ. dom(idom)%iend) THEN
-
+               blk(iblk)%bc_imax = dom(idom)%bc_imax
             ELSE
-
+               blk(iblk)%bc_imax = 0
             END IF
-            write(*,*) iblk, blk(iblk)%istart, blk(iblk)%iend
+
+            !> Update BC in j-direction
+            IF (blk(iblk)%jstart .EQ. dom(idom)%jstart) THEN
+               blk(iblk)%bc_jmin = dom(idom)%bc_jmin
+            ELSE
+               blk(iblk)%bc_jmin = 0
+            END IF
+            IF (blk(iblk)%jend .EQ. dom(idom)%jend) THEN
+               blk(iblk)%bc_jmax = dom(idom)%bc_jmax
+            ELSE
+               blk(iblk)%bc_jmax = 0
+            END IF
+
+            !> Update BC in k-direction
+            IF (blk(iblk)%kstart .EQ. dom(idom)%kstart) THEN
+               blk(iblk)%bc_kmin = dom(idom)%bc_kmin
+            ELSE
+               blk(iblk)%bc_kmin = 0
+            END IF
+            IF (blk(iblk)%kend .EQ. dom(idom)%kend) THEN
+               blk(iblk)%bc_kmax = dom(idom)%bc_kmax
+            ELSE
+               blk(iblk)%bc_kmax = 0
+            END IF
          END DO
       END DO
+
+      WRITE(*,*) ''
+      WRITE(*,*) '# Writing bc info...'
+
+      BCFILE = 'bcinfo.dat'
+      OPEN(10, FILE = BCFILE, FORM = "FORMATTED")
+      WRITE(10,'(7A6)') 'BLOCKS', 'IMIN', 'IMAX', &
+                                  'JMIN', 'JMAX', &
+                                  'KMIN', 'KMAX'
+      DO iblk = 1, nblk
+         WRITE(10,'(7I6)') iblk, blk(iblk)%bc_imin, blk(iblk)%bc_imax, &
+                               blk(iblk)%bc_jmin, blk(iblk)%bc_jmax, &
+                               blk(iblk)%bc_kmin, blk(iblk)%bc_kmax
+      END DO
+      CLOSE(10)
+
    END SUBROUTINE
+
 
 !-----------------------------------------------------------------------------!
    SUBROUTINE ReadBCinfo(nblk, blk)

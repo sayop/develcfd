@@ -12,7 +12,7 @@ CONTAINS
 !-----------------------------------------------------------------------------!
       USE ThermalGasVars_m, ONLY: SpeciesGlobal
       USE FlowVariables_m, ONLY: Tref
-      USE PerfectGas_m, ONLY: EvaluateCp, EvaluateHf, EvaluateDensity
+      USE PerfectGas_m, ONLY: EvaluateCp, EvaluateEnthalpyTPG, EvaluateDensity
 
       IMPLICIT NONE
       TYPE(SpeciesGlobal), DIMENSION(:), INTENT(INOUT) :: SPC
@@ -31,10 +31,8 @@ CONTAINS
       END DO
 
       DO ispc = 1, nspc
-         SPC(ispc)%Cp = EvaluateCp(Tref, 1000.0_wp, SPC(ispc)%MW, &
-                                   SPC(ispc)%THCOEF)
-         SPC(ispc)%Href = EvaluateHf(Tref, 1000.0_wp, SPC(ispc)%MW, &
-                                   SPC(ispc)%THCOEF)
+         SPC(ispc)%Cp = EvaluateCp(ispc, Tref)
+         SPC(ispc)%Href = EvaluateEnthalpyTPG(ispc, Tref)
          SPC(ispc)%R = Ru / SPC(ispc)%MW
          SPC(ispc)%Cv = SPC(ispc)%Cp - SPC(ispc)%R
       END DO

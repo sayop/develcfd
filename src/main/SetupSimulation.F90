@@ -128,23 +128,32 @@ CONTAINS
       USE xml_data_input
       USE PerfectGas_m, ONLY: EvaluateDensity
       USE ThermalGasVars_m, ONLY: SPC, nspec
-      USE SetMixtureData_m, ONLY: EvaluateMWmix
+      USE SetMixtureData_m, ONLY: EvaluateMWmix, UpdateMixtureThermoVariables
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: nblk
       INTEGER :: iblk, ispc
-      REAL(KIND=wp) :: Rmix, MWmix
-      !> Temporary storage for mass fraction 1-D array
-      REAL(KIND=wp), DIMENSION(1:nspec) :: mfr
+      REAL(KIND=wp) :: Rmix, MWmix, mfrSUM
 
-      !> The below is used for computing density.
-      DO ispc = 1, nspec
-         mfr(ispc) = input_data%Species%massfrac(ispc)
-      END DO
-      MWmix = EvaluateMWmix(mfr)
+      MWmix = EvaluateMWmix(input_data%Species%massfrac)
       Rmix = Ru / MWmix
-     
+
+      !> Check if the sum of all massfrac from read becomes unity.
+      mfrSUM = 0.0_wp
+      DO ispc = 1, nspec
+         mfrSUM = mfrSUM + input_data%Species%massfrac(ispc)
+      END DO
+      IF (mfrSUM .NE. 1.0_wp) THEN
+         WRITE(*,*) "----------------------------------------------------------&
+                     --------------------"
+         WRITE(*,*) "WARNING: Sum of all species mass fraction from input file &
+                     is NOT equal to 1.0."
+         WRITE(*,*) "----------------------------------------------------------&
+                     --------------------"
+         STOP
+      END IF
+
       !> Initialize every block flow variables
       DO iblk = 1, nblk
          DO ispc = 1, nspec         
@@ -157,11 +166,20 @@ CONTAINS
          blk(iblk)%flow%U   = input_data%InitialCondition%u
          blk(iblk)%flow%V   = input_data%InitialCondition%v
          blk(iblk)%flow%W   = input_data%InitialCondition%w
-         blk(iblk)%flow%P   = input_data%InitialCondition%pres
+         !> Pressure will be evaluated from the SUBROUTINE UpdateMixtureThermo-
+         !> Variables().
+         !blk(iblk)%flow%P   = input_data%InitialCondition%pres
          blk(iblk)%flow%T   = input_data%Initialcondition%temp
+
+         !> Update internal energy, enthalpy, and mixture properties.
+         !> Before calling this subroutine, pressure should be first evaluated.
+         CALL UpdateMixtureThermoVariables(blk(iblk), SPC, nspec)
 
          !> Update state vector elements with primitive variables
          CALL UpdateStateVector(blk(iblk))
+
+         !> Temporary use!!!
+         CALL UpdatePrimitiveVariables(blk(iblk))
       END DO
 
    END SUBROUTINE
@@ -169,6 +187,7 @@ CONTAINS
 !-----------------------------------------------------------------------------!
    SUBROUTINE UpdateStateVector(blk)
 !-----------------------------------------------------------------------------!
+      !> Update state vector elements from primitive variables
       USE MultiBlockVars_m, ONLY: MultiBlock
       
       IMPLICIT NONE
@@ -179,13 +198,41 @@ CONTAINS
       blk%flow%Q(:,:,:,1) = blk%flow%RHO(:,:,:)
       !> Second element: RHO * U
       blk%flow%Q(:,:,:,2) = blk%flow%RHO(:,:,:) * blk%flow%U(:,:,:)
-      !> Second element: RHO * V
+      !> Third element: RHO * V
       blk%flow%Q(:,:,:,3) = blk%flow%RHO(:,:,:) * blk%flow%V(:,:,:)
-      !> Second element: RHO * W
+      !> Fourth element: RHO * W
       blk%flow%Q(:,:,:,4) = blk%flow%RHO(:,:,:) * blk%flow%W(:,:,:)
+      !> Fifth element: Total energy
+      blk%flow%Q(:,:,:,5) = blk%flow%Etot(:,:,:)
 
    END SUBROUTINE
 
+
+!-----------------------------------------------------------------------------!
+   SUBROUTINE UpdatePrimitiveVariables(blk)
+!-----------------------------------------------------------------------------!
+      !? Update primitive variables from state vector
+      USE MultiBlockVars_m, ONLY: MultiBlock
+      USE SetMixtureData_m, ONLY: UpdateTempFromEnthalpy
+
+      IMPLICIT NONE
+      TYPE(MultiBlock), INTENT(INOUT) :: blk
+
+      !> Density of mixture
+      blk%flow%RHO(:,:,:)  = blk%flow%Q(:,:,:,1)
+      !> U velocity
+      blk%flow%U(:,:,:)    = blk%flow%Q(:,:,:,2) / blk%flow%RHO(:,:,:)
+      !> V velocity
+      blk%flow%V(:,:,:)    = blk%flow%Q(:,:,:,3) / blk%flow%RHO(:,:,:)
+      !> W velocity
+      blk%flow%W(:,:,:)    = blk%flow%Q(:,:,:,4) / blk%flow%RHO(:,:,:)
+      !> Total energy
+      blk%flow%Etot(:,:,:) = blk%flow%Q(:,:,:,5)
+
+      !> Evaluate temperature from internal energy
+      CALL UpdateTempFromEnthalpy(blk)
+
+   END SUBROUTINE
 
 
 !-----------------------------------------------------------------------------!

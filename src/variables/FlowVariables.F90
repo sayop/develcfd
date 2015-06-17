@@ -61,6 +61,7 @@ CONTAINS
       ALLOCATE(flow%P(imin:imax, jmin:jmax, kmin:kmax))
       ALLOCATE(flow%T(imin:imax, jmin:jmax, kmin:kmax))
       ALLOCATE(flow%RHO(imin:imax, jmin:jmax, kmin:kmax))
+      ALLOCATE(flow%Etot(imin:imax, jmin:jmax, kmin:kmax))
 
       !> Initialize with zero value
       flow%U = 0.0_wp
@@ -69,6 +70,7 @@ CONTAINS
       flow%P = 0.0_wp
       flow%T = 0.0_wp
       flow%RHO = 0.0_wp
+      flow%Etot = 0.0_wp
 
    END SUBROUTINE
 

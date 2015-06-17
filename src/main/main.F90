@@ -19,6 +19,7 @@ PROGRAM main
    WRITE(*,*) "##########################################################################"
 
    CALL ReadInputFiles()
+   CALL WriteInputFiles()
 
    !> Initialize global variables for multiblock setup
    ndomain = input_data%MultiBlock%ndomain
