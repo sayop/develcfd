@@ -178,8 +178,6 @@ CONTAINS
          !> Update state vector elements with primitive variables
          CALL UpdateStateVector(blk(iblk))
 
-         !> Temporary use!!!
-         CALL UpdatePrimitiveVariables(blk(iblk))
       END DO
 
    END SUBROUTINE

@@ -31,10 +31,12 @@ CONTAINS
          EvaluateTempFromHmix => EvaluateTempFromHmixTPG
       END SELECT
 
+      !> Find temperature from mixture enthalpy based on perfect gas assumption
       DO k = blk%kstart, blk%kend
          DO j = blk%jstart, blk%jend
             DO i = blk%istart, blk%iend
-               blk%flow%T(i,j,k) = EvaluateTempFromHmix(blk%mix%Hmix(i,j,k), &
+               blk%flow%T(i,j,k) = EvaluateTempFromHmix(blk%flow%T(i,j,k), &
+                                                        blk%mix%Hmix(i,j,k), &
                                                         blk%spc%MassFrac(i,j,k,:))
             END DO
          END DO

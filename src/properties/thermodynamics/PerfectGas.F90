@@ -118,12 +118,14 @@ CONTAINS
       Hcpg = SPC(ispc)%Href + (T - Tref) * SPC(ispc)%Cp
    END FUNCTION
 
-   FUNCTION EvaluateTempFromHmixCPG(Hmix, mfr) RESULT(T)
+   FUNCTION EvaluateTempFromHmixCPG(Told, Hmix, mfr) RESULT(T)
       !> Find temperature from enthalpy of mixture
       USE FlowVariables_m, ONLY: Tref
       USE ThermalGasVars_m, ONLY: SPC, nspec
       IMPLICIT NONE
-      REAL(KIND=wp), INTENT(IN) :: Hmix
+      !> Told is not being used in this function but needs to be kept for
+      !> using pointer option together with the use of TPG option.
+      REAL(KIND=wp), INTENT(IN) :: Told, Hmix
       REAL(KIND=wp), DIMENSION(1:nspec), INTENT(IN) :: mfr
       REAL(KIND=wp) :: T, r1, r2
       INTEGER :: ispc
@@ -138,24 +140,45 @@ CONTAINS
       T = ( Hmix - r1 ) / r2
    END FUNCTION
 
-   FUNCTION EvaluateTempFromHmixTPG(Hmix, mfr) RESULT(T)
+   FUNCTION EvaluateTempFromHmixTPG(Told, Hmix, mfr) RESULT(T)
       !> Find temperature from enthalpy of mixture
       USE FlowVariables_m, ONLY: Tref
       USE ThermalGasVars_m, ONLY: SPC, nspec
       IMPLICIT NONE
-      REAL(KIND=wp), INTENT(IN) :: Hmix
+      REAL(KIND=wp) :: T
+      REAL(KIND=wp), INTENT(IN) :: Told, Hmix
       REAL(KIND=wp), DIMENSION(1:nspec), INTENT(IN) :: mfr
-      REAL(KIND=wp) :: T, r1, r2
-      INTEGER :: ispc
+      REAL(KIND=wp) :: Tguess, Hguess, ERROR, delT
+      REAL(KIND=wp) :: Cpguess
+      INTEGER :: ispc, ITER
+      INTEGER, PARAMETER :: ITERMAX = 10
+      REAL(KIND=wp), PARAMETER :: ERRLIMIT = 0.01
 
-      r1 = 0.0_wp
-      r2 = 0.0_wp
-      DO ispc = 1, nspec
-         r1 = r1 + mfr(ispc) * ( SPC(ispc)%Href - SPC(ispc)%Cp * Tref )
-         r2 = r2 + mfr(ispc) * SPC(ispc)%Cp
+      Tguess = Told
+      ERROR = 100.0_wp
+      delT = 0.0_wp
+      DO ITER = 1, ITERMAX
+         Tguess = Tguess + delT
+         Hguess = 0.0_wp
+         Cpguess = 0.0_wp
+         DO ispc = 1, nspec
+            Cpguess = Cpguess + mfr(ispc) * EvaluateCp(ispc, Tguess)
+            Hguess = Hguess + mfr(ispc) * EvaluateEnthalpyTPG(ispc, Tguess)
+         END DO
+         delT = (Hmix - Hguess) / Cpguess
+         ERROR = ABS(Hmix - Hguess) / ABS(Hmix)
+         IF (ERROR .LE. ERRLIMIT) THEN
+            EXIT
+         ELSE IF (ITER .EQ. ITERMAX) THEN
+            WRITE(*,*) "-------------------------------------------------------------"
+            WRITE(*,*) "WARNING: Slow convergence happened in finding T from Hmix!!!!"
+            WRITE(*,*) "This somehow updated T that may not be much correct and so it"
+            WRITE(*,*) "will create numerical error later on. Be careful!!!"
+            WRITE(*,*) "-------------------------------------------------------------"
+         END IF
       END DO
 
-      T = ( Hmix - r1 ) / r2
+      T = Tguess
    END FUNCTION
 
 END MODULE
