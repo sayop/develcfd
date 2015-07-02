@@ -14,6 +14,7 @@
    <typedef name="multiblock_t">
       <component name="ndomain" type="integer"    default="1"/>
       <component name="nblk" type="integer"    default="1"/>
+      <component name="ncpu" type="integer"    default="1"/>
       <component name="ngc" type="integer"    default="1"/>
       <component name="ngls" type="integer"    default="1"/>
    </typedef>

@@ -4,6 +4,7 @@
 
 MODULE SetSpeciesData_m
    USE Parameters_m, ONLY: wp, Ru
+   USE GlobalVars_m, ONLY: rank
 
 CONTAINS
 
@@ -19,9 +20,12 @@ CONTAINS
       INTEGER, INTENT(IN) :: nspc
       INTEGER :: ispc
 
-      WRITE(*,*) ""
-      WRITE(*,*) "# Reading Chemkin thermodynamic coefficients and molecular &
-                    weight..."
+      IF (rank .EQ. 0) THEN
+         WRITE(*,*) ""
+         WRITE(*,*) "# Reading Chemkin thermodynamic coefficients and molecular &
+                       weight..."
+      END IF
+
       DO ispc = 1, nspc
          CALL ReadChemkinThermoCoef(SPC, ispc)
       END DO

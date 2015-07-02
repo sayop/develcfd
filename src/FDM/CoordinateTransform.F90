@@ -3,6 +3,7 @@
 
 MODULE CoordinateTransform_m
    USE Parameters_m, ONLY: wp
+   USE GlobalVars_m, ONLY: rank
 
 CONTAINS
 
@@ -21,11 +22,13 @@ CONTAINS
       INTEGER :: iblk
 
 
-      WRITE(*,*) ""
-      IF (norder .EQ. 2) THEN
-         WRITE(*,*) "# Setting up Grid Metrics in 2nd order accuracy..."
-      ELSE
-         WRITE(*,*) "# Setting up Grid Metrics in 4th order accuracy..."
+      IF (rank .EQ. 0) THEN
+         WRITE(*,*) ""
+         IF (norder .EQ. 2) THEN
+            WRITE(*,*) "# Setting up Grid Metrics in 2nd order accuracy..."
+         ELSE
+            WRITE(*,*) "# Setting up Grid Metrics in 4th order accuracy..."
+         END IF
       END IF
 
       IF ((norder .NE. 2) .AND. (norder .NE. 4)) THEN

@@ -10,6 +10,9 @@ MODULE MultiBlockVars_m
 
    IMPLICIT NONE
 
+   !> Parallel computation purpose
+   INTEGER :: nbp, ncpu
+
    !> Total number of domains and  blocks
    INTEGER :: ndomain
    INTEGER :: nblk
@@ -35,6 +38,8 @@ MODULE MultiBlockVars_m
       INTEGER :: imin, imax, jmin, jmax, kmin, kmax
       INTEGER :: istart, iend, jstart, jend, kstart, kend
       INTEGER :: domainID
+      !> CPU ID
+      INTEGER :: rank = 0
       !> Grid coordinates
       REAL(KIND=wp), ALLOCATABLE, DIMENSION(:,:,:) :: x, y, z
       !> Grid coordinates based on cell-center (Not currently used)

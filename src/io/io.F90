@@ -6,22 +6,27 @@ MODULE io_m
    USE Parameters_m, ONLY: wp
    USE xml_data_input
 
-   REAL(KIND=wp) :: rhoinit, uinit, vinit, cgammainit, pinit
-   INTEGER, PARAMETER :: IOunit = 10, filenameLength = 64
-   CHARACTER(LEN=50) :: prjTitle
+   INTEGER, PARAMETER :: filenameLength = 64
 CONTAINS
 
 !-----------------------------------------------------------------------------!
    SUBROUTINE ReadInputFiles()
 !-----------------------------------------------------------------------------!
+      USE GlobalVars_m, ONLY: ndomain, nblk, ngc, ngls, ncpu
 
-     IMPLICIT NONE
-     CHARACTER(LEN=filenameLength) :: filename
+      IMPLICIT NONE
+      CHARACTER(LEN=filenameLength) :: filename
 
-     filename = 'cfd_input.xml'
+      filename = 'cfd_input.xml'
 
-     CALL read_xml_file_input(filename)
+      CALL read_xml_file_input(filename)
 
+      !> Initialize global variables for multiblock setup
+      ndomain = input_data%MultiBlock%ndomain
+      nblk    = input_data%MultiBlock%nblk
+      ncpu    = input_data%MultiBlock%ncpu
+      ngc     = input_data%MultiBlock%ngc
+      ngls    = input_data%MultiBlock%ngls
 
    END SUBROUTINE ReadInputFiles
 

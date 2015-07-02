@@ -6,30 +6,168 @@ MODULE SetupSimulation_m
 
 CONTAINS
 
+#ifndef SERIAL
 !-----------------------------------------------------------------------------!
-   SUBROUTINE InitializeMultiBlock(blk, nblk, ngc)
+   SUBROUTINE InitializeParallelComputing(ncpus)
+!-----------------------------------------------------------------------------!
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, nblk
+
+      IMPLICIT NONE
+      INTEGER :: ierr, nprocs
+      INTEGER, INTENT(IN) :: ncpus
+
+      CALL MPI_INIT(ierr)
+      CALL MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierr)
+      CALL MPI_COMM_SIZE(MPI_COMM_WORLD, nprocs, ierr)
+
+      IF ((ncpus .NE. nprocs) .AND. (rank .EQ. 0)) THEN
+         WRITE(*,*)          "-------------------------------------------------"
+         WRITE(*,'(A46,I4)') "WARNING: You are using incorrect CPU number: ", nprocs
+         WRITE(*,*)          "-------------------------------------------------"
+         STOP
+      END IF
+      CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
+
+      !> Read load balancing info
+      CALL ReadLoadBalanceInfo(nblk, ncpus)
+
+   END SUBROUTINE
+#endif
+
+#ifndef SERIAL
+!-----------------------------------------------------------------------------!
+   SUBROUTINE ReadLoadBalanceInfo(nblk, ncpu)
+!-----------------------------------------------------------------------------!
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, nbp, &
+                              blkInThisRank, RankToBlk, LocalBlkIndxInRank
+
+      IMPLICIT NONE
+      INTEGER, INTENT(IN) :: nblk, ncpu
+      CHARACTER(LEN=128) :: LBFILE
+      CHARACTER :: chdump
+      INTEGER :: IOunit = 10, IOerr, ierr
+      INTEGER :: ndump, n, indx
+      INTEGER, ALLOCATABLE, DIMENSION(:) :: blkdump
+
+      IF (rank .EQ. 0) THEN
+         WRITE(*,*) ''
+         WRITE(*,*) '# Reading BLK_DIST.DATA for Parallel Computation with MPI'
+      END IF
+      CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
+
+      LBFILE = 'BLK_DIST.DATA'
+      OPEN(UNIT=IOunit, FILE=LBFILE, IOSTAT=IOerr)
+      !> Read number of blocks
+      READ(IOunit, '(A18,I5)', IOSTAT=IOerr) chdump, ndump
+      !> Check whether nblock from read is same as the nblk of global variable.
+      IF ((ndump .NE. nblk) .AND. (rank .EQ. 0)) THEN
+         WRITE(*,*) "--------------------------------------------------&
+                     ------------------------------"
+         WRITE(*,*) "WARNING: Please check 'nblk' in the input file or &
+                     re-create BLK_DIST.DATA file!!"
+         WRITE(*,*) "--------------------------------------------------&
+                     ------------------------------"
+         STOP
+      END IF
+      !> Wait till other processors are done to make sure get this point.
+      CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
+
+      !> Read number of CPUs
+      READ(IOunit, '(A18,I5)', IOSTAT=IOerr) chdump, ndump
+      !> Check whether number of CPUs is coorect
+      IF (ndump .NE. ncpu) THEN
+         IF (rank .EQ. 0) THEN
+            WRITE(*,*) "------------------------------------------------------&
+                        ---------------------------------"
+            WRITE(*,*) "WARNING: Please check number of CPUs for your MPI run &
+                        or re-create BLK_DIST.DATA file!!"
+            WRITE(*,*) "------------------------------------------------------&
+                        ---------------------------------"
+         END IF
+         STOP
+      END IF
+      !> Wait till other processors are done to make sure get this point.
+      CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
+
+      !>
+      !> Read block distribution for each rank
+      !>
+      !> Read the characters and dump them out!
+      READ(IOunit, *) chdump
+      !> This will temporarily store blkID before assigning it into rnk%blkID array
+      ALLOCATE(blkdump(1:nblk))
+      ALLOCATE(RankToBlk(1:nblk))
+      ALLOCATE(LocalBlkIndxInRank(1:nblk))
+      !> Allocate block ID and rank storage arrays
+      DO n = 0, ncpu-1
+         READ(IOunit, *) ndump, nbp, blkdump(1:nbp)
+         !> Here, ndump is rank ID
+         !> nbp: number of block in this rank
+         !> blkdump will contain global block ID temporarily.
+         DO indx = 1, nbp
+            RankToBlk(blkdump(indx)) = ndump
+            LocalBlkIndxInRank(blkdump(indx)) = indx
+         END DO
+         IF (n .EQ. rank) THEN
+            ALLOCATE(blkInThisRank(nbp))
+            blkInThisRank(1:nbp) = blkdump(1:nbp)
+         END IF
+      END DO
+      
+      !> Update 'nbp' value for this rank
+      nbp = SIZE(blkInThisRank)
+
+      !> Dump blkdump out!!
+      DEALLOCATE(blkdump)      
+      CLOSE(IOunit)
+
+   END SUBROUTINE
+#endif
+
+
+#ifndef SERIAL
+!-----------------------------------------------------------------------------!
+   SUBROUTINE FinalizeParallelComputing()
+!-----------------------------------------------------------------------------!
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank
+
+      IMPLICIT NONE
+      INTEGER :: ierr
+
+      CALL MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierr)
+      CALL MPI_FINALIZE(ierr)
+      IF (rank .EQ. 0) THEN
+         WRITE(*,*) ""
+         WRITE(*,*) "# Finalizing MPI communication!!"
+      END IF
+   END SUBROUTINE
+#endif
+
+
+!-----------------------------------------------------------------------------!
+   SUBROUTINE InitializeMultiBlock(blk, nbp, ngc)
 !-----------------------------------------------------------------------------!
       USE MultiBlockVars_m, ONLY: MultiBlock
       USE InitMultiBlock_m
 
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), ALLOCATABLE, INTENT(OUT) :: blk
-      INTEGER, INTENT(IN) :: nblk, ngc
+      INTEGER, INTENT(IN) :: nbp, ngc
       INTEGER :: iblk
 
-      ALLOCATE(blk(nblk))
+      ALLOCATE(blk(nbp))
 
       !> Read NODE files
-      CALL ReadNODEfiles(blk, nblk, ngc)
+      CALL ReadNODEfiles(blk, nbp, ngc)
 
       !> Read from grid file in plot3d file format
       !> Each block is simulataneously intialized and the variables are
       !> allocated while reading the grid data.
-      CALL ReadStructuredGrid(blk, nblk, ngc)
+      !CALL ReadStructuredGrid(blk, nbp, ngc)
 
       !> Read bc info for every surfaces surrouding the block
       !> Will read from bcinfo.dat
-      CALL ReadBCinfo(nblk, blk)
+      !CALL ReadBCinfo(nbp, blk)
 
    END SUBROUTINE
 

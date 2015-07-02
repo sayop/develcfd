@@ -3,11 +3,7 @@
 
 MODULE InitMultiBlock_m
    USE Parameters_m, ONLY: wp
-#ifndef SERIAL
-   USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, blkInThisRank
-#else
    USE GlobalVars_m, ONLY: rank
-#endif
 
 CONTAINS
 
@@ -21,7 +17,7 @@ CONTAINS
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: nbp, ngc
       INTEGER :: n, iblk, nneighbor, intDUMP, nID
-      INTEGER :: i, j, k, ierr
+      INTEGER :: i, j, k
       CHARACTER(LEN=128) :: NODEFILE, charDUMP
 
       IF (rank .EQ. 0) THEN
@@ -29,71 +25,44 @@ CONTAINS
          WRITE(*,*) '# Reading NODE files.'
       END IF
 
-#ifndef SERIAL
-      CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
-#endif
-
       DO iblk = 1, nbp
-#ifndef SERIAL
-         WRITE(NODEFILE,'("NODE_",I5.5,".DATA")') blkInThisRank(iblk)
-#else
          WRITE(NODEFILE,'("NODE_",I5.5,".DATA")') iblk
-#endif
          OPEN(30, FILE = NODEFILE, FORM = "FORMATTED")
          READ(30,'(A20,I6)') charDUMP, blk(iblk)%domainID
          READ(30,'(A20,I6)') charDUMP, intDUMP
-#ifndef SERIAL
-         IF (blkInThisRank(iblk) .NE. intDUMP) THEN
-#else
          IF (iblk .NE. intDUMP) THEN
-#endif
-            WRITE(*,*) "---------------------------------------------------"
             WRITE(*,*) 'WARNING: blockID is incorrect in ', NODEFILE
-            WRITE(*,*) "---------------------------------------------------"
             STOP
          END IF
-#ifndef SERIAL
-         CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
-#endif
-
          READ(30,'(A20,I6)') charDUMP, nneighbor
          READ(30,'(A20,I6)') charDUMP, intDUMP
          IF (ngc .NE. intDUMP) THEN
-            WRITE(*,*) "--------------------------------------------------------------&
-                        -----------------"
-            WRITE(*,*) "WARNING: NUMBER OF LEVELS does NOT match 'ngc' in input file: ", &
-                        NODEFILE
-            WRITE(*,*) "--------------------------------------------------------------&
-                        -----------------"
+            WRITE(*,*) 'WARNING: ngc is incorrect in the input file!'
             STOP
          END IF
-#ifndef SERIAL
-         CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
-#endif
-
          READ(30,*) charDUMP
-         READ(30,*) blk(iblk)%istart, blk(iblk)%iend, &
-                    blk(iblk)%jstart, blk(iblk)%jend, &
-                    blk(iblk)%kstart, blk(iblk)%kend
+         READ(30,*) blk(m)%istart, blk(m)%iend, &
+                    blk(m)%jstart, blk(m)%jend, &
+                    blk(m)%kstart, blk(m)%kend
 
          !> Define block size based on the NODE files
-         blk(iblk)%imin = blk(iblk)%istart - ngc
-         blk(iblk)%imax = blk(iblk)%iend   + ngc
-         blk(iblk)%jmin = blk(iblk)%jstart - ngc
-         blk(iblk)%jmax = blk(iblk)%jend   + ngc
-         blk(iblk)%kmin = blk(iblk)%kstart - ngc
-         blk(iblk)%kmax = blk(iblk)%kend   + ngc
+         blk(m)%imin = blk(m)%istart - ngc
+         blk(m)%imax = blk(m)%iend   + ngc
+         blk(m)%jmin = blk(m)%jstart - ngc
+         blk(m)%jmax = blk(m)%jend   + ngc
+         blk(m)%kmin = blk(m)%kstart - ngc
+         blk(m)%kmax = blk(m)%kend   + ngc
 
-         blk(iblk)%isize = blk(iblk)%imax - blk(iblk)%imin + 1
-         blk(iblk)%jsize = blk(iblk)%jmax - blk(iblk)%jmin + 1
-         blk(iblk)%ksize = blk(iblk)%kmax - blk(iblk)%kmin + 1
+         blk(m)%isize = blk(m)%imax - blk(m)%imin + 1
+         blk(m)%jsize = blk(m)%jmax - blk(m)%jmin + 1
+         blk(m)%ksize = blk(m)%kmax - blk(m)%kmin + 1
 
 
-         blk(iblk)%neighbor = 0
+         blk(m)%neighbor = 0
          DO n = 1, nneighbor
             READ(30,'(A12,I6)') charDUMP, nID
             READ(30,'(A12,3I5)') charDUMP, i, j, k
-            blk(iblk)%neighbor(i,j,k) = nID
+            blk(m)%neighbor(i,j,k) = nID
          END DO
          CLOSE(30)
       END DO
@@ -114,7 +83,7 @@ CONTAINS
       INTEGER :: nblocks
       INTEGER :: i, j, k
       INTEGER :: isize, jsize, ksize
-      INTEGER :: n, iblk
+      INTEGER :: n, m
       INTEGER, DIMENSION(:), ALLOCATABLE :: ni, nj, nk
       REAL, DIMENSION(:,:,:,:), ALLOCATABLE :: x, y, z
       CHARACTER(LEN=128) :: GRIDFILE
@@ -138,40 +107,40 @@ CONTAINS
       ALLOCATE(nk(nblk))
 
       !> Read block size
-      DO iblk = 1, nblk
+      DO m = 1, nblk
          READ(10,*) isize, jsize, ksize
          !> Check whether the block size read from the grid files
          !> match the sizes from NODE files
-         IF ((isize .NE. blk(iblk)%isize) .OR. &
-             (jsize .NE. blk(iblk)%jsize) .OR. &
-             (ksize .NE. blk(iblk)%ksize)) THEN
+         IF ((isize .NE. blk(m)%isize) .OR. &
+             (jsize .NE. blk(m)%jsize) .OR. &
+             (ksize .NE. blk(m)%ksize)) THEN
             WRITE(*,*) '---------------------------------------------&
                         --------------------------------------------'
             WRITE(*,*) 'Block size from the grid file does NOT match &
-                        the size from the NODE file in block ID: ', iblk
+                        the size from the NODE file in block ID: ', m
             WRITE(*,*) '---------------------------------------------&
                         --------------------------------------------'
             STOP
          END IF
 
-         CALL AllocateMultiBlockXYZ(blk(iblk), blk(iblk)%imin, blk(iblk)%imax, &
-                                               blk(iblk)%jmin, blk(iblk)%jmax, &
-                                               blk(iblk)%kmin, blk(iblk)%kmax)
+         CALL AllocateMultiBlockXYZ(blk(m), blk(m)%imin, blk(m)%imax, &
+                                            blk(m)%jmin, blk(m)%jmax, &
+                                            blk(m)%kmin, blk(m)%kmax)
 
       END DO
 
       !> Read node point coordinates
-      DO iblk = 1, nblk
+      DO m = 1, nblk
          READ(10,*) &
-         (((blk(iblk)%x(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
-                                j=blk(iblk)%jmin, blk(iblk)%jmax), &
-                                k=blk(iblk)%kmin, blk(iblk)%kmax), &
-         (((blk(iblk)%y(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
-                                j=blk(iblk)%jmin, blk(iblk)%jmax), &
-                                k=blk(iblk)%kmin, blk(iblk)%kmax), &
-         (((blk(iblk)%z(i,j,k), i=blk(iblk)%imin, blk(iblk)%imax), &
-                                j=blk(iblk)%jmin, blk(iblk)%jmax), &
-                                k=blk(iblk)%kmin, blk(iblk)%kmax)
+         (((blk(m)%x(i,j,k), i=blk(m)%imin, blk(m)%imax), &
+                             j=blk(m)%jmin, blk(m)%jmax), &
+                             k=blk(m)%kmin, blk(m)%kmax), &
+         (((blk(m)%y(i,j,k), i=blk(m)%imin, blk(m)%imax), &
+                             j=blk(m)%jmin, blk(m)%jmax), &
+                             k=blk(m)%kmin, blk(m)%kmax), &
+         (((blk(m)%z(i,j,k), i=blk(m)%imin, blk(m)%imax), &
+                             j=blk(m)%jmin, blk(m)%jmax), &
+                             k=blk(m)%kmin, blk(m)%kmax)
       END DO
       CLOSE(10)
 
@@ -186,7 +155,7 @@ CONTAINS
       IMPLICIT NONE
       TYPE(MultiBlock), DIMENSION(:), INTENT(INOUT) :: blk
       INTEGER, INTENT(IN) :: nblk
-      INTEGER :: iblk, ndump
+      INTEGER :: m, iblk
       CHARACTER(LEN=128) BCFILE
 
       IF (rank .EQ. 0) THEN
@@ -198,10 +167,10 @@ CONTAINS
       OPEN(10, FILE = BCFILE, FORM = "FORMATTED")
       READ(10,*)
 
-      DO iblk = 1, nblk
-         READ(10,*) ndump, blk(iblk)%bc_imin, blk(iblk)%bc_imax, &
-                           blk(iblk)%bc_jmin, blk(iblk)%bc_jmax, &
-                           blk(iblk)%bc_kmin, blk(iblk)%bc_kmax
+      DO m = 1, nblk
+         READ(10,*) iblk, blk(iblk)%bc_imin, blk(iblk)%bc_imax, &
+                          blk(iblk)%bc_jmin, blk(iblk)%bc_jmax, &
+                          blk(iblk)%bc_kmin, blk(iblk)%bc_kmax
       END DO
       CLOSE(10)
 
