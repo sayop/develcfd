@@ -92,4 +92,15 @@ CONTAINS
 
    END SUBROUTINE
 
+!-----------------------------------------------------------------------------!
+   SUBROUTINE PrintErrorMessage(message, istop)
+!-----------------------------------------------------------------------------!
+
+      IMPLICIT NONE
+      CHARACTER, INTENT(IN) :: message
+      INTEGER, INTENT(INOUT) :: istop
+
+      write(*,*) 'istop=', istop      
+    
+   END SUBROUTINE
 END MODULE io_m

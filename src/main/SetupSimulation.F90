@@ -6,40 +6,58 @@ MODULE SetupSimulation_m
 
 CONTAINS
 
-#ifndef SERIAL
 !-----------------------------------------------------------------------------!
-   SUBROUTINE InitializeParallelComputing(ncpus)
+   SUBROUTINE InitializeSimulation()
 !-----------------------------------------------------------------------------!
-      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, nblk
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, ncpu, istop
+      USE MultiBlockVars_m, ONLY: nblk, nbp
+      USE IO_m
 
       IMPLICIT NONE
       INTEGER :: ierr, nprocs
-      INTEGER, INTENT(IN) :: ncpus
+      CHARACTER(LEN=128) :: message
 
+      !> Initialize switch for simulation stop
+      istop = 0
+
+#ifndef SERIAL
       CALL MPI_INIT(ierr)
       CALL MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierr)
       CALL MPI_COMM_SIZE(MPI_COMM_WORLD, nprocs, ierr)
+#endif
 
-      IF ((ncpus .NE. nprocs) .AND. (rank .EQ. 0)) THEN
-         WRITE(*,*)          "-------------------------------------------------"
-         WRITE(*,'(A46,I4)') "WARNING: You are using incorrect CPU number: ", nprocs
-         WRITE(*,*)          "-------------------------------------------------"
-         STOP
+   !> Read xml input file and initialize basic block related variables: ndomain, nblk, 
+   !>                                                                   ngc, ngls, ncpu
+   CALL ReadInputFiles()
+   !> Write new_input.xml for back-up
+   CALL WriteInputFiles()
+
+
+#ifndef SERIAL
+      IF ((ncpu .NE. nprocs) .AND. (rank .EQ. 0)) THEN
+         WRITE(message,"(A,I4)") "WARNING: You are using incorrect CPU number: ", nprocs
+         CALL PrintErrorMessage(message, istop)
+!         WRITE(*,*)          "-------------------------------------------------"
+!         WRITE(*,'(A46,I4)') "WARNING: You are using incorrect CPU number: ", nprocs
+!         WRITE(*,*)          "-------------------------------------------------"
+!         STOP
       END IF
       CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
+#endif
 
       !> Read load balancing info
-      CALL ReadLoadBalanceInfo(nblk, ncpus)
+!      CALL ReadLoadBalanceInfo(nblk, ncpu)
+      nbp = nblk
 
    END SUBROUTINE
-#endif
 
 #ifndef SERIAL
 !-----------------------------------------------------------------------------!
    SUBROUTINE ReadLoadBalanceInfo(nblk, ncpu)
 !-----------------------------------------------------------------------------!
-      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, nbp, &
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, &
                               blkInThisRank, RankToBlk, LocalBlkIndxInRank
+      USE MultiBlockVars_m, ONLY: nbp
 
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: nblk, ncpu

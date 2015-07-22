@@ -3,9 +3,8 @@
 
 PROGRAM main
    USE Parameters_m, ONLY: wp
-   USE MultiBlockVars_m, ONLY: MultiBlock
+   USE MultiBlockVars_m, ONLY: MultiBlock, nbp
    USE GlobalVars_m
-   USE io_m
    USE SetupSimulation_m
 
    IMPLICIT NONE
@@ -15,22 +14,11 @@ PROGRAM main
 
    CALL CPU_TIME(START)
 
-   !> Read xml input file and initialize basic block related variables: ndomain, nblk, 
-   !>                                                                   ngc, ngls, ncpu
-   CALL ReadInputFiles()
-   !> Write new_input.xml for back-up
-   CALL WriteInputFiles()
-
-#ifndef SERIAL
-   !> Initialize block distribution info: Read BLK_DIST.DATA
-   CALL InitializeParallelComputing(ncpu)
-#else
-   !> If it runs in serial mode, only a single CPU will cover entire blocks
-   nbp = nblk
-#endif
+   CALL InitializeSimulation()
+  
 
    !> Read grid file and allocate multiblock variables
-   CALL InitializeMultiBlock(blk, nbp, ngc)
+!   CALL InitializeMultiBlock(blk, nbp, ngc)
 
 !   CALL InitializeSimulationVars(blk, nblk)
 

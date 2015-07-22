@@ -10,12 +10,13 @@ MODULE GlobalVars_m
    INCLUDE 'mpif.h'
 #endif
 
-   !> Parallel computation purpose
-   INTEGER :: nbp
    !> Number of CPUs read from input file
    INTEGER :: ncpu
    !> Corresponding processor rank
    INTEGER :: rank = 0
+
+   !> switch for stopping simulation with errors
+   INTEGER :: istop
 
 #ifndef SERIAL
    !> block ID being used in this current CPU: SIZE = nbp
