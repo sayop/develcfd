@@ -29,7 +29,8 @@ set(PRE_SRC_FILES
    ${CFD_BASE_DIR}/main/Parameters.F90
    ${CFD_BASE_DIR}/variables/MultiBlockVars.F90
    ${CFD_BASE_DIR}/variables/FlowVariables.F90
-   ${CFD_BASE_DIR}/variables/SpeciesVars.F90
+   ${CFD_BASE_DIR}/variables/GlobalVars.F90
+   ${CFD_BASE_DIR}/variables/ThermalGasVars.F90
    ${CFD_BASE_DIR}/variables/GridTransformVars.F90
    ${PREIO_SRC_FILES}
    ${CMAKE_CURRENT_SOURCE_DIR}/PreSetup.F90
