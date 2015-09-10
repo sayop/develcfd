@@ -9,7 +9,10 @@ CONTAINS
 !-----------------------------------------------------------------------------!
    SUBROUTINE InitializeSimulation()
 !-----------------------------------------------------------------------------!
-      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, ncpu, istop
+#ifndef SERIAL
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD
+#endif
+      USE GlobalVars_m, ONLY: rank, ncpu, istop
       USE MultiBlockVars_m, ONLY: nblk, nbp
       USE IO_m
 
@@ -26,11 +29,11 @@ CONTAINS
       CALL MPI_COMM_SIZE(MPI_COMM_WORLD, nprocs, ierr)
 #endif
 
-   !> Read xml input file and initialize basic block related variables: ndomain, nblk, 
-   !>                                                                   ngc, ngls, ncpu
-   CALL ReadInputFiles()
-   !> Write new_input.xml for back-up
-   CALL WriteInputFiles()
+      !> Read xml input file and initialize basic block related variables: ndomain, nblk, 
+      !>                                                                   ngc, ngls, ncpu
+      CALL ReadInputFiles()
+      !> Write new_input.xml for back-up
+      CALL WriteInputFiles()
 
 
 #ifndef SERIAL
