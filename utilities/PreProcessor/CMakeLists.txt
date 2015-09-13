@@ -23,6 +23,11 @@ add_subdirectory(${CFD_BASE_DIR}/io
 set(PRE_EXE_NAME pre.x CACHE STRING "PRE executable name")
 
 #
+# Set serial mode
+#
+add_definitions(-DSERIAL)
+
+#
 # set source files
 #
 set(PRE_SRC_FILES
