@@ -892,6 +892,15 @@ subroutine add_variable( component )
          ! is relevant for the variable's type
          !
          if ( component ) then
+            ! Added to ensure array pointers are allocated before initialization
+            IF (TRIM(vartype) == 'word-array' .OR. &
+                TRIM(vartype) == 'integer-array' .OR. &
+                TRIM(vartype) == 'real-array' .OR. &
+                TRIM(vartype) == 'double-array' .OR. &
+                TRIM(vartype) == 'logical-array') THEN
+               write( ludeflt,    '(3a)' ) '   ALLOCATE(dvar%', trim(varname),&
+               '(1))'
+            END IF
             write( ludeflt,    '(4a)' ) &
             &'   dvar%', trim(varname), ' = ', attribs(2,idx4)
          else
@@ -903,6 +912,14 @@ subroutine add_variable( component )
       ! Write the component/variable
       !
       if ( component ) then
+         IF (TRIM(vartype) == 'word-array' .OR. &
+             TRIM(vartype) == 'integer-array' .OR. &
+             TRIM(vartype) == 'real-array' .OR. &
+             TRIM(vartype) == 'double-array' .OR. &
+             TRIM(vartype) == 'logical-array') THEN
+            WRITE(luwrite,'(3A)') &
+                  '   IF (ASSOCIATED(dvar%', TRIM(varname), ')) &'
+         END IF
          write( luwrite,   '(4a)' ) &
          &'   call '//trim(types(4,idx3))//'(', &
          &' info, '''//trim(vartag)//''', indent+3, dvar%', trim(varname), ')'
