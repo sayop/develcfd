@@ -93,14 +93,19 @@ CONTAINS
    END SUBROUTINE
 
 !-----------------------------------------------------------------------------!
-   SUBROUTINE PrintErrorMessage(message, istop)
+   SUBROUTINE PrintOutMessage(message, mtype)
 !-----------------------------------------------------------------------------!
 
       IMPLICIT NONE
-      CHARACTER, INTENT(IN) :: message
-      INTEGER, INTENT(INOUT) :: istop
+      CHARACTER(LEN=128), INTENT(IN) :: message
+      INTEGER, INTENT(IN) :: mtype
 
-      write(*,*) 'istop=', istop      
+      IF (mtype .EQ. 0) WRITE(*,*) ''
+      IF (mtype .EQ. 1) WRITE(*,*) REPEAT('-', LEN_TRIM(message))
+      IF (mtype .EQ. 2) WRITE(*,*) REPEAT('=', LEN_TRIM(message))
+      WRITE(*,*) message      
+      IF (mtype .EQ. 1) WRITE(*,*) REPEAT('-', LEN_TRIM(message))
+      IF (mtype .EQ. 2) WRITE(*,*) REPEAT('=', LEN_TRIM(message))
     
    END SUBROUTINE
 END MODULE io_m

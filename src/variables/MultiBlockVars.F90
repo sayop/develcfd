@@ -10,7 +10,7 @@ MODULE MultiBlockVars_m
 
    IMPLICIT NONE
 
-   !> Parallel computation purpose
+   !> Parallel computation purpose, but SERIAL model should have these too.
    INTEGER :: nbp, ncpu
 
    !> Total number of domains and  blocks

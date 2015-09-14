@@ -12,11 +12,11 @@ MODULE GlobalVars_m
 
    !> Number of CPUs read from input file
    INTEGER :: ncpu
-   !> Corresponding processor rank
-   INTEGER :: rank = 0
-
    !> switch for stopping simulation with errors
-   INTEGER :: istop
+   INTEGER :: istop = 0
+   !> Corresponding processor rank. 
+   !> This needs to be defined in SERIAL mode too.
+   INTEGER :: rank = 0
 
 #ifndef SERIAL
    !> block ID being used in this current CPU: SIZE = nbp

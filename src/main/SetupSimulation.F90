@@ -10,18 +10,18 @@ CONTAINS
    SUBROUTINE InitializeSimulation()
 !-----------------------------------------------------------------------------!
 #ifndef SERIAL
-      USE GlobalVars_m, ONLY: MPI_COMM_WORLD
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, MPI_INTEGER
+      USE GlobalVars_m, ONLY: rank
 #endif
-      USE GlobalVars_m, ONLY: rank, ncpu, istop
+      USE GlobalVars_m, ONLY: ncpu, istop
       USE MultiBlockVars_m, ONLY: nblk, nbp
       USE IO_m
 
       IMPLICIT NONE
+#ifndef SERIAL
       INTEGER :: ierr, nprocs
+#endif
       CHARACTER(LEN=128) :: message
-
-      !> Initialize switch for simulation stop
-      istop = 0
 
 #ifndef SERIAL
       CALL MPI_INIT(ierr)
@@ -30,37 +30,41 @@ CONTAINS
 #endif
 
       !> Read xml input file and initialize basic block related variables: ndomain, nblk, 
-      !>                                                                   ngc, ngls, ncpu
       CALL ReadInputFiles()
       !> Write new_input.xml for back-up
       CALL WriteInputFiles()
 
+      !> Initialize nblk for number of entire blocks regardless of load balance.
+      nblk    = input_data%MultiBlock%nblk
 
 #ifndef SERIAL
+      !> Print out error message from one process only.
       IF ((ncpu .NE. nprocs) .AND. (rank .EQ. 0)) THEN
          WRITE(message,"(A,I4)") "WARNING: You are using incorrect CPU number: ", nprocs
-         CALL PrintErrorMessage(message, istop)
-!         WRITE(*,*)          "-------------------------------------------------"
-!         WRITE(*,'(A46,I4)') "WARNING: You are using incorrect CPU number: ", nprocs
-!         WRITE(*,*)          "-------------------------------------------------"
-!         STOP
+         CALL PrintOutMessage(message, 2)
+         istop = 1
       END IF
       CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
-#endif
+      !> distribute 'istop' value to other ranks to ensure that every process 
+      !> will stop properly.
+      CALL MPI_BCAST(istop, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+      IF (istop .EQ. 1) STOP
 
       !> Read load balancing info
-!      CALL ReadLoadBalanceInfo(nblk, ncpu)
+      CALL ReadLoadBalanceInfo(nblk, ncpu)
+#else
       nbp = nblk
-
+#endif
    END SUBROUTINE
 
 #ifndef SERIAL
 !-----------------------------------------------------------------------------!
    SUBROUTINE ReadLoadBalanceInfo(nblk, ncpu)
 !-----------------------------------------------------------------------------!
-      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, rank, &
+      USE GlobalVars_m, ONLY: MPI_COMM_WORLD, MPI_INTEGER, rank, istop,  &
                               blkInThisRank, RankToBlk, LocalBlkIndxInRank
       USE MultiBlockVars_m, ONLY: nbp
+      USE IO_m
 
       IMPLICIT NONE
       INTEGER, INTENT(IN) :: nblk, ncpu
@@ -69,12 +73,12 @@ CONTAINS
       INTEGER :: IOunit = 10, IOerr, ierr
       INTEGER :: ndump, n, indx
       INTEGER, ALLOCATABLE, DIMENSION(:) :: blkdump
+      CHARACTER(LEN=128) :: message
 
       IF (rank .EQ. 0) THEN
-         WRITE(*,*) ''
-         WRITE(*,*) '# Reading BLK_DIST.DATA for Parallel Computation with MPI'
+         WRITE(message,"(A)") 'Reading BLK_DIST.DATA for Parallel Computation with MPI'
+         CALL PrintOutMessage(message, 0)
       END IF
-      CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
 
       LBFILE = 'BLK_DIST.DATA'
       OPEN(UNIT=IOunit, FILE=LBFILE, IOSTAT=IOerr)
@@ -82,33 +86,35 @@ CONTAINS
       READ(IOunit, '(A18,I5)', IOSTAT=IOerr) chdump, ndump
       !> Check whether nblock from read is same as the nblk of global variable.
       IF ((ndump .NE. nblk) .AND. (rank .EQ. 0)) THEN
-         WRITE(*,*) "--------------------------------------------------&
-                     ------------------------------"
-         WRITE(*,*) "WARNING: Please check 'nblk' in the input file or &
-                     re-create BLK_DIST.DATA file!!"
-         WRITE(*,*) "--------------------------------------------------&
-                     ------------------------------"
-         STOP
+         WRITE(message,"(A)") "WARNING: 'nblk' from input file does NOT match &
+                               block numbers from BLK_DIST.DATA file."
+         CALL PrintOutMessage(message, 2)
+         istop = 1
       END IF
       !> Wait till other processors are done to make sure get this point.
       CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
+      !> distribute 'istop' value to other ranks to ensure that every process 
+      !> will stop properly.
+      CALL MPI_BCAST(istop, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+      IF (istop .EQ. 1) STOP
+
 
       !> Read number of CPUs
       READ(IOunit, '(A18,I5)', IOSTAT=IOerr) chdump, ndump
       !> Check whether number of CPUs is coorect
-      IF (ndump .NE. ncpu) THEN
-         IF (rank .EQ. 0) THEN
-            WRITE(*,*) "------------------------------------------------------&
-                        ---------------------------------"
-            WRITE(*,*) "WARNING: Please check number of CPUs for your MPI run &
-                        or re-create BLK_DIST.DATA file!!"
-            WRITE(*,*) "------------------------------------------------------&
-                        ---------------------------------"
-         END IF
-         STOP
+      IF ((ndump .NE. ncpu) .AND. (rank .EQ. 0)) THEN
+         WRITE(message,"(A)") "WARNING: 'ncpu' from input file does NOT match &
+                               number of CPUs from BLK_DIST.DATA file."
+         CALL PrintOutMessage(message, 2)
+         istop = 1
       END IF
       !> Wait till other processors are done to make sure get this point.
       CALL MPI_BARRIER(MPI_COMM_WORLD, ierr)
+      !> distribute 'istop' value to other ranks to ensure that every process 
+      !> will stop properly.
+      CALL MPI_BCAST(istop, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+      IF (istop .EQ. 1) STOP
+
 
       !>
       !> Read block distribution for each rank
